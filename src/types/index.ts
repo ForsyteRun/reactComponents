@@ -5,7 +5,7 @@ export interface StateType {
   results: IItem[] | null;
 }
 
-interface IItem {
+export interface IItem {
   name: string;
   url: string;
 }

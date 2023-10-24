@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { StateType } from './types';
+import ListItems from './ListItems';
 
 class App extends React.Component<NonNullable<unknown>, StateType> {
   constructor(props: NonNullable<unknown>) {
@@ -28,7 +29,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
       <div>
         Hello
         <button onClick={this.getData}>Click me!</button>
-        {console.log(this.state.results) as React.ReactNode}
+        <ListItems results={this.state.results} />
       </div>
     );
   }

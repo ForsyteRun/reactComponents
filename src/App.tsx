@@ -1,35 +1,48 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0);
+type StateType = {
+  count: number;
+  next: string;
+  previous: null;
+  results: IItem[] | null;
+};
 
-  return (
-    <>
+interface IItem {
+  name: string;
+  url: string;
+}
+
+class App extends React.Component<NonNullable<unknown>, StateType> {
+  constructor(props: NonNullable<unknown>) {
+    super(props);
+    this.state = {
+      count: 2110,
+      next: 'https://pokeapi.co/api/v2/item?offset=10&limit=10',
+      previous: null,
+      results: null,
+    };
+  }
+
+  handleData = async () => {
+    try {
+      const response: Response = await fetch('https://pokeapi.co/api/v2/item');
+      const data: StateType = await response.json();
+      this.setState(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  render() {
+    return (
       <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        Hello
+        <button onClick={this.handleData}>Click me!</button>
+        {console.log(this.state.results) as React.ReactNode}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+    );
+  }
 }
 
 export default App;

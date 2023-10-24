@@ -1,17 +1,6 @@
 import React from 'react';
 import './App.css';
-
-type StateType = {
-  count: number;
-  next: string;
-  previous: null;
-  results: IItem[] | null;
-};
-
-interface IItem {
-  name: string;
-  url: string;
-}
+import { StateType } from './types';
 
 class App extends React.Component<NonNullable<unknown>, StateType> {
   constructor(props: NonNullable<unknown>) {
@@ -24,13 +13,13 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     };
   }
 
-  handleData = async () => {
+  getData = async () => {
     try {
       const response: Response = await fetch('https://pokeapi.co/api/v2/item');
       const data: StateType = await response.json();
       this.setState(data);
     } catch (error) {
-      console.log(error);
+      throw new Error(`error: ${error}`);
     }
   };
 
@@ -38,7 +27,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     return (
       <div>
         Hello
-        <button onClick={this.handleData}>Click me!</button>
+        <button onClick={this.getData}>Click me!</button>
         {console.log(this.state.results) as React.ReactNode}
       </div>
     );

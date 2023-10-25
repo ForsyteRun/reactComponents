@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './listItem.module.css';
-import { IItem } from '../../types';
+import { IItem, noImgTemplate } from '../../types';
 
 type PropsType = {
   items: IItem[] | null;
@@ -35,7 +35,7 @@ class ListItems extends React.Component<PropsType, PropsType> {
           {this.state.items?.map(({ id, volumeInfo }: IItem) => (
             <li key={id} className={s.item}>
               <img
-                src={volumeInfo?.imageLinks?.thumbnail}
+                src={volumeInfo?.imageLinks?.thumbnail || noImgTemplate.noImg}
                 alt={volumeInfo.title}
               />
               <div className={s.content}>

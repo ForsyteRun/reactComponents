@@ -3,6 +3,7 @@ export interface StateType {
   next: string;
   previous: string | null;
   results: IItem[] | null;
+  error: boolean;
 }
 
 export interface IItem {

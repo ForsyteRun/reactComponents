@@ -35,8 +35,6 @@ class Search extends React.Component<PropsType, StateType> {
   }
 
   render() {
-    console.log(this.state.value);
-
     return (
       <form onSubmit={this.handleSubmit}>
         <input

@@ -5,7 +5,18 @@ type StateType = {
 };
 
 class Header extends React.Component<NonNullable<unknown>, StateType> {
-  state = { value: '' };
+  constructor(props: NonNullable<unknown>) {
+    super(props);
+    this.state = { value: '' };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount(): void {
+    const storageData = localStorage.getItem('formValue');
+    this.setState({ value: JSON.parse(storageData ? storageData : '') });
+  }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ value: event.target.value });
@@ -13,6 +24,7 @@ class Header extends React.Component<NonNullable<unknown>, StateType> {
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    localStorage.setItem('formValue', JSON.stringify(this.state.value));
   }
 
   render() {
@@ -25,7 +37,7 @@ class Header extends React.Component<NonNullable<unknown>, StateType> {
           value={this.state.value}
           onChange={this.handleChange}
         />
-        <input type="submit" value="Submit" />
+        <input type="submit" value="search" />
       </form>
     );
   }

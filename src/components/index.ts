@@ -1,4 +1,5 @@
-import App from './App/App';
-import ListItems from './ListItem/ListItems';
+import App from './App';
+import Header from './Header';
+import ListItems from './ListItem';
 
-export { App, ListItems };
+export { App, ListItems, Header };

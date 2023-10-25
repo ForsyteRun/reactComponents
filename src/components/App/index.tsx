@@ -1,7 +1,8 @@
 import React from 'react';
 import { StateType } from '../../types';
 import s from './App.module.css';
-import ListItems from '../ListItem/ListItems';
+import ListItems from '../ListItem';
+import Header from '../Header';
 class App extends React.Component<NonNullable<unknown>, StateType> {
   constructor(props: NonNullable<unknown>) {
     super(props);
@@ -13,7 +14,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     };
   }
 
-  getData = async () => {
+  componentDidMount = async () => {
     try {
       const response: Response = await fetch('https://pokeapi.co/api/v2/item');
       const data: StateType = await response.json();
@@ -26,8 +27,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
   render() {
     return (
       <div className={s.container}>
-        Hello
-        <button onClick={this.getData}>Click me!</button>
+        <Header />
         <ListItems results={this.state.results} />
       </div>
     );

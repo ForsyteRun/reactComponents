@@ -25,11 +25,23 @@ class ListItems extends React.Component<PropsType, PropsType> {
         <ul className={s.list}>
           {this.state.items?.map(({ id, volumeInfo }: IItem) => (
             <li key={id} className={s.item}>
-              <div>{volumeInfo.authors}</div>
               <img
                 src={volumeInfo.imageLinks.thumbnail}
                 alt={volumeInfo.title}
               />
+              <div className={s.content}>
+                <div>
+                  <span className={s.title}>authors:</span> {volumeInfo.authors}
+                </div>
+                <div>
+                  <span className={s.title}>language:</span>{' '}
+                  {volumeInfo.language}
+                </div>
+                <div>
+                  <span className={s.title}>pageCount:</span>{' '}
+                  {volumeInfo.pageCount}
+                </div>
+              </div>
             </li>
           ))}
         </ul>

@@ -21,11 +21,13 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
   getData = async (query: string) => {
     try {
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${query ? query : 'war'}`
+        `https://www.googleapis.com/books/v1/volumes?q=${
+          query ? query : 'nature'
+        }`
       );
 
       if (response.ok) {
-        const data = await response.json();
+        const data: StateType = await response.json();
 
         this.setState({
           items: data.items,
@@ -36,7 +38,6 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
       }
     } catch (error) {
       this.setState({
-        items: [],
         error: true,
       });
     }

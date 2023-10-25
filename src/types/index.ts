@@ -4,7 +4,6 @@ export interface IItem {
     title: string;
     language: string;
     pageCount: number;
-    year: number;
     imageLinks: {
       thumbnail: string;
     };

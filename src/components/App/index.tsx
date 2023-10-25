@@ -7,6 +7,7 @@ import s from './App.module.css';
 type StateType = {
   items: IItem[];
   error: boolean;
+  loading: boolean;
 };
 
 class App extends React.Component<NonNullable<unknown>, StateType> {
@@ -15,11 +16,16 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     this.state = {
       items: [],
       error: false,
+      loading: false,
     };
   }
 
   getData = async (query: string) => {
     try {
+      this.setState({
+        loading: true,
+      });
+
       const response = await fetch(
         `https://www.googleapis.com/books/v1/volumes?q=${
           query ? query : 'nature'
@@ -32,13 +38,16 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
         this.setState({
           items: data.items,
           error: false,
+          loading: false,
         });
       } else {
         throw new Error('Request failed');
       }
     } catch (error) {
       this.setState({
-        error: true,
+        items: [],
+        error: false,
+        loading: false,
       });
     }
   };
@@ -47,11 +56,15 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     if (this.state.error) {
       throw new Error('I crashed!');
     }
-    console.log(this.state);
+
     return (
       <div className={s.container}>
         <Search getData={this.getData} />
-        <ListItems items={this.state.items} />
+        {this.state.loading ? (
+          <div className="lds-dual-ring"></div>
+        ) : (
+          <ListItems items={this.state.items} />
+        )}
       </div>
     );
   }

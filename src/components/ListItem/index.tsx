@@ -7,9 +7,18 @@ type PropsType = {
 };
 
 class ListItems extends React.Component<PropsType, PropsType> {
-  state = {
-    items: [],
-  };
+  constructor(props: PropsType) {
+    super(props);
+    this.state = {
+      items: [],
+    };
+  }
+
+  componentDidMount(): void {
+    this.setState({
+      items: this.props.items,
+    });
+  }
 
   componentDidUpdate(prevProps: PropsType) {
     if (prevProps.items !== this.props.items) {
@@ -22,11 +31,11 @@ class ListItems extends React.Component<PropsType, PropsType> {
   render() {
     return (
       <>
-        <ul className={s.list}>
+        <ul>
           {this.state.items?.map(({ id, volumeInfo }: IItem) => (
             <li key={id} className={s.item}>
               <img
-                src={volumeInfo.imageLinks.thumbnail}
+                src={volumeInfo?.imageLinks?.thumbnail}
                 alt={volumeInfo.title}
               />
               <div className={s.content}>

@@ -1,10 +1,6 @@
-.list {
-  flex: 1;
+.item {
   max-width: 150rem;
   font-size: 1.5rem;
-}
-
-.item {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

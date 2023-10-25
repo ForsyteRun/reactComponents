@@ -9,7 +9,7 @@ type StateType = {
   getData: (query: string) => void;
 };
 
-class Header extends React.Component<PropsType, StateType> {
+class Search extends React.Component<PropsType, StateType> {
   constructor(props: StateType) {
     super(props);
     this.state = { value: '', getData: this.props.getData };
@@ -18,8 +18,10 @@ class Header extends React.Component<PropsType, StateType> {
   }
 
   componentDidMount(): void {
-    const storageData = localStorage.getItem('formValue'); //TODO: remove localStorage
+    const storageData = localStorage.getItem('formValue');
+
     this.setState({ value: storageData ? JSON.parse(storageData) : '' });
+    this.props.getData(JSON.parse(storageData as string));
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,4 +50,4 @@ class Header extends React.Component<PropsType, StateType> {
   }
 }
 
-export default Header;
+export default Search;

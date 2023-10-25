@@ -5,7 +5,6 @@ import { IItem } from '../../types';
 type PropsType = {
   results: IItem[] | null;
 };
-// type ListState = Pick<StateType, 'results'>;
 
 class ListItems extends React.Component<PropsType, PropsType> {
   state = {

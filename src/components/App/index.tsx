@@ -2,7 +2,7 @@ import React from 'react';
 import { StateType } from '../../types';
 import s from './App.module.css';
 import ListItems from '../ListItem';
-import Header from '../Header';
+import Search from '../Search';
 class App extends React.Component<NonNullable<unknown>, StateType> {
   state = {
     count: 0,
@@ -19,22 +19,10 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     this.setState(data);
   };
 
-  componentDidMount = async () => {
-    try {
-      const storageData = JSON.parse(
-        localStorage.getItem('formValue') as string
-      );
-
-      this.getData(storageData);
-    } catch (error) {
-      throw new Error(`error: ${error}`);
-    }
-  };
-
   render() {
     return (
       <div className={s.container}>
-        <Header getData={this.getData} />
+        <Search getData={this.getData} />
         <ListItems results={this.state.results} />
       </div>
     );

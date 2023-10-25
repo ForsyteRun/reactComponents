@@ -1,16 +1,13 @@
 import React from 'react';
 import { StateType, IItem } from '../../types';
+import s from './listItem.module.css';
 
 type PropsType = Pick<StateType, 'results'>;
 
 class ListItems extends React.Component<PropsType, PropsType> {
-  constructor(props: PropsType) {
-    super(props);
-
-    this.state = {
-      results: [],
-    };
-  }
+  state = {
+    results: [],
+  };
 
   componentDidUpdate(prevProps: PropsType) {
     if (prevProps.results !== this.props.results) {
@@ -23,9 +20,9 @@ class ListItems extends React.Component<PropsType, PropsType> {
   render() {
     return (
       <>
-        <ul>
+        <ul className={s.list}>
           {this.state.results?.map((el: IItem) => (
-            <li key={el.url}>
+            <li key={el.url} className={s.item}>
               <div>{el.name}</div>
               <div>{el.url}</div>
             </li>

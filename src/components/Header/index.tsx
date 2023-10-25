@@ -5,25 +5,19 @@ type StateType = {
 };
 
 class Header extends React.Component<NonNullable<unknown>, StateType> {
-  constructor(props: NonNullable<unknown>) {
-    super(props);
-    this.state = { value: '' };
+  state = { value: '' };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ value: event.target.value });
-  }
+  };
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    console.log(this.state);
   }
 
   render() {
+    console.log(this.state.value);
+
     return (
       <form onSubmit={this.handleSubmit}>
         <input

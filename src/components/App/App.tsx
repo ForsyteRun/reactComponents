@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
-import { StateType } from './types';
-import ListItems from './ListItems';
-
+import { StateType } from '../../types';
+import s from './App.module.css';
+import ListItems from '../ListItem/ListItems';
 class App extends React.Component<NonNullable<unknown>, StateType> {
   constructor(props: NonNullable<unknown>) {
     super(props);
@@ -26,7 +25,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
 
   render() {
     return (
-      <div>
+      <div className={s.container}>
         Hello
         <button onClick={this.getData}>Click me!</button>
         <ListItems results={this.state.results} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StateType, IItem } from './types';
+import { StateType, IItem } from '../../types';
 
 type PropsType = Pick<StateType, 'results'>;
 

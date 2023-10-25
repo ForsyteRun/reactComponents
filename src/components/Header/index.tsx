@@ -1,14 +1,18 @@
 import React from 'react';
 
-type StateType = {
-  value: string;
+type PropsType = {
+  getData: (query: string) => void;
 };
 
-class Header extends React.Component<NonNullable<unknown>, StateType> {
-  constructor(props: NonNullable<unknown>) {
-    super(props);
-    this.state = { value: '' };
+type StateType = {
+  value: string;
+  getData: (query: string) => void;
+};
 
+class Header extends React.Component<PropsType, StateType> {
+  constructor(props: StateType) {
+    super(props);
+    this.state = { value: '', getData: this.props.getData };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -25,6 +29,7 @@ class Header extends React.Component<NonNullable<unknown>, StateType> {
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     localStorage.setItem('formValue', JSON.stringify(this.state.value));
+    this.props.getData(this.state.value);
   }
 
   render() {

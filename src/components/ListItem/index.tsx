@@ -1,8 +1,11 @@
 import React from 'react';
-import { StateType, IItem } from '../../types';
 import s from './listItem.module.css';
+import { IItem } from '../../types';
 
-type PropsType = Pick<StateType, 'results'>;
+type PropsType = {
+  results: IItem[] | null;
+};
+// type ListState = Pick<StateType, 'results'>;
 
 class ListItems extends React.Component<PropsType, PropsType> {
   state = {

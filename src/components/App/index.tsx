@@ -34,7 +34,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
   render() {
     return (
       <div className={s.container}>
-        <Header />
+        <Header getData={this.getData} />
         <ListItems results={this.state.results} />
       </div>
     );

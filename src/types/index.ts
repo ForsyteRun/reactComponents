@@ -1,12 +1,13 @@
-export interface StateType {
-  count: number;
-  next: string;
-  previous: string | null;
-  results: IItem[] | null;
-  error: boolean;
-}
-
 export interface IItem {
-  name: string;
-  url: string;
+  id: number;
+  volumeInfo: {
+    title: string;
+    language: string;
+    pageCount: number;
+    year: number;
+    imageLinks: {
+      thumbnail: string;
+    };
+    authors: Array<string>;
+  };
 }

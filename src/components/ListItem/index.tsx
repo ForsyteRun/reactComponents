@@ -3,18 +3,18 @@ import s from './listItem.module.css';
 import { IItem } from '../../types';
 
 type PropsType = {
-  results: IItem[] | null;
+  items: IItem[] | null;
 };
 
 class ListItems extends React.Component<PropsType, PropsType> {
   state = {
-    results: [],
+    items: [],
   };
 
   componentDidUpdate(prevProps: PropsType) {
-    if (prevProps.results !== this.props.results) {
+    if (prevProps.items !== this.props.items) {
       this.setState({
-        results: this.props.results,
+        items: this.props.items,
       });
     }
   }
@@ -23,10 +23,13 @@ class ListItems extends React.Component<PropsType, PropsType> {
     return (
       <>
         <ul className={s.list}>
-          {this.state.results?.map(({ name, url }: IItem) => (
-            <li key={url} className={s.item}>
-              <div>{name}</div>
-              <div>{url}</div>
+          {this.state.items?.map(({ id, volumeInfo }: IItem) => (
+            <li key={id} className={s.item}>
+              <div>{volumeInfo.authors}</div>
+              <img
+                src={volumeInfo.imageLinks.thumbnail}
+                alt={volumeInfo.title}
+              />
             </li>
           ))}
         </ul>

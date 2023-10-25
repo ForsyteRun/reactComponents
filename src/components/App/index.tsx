@@ -1,47 +1,56 @@
 import React from 'react';
-import { StateType } from '../../types';
-import s from './App.module.css';
+import { IItem } from '../../types';
 import ListItems from '../ListItem';
 import Search from '../Search';
+import s from './App.module.css';
+
+type StateType = {
+  items: IItem[];
+  error: boolean;
+};
+
 class App extends React.Component<NonNullable<unknown>, StateType> {
   constructor(props: NonNullable<unknown>) {
     super(props);
     this.state = {
-      count: 0,
-      next: '',
-      previous: null,
-      results: null,
+      items: [],
       error: false,
     };
-    this.getData = this.getData.bind(this);
   }
 
-  async getData(query: string) {
+  getData = async (query: string) => {
     try {
-      const response: Response = await fetch(
-        'https://swapi.dev/api/peopleg' + (query ? `?search=${query}` : '')
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${query ? query : 'war'}`
       );
-      const data: StateType = await response.json();
-      this.setState(data);
+
+      if (response.ok) {
+        const data = await response.json();
+
+        this.setState({
+          items: data.items,
+          error: false,
+        });
+      } else {
+        throw new Error('Request failed');
+      }
     } catch (error) {
       this.setState({
-        count: 0,
-        next: '',
-        previous: null,
-        results: null,
+        items: [],
         error: true,
       });
     }
-  }
+  };
 
   render() {
     if (this.state.error) {
       throw new Error('I crashed!');
     }
+    console.log(this.state);
     return (
       <div className={s.container}>
         <Search getData={this.getData} />
-        <ListItems results={this.state.results} />
+        <ListItems items={this.state.items} />
       </div>
     );
   }

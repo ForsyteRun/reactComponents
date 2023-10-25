@@ -5,16 +5,22 @@ import ListItems from '../ListItem';
 import Header from '../Header';
 class App extends React.Component<NonNullable<unknown>, StateType> {
   state = {
-    count: 2110,
-    next: 'https://pokeapi.co/api/v2/item?offset=10&limit=10',
+    count: 0,
+    next: '',
     previous: null,
     results: null,
   };
 
   componentDidMount = async () => {
     try {
-      // const storageData = localStorage.getItem('data');
-      const response: Response = await fetch('https://pokeapi.co/api/v2/item');
+      const storageData = JSON.parse(
+        localStorage.getItem('formValue') as string
+      );
+
+      const response: Response = await fetch(
+        'https://swapi.dev/api/people' +
+          (storageData ? `?search=${storageData}` : '')
+      );
       const data: StateType = await response.json();
       this.setState(data);
     } catch (error) {

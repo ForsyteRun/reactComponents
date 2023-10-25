@@ -14,8 +14,8 @@ class Header extends React.Component<NonNullable<unknown>, StateType> {
   }
 
   componentDidMount(): void {
-    const storageData = localStorage.getItem('formValue');
-    this.setState({ value: JSON.parse(storageData ? storageData : '') });
+    const storageData = localStorage.getItem('formValue'); //TODO: remove localStorage
+    this.setState({ value: storageData ? JSON.parse(storageData) : '' });
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

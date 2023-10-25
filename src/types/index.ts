@@ -1,7 +1,7 @@
 export interface StateType {
   count: number;
   next: string;
-  previous: null;
+  previous: string | null;
   results: IItem[] | null;
 }
 

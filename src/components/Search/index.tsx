@@ -36,14 +36,17 @@ class Search extends React.Component<PropsType, StateType> {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-        <input type="submit" value="search" />
-      </form>
+      <>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          <button type="submit">search</button>
+        </form>
+        <button onClick={() => this.props.getData('#')}>get error</button>
+      </>
     );
   }
 }

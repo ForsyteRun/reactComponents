@@ -21,10 +21,10 @@ class ListItems extends React.Component<PropsType, PropsType> {
     return (
       <>
         <ul className={s.list}>
-          {this.state.results?.map((el: IItem) => (
-            <li key={el.url} className={s.item}>
-              <div>{el.name}</div>
-              <div>{el.url}</div>
+          {this.state.results?.map(({ name, url }: IItem) => (
+            <li key={url} className={s.item}>
+              <div>{name}</div>
+              <div>{url}</div>
             </li>
           ))}
         </ul>

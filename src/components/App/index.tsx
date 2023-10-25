@@ -11,18 +11,21 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     results: null,
   };
 
+  getData = async (query: string) => {
+    const response: Response = await fetch(
+      'https://swapi.dev/api/people' + (query ? `?search=${query}` : '')
+    );
+    const data: StateType = await response.json();
+    this.setState(data);
+  };
+
   componentDidMount = async () => {
     try {
       const storageData = JSON.parse(
         localStorage.getItem('formValue') as string
       );
 
-      const response: Response = await fetch(
-        'https://swapi.dev/api/people' +
-          (storageData ? `?search=${storageData}` : '')
-      );
-      const data: StateType = await response.json();
-      this.setState(data);
+      this.getData(storageData);
     } catch (error) {
       throw new Error(`error: ${error}`);
     }

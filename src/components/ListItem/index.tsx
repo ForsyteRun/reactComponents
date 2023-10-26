@@ -4,13 +4,10 @@ import { IItem } from '../../types';
 import s from './listItem.module.css';
 import { PropsType } from './types';
 
-class ListItems extends React.Component<PropsType, PropsType> {
-  constructor(props: PropsType) {
-    super(props);
-    this.state = {
-      items: [],
-    };
-  }
+class ListItems extends React.PureComponent<PropsType, PropsType> {
+  state = {
+    items: [],
+  };
 
   componentDidMount(): void {
     this.setState({
@@ -18,12 +15,10 @@ class ListItems extends React.Component<PropsType, PropsType> {
     });
   }
 
-  componentDidUpdate(prevProps: PropsType) {
-    if (prevProps.items !== this.props.items) {
-      this.setState({
-        items: this.props.items,
-      });
-    }
+  componentDidUpdate(): void {
+    this.setState({
+      items: this.props.items,
+    });
   }
 
   render() {

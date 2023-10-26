@@ -2,13 +2,7 @@ import React from 'react';
 import { PropsType, StateType } from './types';
 
 class Search extends React.Component<PropsType, StateType> {
-  constructor(props: StateType) {
-    super(props);
-    this.state = { value: '', getData: this.props.getData };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleError = this.handleError.bind(this);
-  }
+  state = { value: '', getData: this.props.getData };
 
   componentDidMount(): void {
     const storageData = localStorage.getItem('formValue');

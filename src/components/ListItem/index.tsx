@@ -1,5 +1,5 @@
 import React from 'react';
-import { DEFAULT_IMG } from '../../constants';
+import { DEFAULT_IMG, DEFAULT_PAGE_COUNT } from '../../constants';
 import { IItem } from '../../types';
 import s from './listItem.module.css';
 import { PropsType } from './types';
@@ -49,7 +49,7 @@ class ListItems extends React.Component<PropsType, PropsType> {
                 </div>
                 <div>
                   <span className={s.title}>pageCount:</span>{' '}
-                  {volumeInfo.pageCount}
+                  {volumeInfo.pageCount || DEFAULT_PAGE_COUNT}
                 </div>
               </div>
             </li>

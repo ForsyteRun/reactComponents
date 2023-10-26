@@ -36,7 +36,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
 
       this.getState(true);
 
-      const response = await fetch(URL + (query ? query : 'nature'));
+      const response = await fetch(URL + (query ? query.trim() : 'nature'));
 
       if (response.ok) {
         const data: StateType = await response.json();

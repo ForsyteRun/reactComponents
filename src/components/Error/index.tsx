@@ -1,6 +1,6 @@
 import React, { ErrorInfo } from 'react';
 import { ErrorProps, ErrorState } from './types';
-
+import s from './error.module.css';
 class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
   constructor(props: ErrorProps) {
     super(props);
@@ -14,16 +14,16 @@ class ErrorBoundary extends React.Component<ErrorProps, ErrorState> {
     });
   }
 
+  handleReset = () => {
+    this.setState({ error: null, errorInfo: null });
+  };
+
   render() {
     if (this.state.errorInfo) {
       return (
-        <div>
-          <h2>Something went wrong.</h2>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
-            {this.state.error && this.state.error.toString()}
-            <br />
-            {this.state.errorInfo.componentStack}
-          </details>
+        <div className={s.container}>
+          <h2 className={s.title}>Something went wrong.</h2>
+          <button onClick={this.handleReset}>back</button>
         </div>
       );
     }

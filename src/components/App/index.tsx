@@ -7,14 +7,11 @@ import { URL } from '../../constants';
 import { IItem } from '../../types';
 
 class App extends React.Component<NonNullable<unknown>, StateType> {
-  constructor(props: NonNullable<unknown>) {
-    super(props);
-    this.state = {
-      items: [],
-      error: false,
-      loading: false,
-    };
-  }
+  state = {
+    items: [],
+    error: false,
+    loading: false,
+  };
 
   getState = (
     loading: boolean = false,

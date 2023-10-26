@@ -3,6 +3,8 @@ import ListItems from '../ListItem';
 import Search from '../Search';
 import s from './App.module.css';
 import { StateType } from './types';
+import { URL } from '../../constants';
+import { IItem } from '../../types';
 
 class App extends React.Component<NonNullable<unknown>, StateType> {
   constructor(props: NonNullable<unknown>) {
@@ -14,39 +16,37 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     };
   }
 
+  getState = (
+    loading: boolean = false,
+    items: IItem[] = [],
+    error: boolean = false
+  ) => {
+    this.setState({
+      items,
+      error,
+      loading,
+    });
+  };
+
   getData = async (query: string | null) => {
     try {
       if (query === null) {
         throw new Error('Error');
       }
 
-      this.setState({
-        loading: true,
-      });
+      this.getState(true);
 
-      const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${
-          query ? query : 'nature'
-        }`
-      );
+      const response = await fetch(URL + (query ? query : 'nature'));
 
       if (response.ok) {
         const data: StateType = await response.json();
 
-        this.setState({
-          items: data.items,
-          error: false,
-          loading: false,
-        });
+        this.getState(false, data.items);
       } else {
         throw new Error('Request failed');
       }
     } catch (error) {
-      this.setState({
-        items: [],
-        error: true,
-        loading: false,
-      });
+      this.getState(false, [], true);
     }
   };
 

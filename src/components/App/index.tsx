@@ -1,14 +1,8 @@
 import React from 'react';
-import { IItem } from '../../types';
 import ListItems from '../ListItem';
 import Search from '../Search';
 import s from './App.module.css';
-
-type StateType = {
-  items: IItem[];
-  error: boolean;
-  loading: boolean;
-};
+import { StateType } from './types';
 
 class App extends React.Component<NonNullable<unknown>, StateType> {
   constructor(props: NonNullable<unknown>) {
@@ -20,8 +14,12 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     };
   }
 
-  getData = async (query: string) => {
+  getData = async (query: string | null) => {
     try {
+      if (query === null) {
+        throw new Error('Error');
+      }
+
       this.setState({
         loading: true,
       });
@@ -46,7 +44,7 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     } catch (error) {
       this.setState({
         items: [],
-        error: false,
+        error: true,
         loading: false,
       });
     }

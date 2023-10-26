@@ -1,13 +1,5 @@
 import React from 'react';
-
-type PropsType = {
-  getData: (query: string) => void;
-};
-
-type StateType = {
-  value: string;
-  getData: (query: string) => void;
-};
+import { PropsType, StateType } from './types';
 
 class Search extends React.Component<PropsType, StateType> {
   constructor(props: StateType) {
@@ -15,6 +7,7 @@ class Search extends React.Component<PropsType, StateType> {
     this.state = { value: '', getData: this.props.getData };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
 
   componentDidMount(): void {
@@ -28,11 +21,15 @@ class Search extends React.Component<PropsType, StateType> {
     this.setState({ value: event.target.value });
   };
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     localStorage.setItem('formValue', JSON.stringify(this.state.value));
     this.props.getData(this.state.value);
-  }
+  };
+
+  handleError = () => {
+    this.props.getData(null);
+  };
 
   render() {
     return (
@@ -45,7 +42,7 @@ class Search extends React.Component<PropsType, StateType> {
           />
           <button type="submit">search</button>
         </form>
-        <button onClick={() => this.props.getData('#')}>get error</button>
+        <button onClick={this.handleError}>get error</button>
       </>
     );
   }

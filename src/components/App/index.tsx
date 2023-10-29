@@ -47,6 +47,10 @@ class App extends React.Component<NonNullable<unknown>, StateType> {
     }
   };
 
+  componentDidMount(): void {
+    this.getData('nature');
+  }
+
   render() {
     if (this.state.error) {
       throw new Error('I crashed!');

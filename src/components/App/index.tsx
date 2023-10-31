@@ -8,13 +8,8 @@ import fetchData from '../../utils/fetchData';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
   const [query, setQuery] = useState<string>('nature');
   const [books, setBooks] = useState<IItem[]>([]);
-
-  if (error) {
-    throw new Error('Error');
-  }
 
   useEffect(() => {
     (async () => {
@@ -33,7 +28,6 @@ const App = () => {
       } catch (error) {
         setLoading(false);
         setBooks([]);
-        setError(true);
       }
     })();
   }, [query]);

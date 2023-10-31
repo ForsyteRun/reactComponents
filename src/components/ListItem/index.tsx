@@ -1,4 +1,3 @@
-import React from 'react';
 import { DEFAULT_IMG, DEFAULT_PAGE_COUNT } from '../../constants';
 import { IItem } from '../../types';
 import s from './listItem.module.css';

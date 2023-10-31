@@ -16,12 +16,11 @@ const App = () => {
       try {
         setLoading(true);
 
-        const storageData = localStorage.getItem('formValue');
-
-        const data = await fetchData(
-          URL,
-          storageData ? JSON.parse(storageData) : query
+        const storageData = JSON.parse(
+          localStorage.getItem('formValue') as string
         );
+
+        const data = await fetchData(URL, storageData ? storageData : query);
 
         setLoading(false);
         setBooks(data);
@@ -37,10 +36,8 @@ const App = () => {
       <Search setQuery={setQuery} query={query} />
       {loading ? (
         <div className="lds-dual-ring"></div>
-      ) : books ? (
-        <ListItems items={books} />
       ) : (
-        <div>Not found</div>
+        <ListItems items={books} query={query} />
       )}
     </div>
   );

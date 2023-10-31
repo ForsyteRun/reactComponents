@@ -1,72 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ListItems from '../ListItem';
 import Search from '../Search';
 import s from './App.module.css';
-import { StateType } from './types';
 import { URL } from '../../constants';
 import { IItem } from '../../types';
+import { IFetchData } from './types';
 
-class App extends React.Component<NonNullable<unknown>, StateType> {
-  state = {
-    items: [],
-    error: false,
-    loading: false,
+const App = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>('nature');
+  const [books, setBooks] = useState<IItem[]>([]);
+
+  const fetchData = async (URL: string, query: string): Promise<IItem[]> => {
+    const response = await fetch(URL + query.trim());
+    const data: IFetchData = await response.json();
+    return data.items;
   };
 
-  getState = (
-    loading: boolean = false,
-    items: IItem[] = [],
-    error: boolean = false
-  ) => {
-    this.setState({
-      items,
-      error,
-      loading,
-    });
-  };
-
-  getData = async (query: string | null) => {
-    try {
-      if (query === null) {
-        throw new Error('Error');
-      }
-
-      this.getState(true);
-
-      const response = await fetch(URL + (query ? query.trim() : 'nature'));
-
-      if (response.ok) {
-        const data: StateType = await response.json();
-
-        this.getState(false, data.items);
-      } else {
-        throw new Error('Request failed');
-      }
-    } catch (error) {
-      this.getState(false, [], true);
-    }
-  };
-
-  componentDidMount(): void {
-    this.getData('nature');
+  if (error) {
+    throw new Error('Error');
   }
 
-  render() {
-    if (this.state.error) {
-      throw new Error('I crashed!');
-    }
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
 
-    return (
-      <div className={s.container}>
-        <Search getData={this.getData} />
-        {this.state.loading ? (
-          <div className="lds-dual-ring"></div>
-        ) : (
-          <ListItems items={this.state.items} />
-        )}
-      </div>
-    );
-  }
-}
+        const storageData = localStorage.getItem('formValue');
+
+        const data = await fetchData(URL, storageData ? storageData : query);
+
+        if (data.length) {
+          setLoading(false);
+          setBooks(data);
+        } else {
+          throw new Error('Request failed');
+        }
+      } catch (error) {
+        setLoading(false);
+        setBooks([]);
+        setError(true);
+      }
+    })();
+  }, [query]);
+
+  return (
+    <div className={s.container}>
+      <Search setQuery={setQuery} />
+      {loading ? (
+        <div className="lds-dual-ring"></div>
+      ) : (
+        <ListItems items={books} />
+      )}
+    </div>
+  );
+};
 
 export default App;

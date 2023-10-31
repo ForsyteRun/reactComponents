@@ -1,45 +1,82 @@
-import React from 'react';
-import { PropsType, StateType } from './types';
+import React, { useEffect, useState } from 'react';
+import { PropsType } from './types';
 
-class Search extends React.Component<PropsType, StateType> {
-  state = { value: '', getData: this.props.getData };
+const Search = ({ setQuery }: PropsType) => {
+  const [value, setValue] = useState<string>('');
 
-  componentDidMount(): void {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.target as HTMLFormElement;
+    const input = form.firstChild as HTMLInputElement;
+
+    localStorage.setItem('formValue', JSON.stringify(input.value));
+
+    setQuery(input.value);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  useEffect(() => {
     const storageData = localStorage.getItem('formValue');
 
-    this.setState({ value: storageData ? JSON.parse(storageData) : '' });
-    this.props.getData(JSON.parse(storageData as string));
-  }
+    if (storageData) {
+      setValue(JSON.parse(storageData));
+    }
+  }, []);
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ value: event.target.value });
-  };
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={value} onChange={handleChange} />
+        <button type="submit">search</button>
+      </form>
+      {/* <button onClick={handleError}>get error</button> */}
+    </>
+  );
+};
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    localStorage.setItem('formValue', JSON.stringify(this.state.value));
-    this.props.getData(this.state.value);
-  };
+// class Search extends React.Component<PropsType, StateType> {
+//   state = { value: '', getData: this.props.getData };
 
-  handleError = () => {
-    this.props.getData(null);
-  };
+//   // componentDidMount(): void {
+//   //   const storageData = localStorage.getItem('formValue');
 
-  render() {
-    return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button type="submit">search</button>
-        </form>
-        <button onClick={this.handleError}>get error</button>
-      </>
-    );
-  }
-}
+//   //   this.setState({ value: storageData ? JSON.parse(storageData) : '' });
+//   //   this.props.getData(JSON.parse(storageData as string));
+//   // }
+
+//   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     this.setState({ value: event.target.value });
+//   };
+
+//   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
+//     localStorage.setItem('formValue', JSON.stringify(this.state.value));
+//     this.props.getData(this.state.value);
+//   };
+
+//   handleError = () => {
+//     this.props.getData(null);
+//   };
+
+//   render() {
+//     return (
+//       <>
+//         <form onSubmit={this.handleSubmit}>
+//           <input
+//             type="text"
+//             value={this.state.value}
+//             onChange={this.handleChange}
+//           />
+//           <button type="submit">search</button>
+//         </form>
+//         <button onClick={this.handleError}>get error</button>
+//       </>
+//     );
+//   }
+// }
 
 export default Search;

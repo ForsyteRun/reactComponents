@@ -1,7 +1,7 @@
 import { IItem } from '../../types';
 
-export type StateType = {
+export interface IFetchData {
   items: IItem[];
-  error: boolean;
-  loading: boolean;
-};
+  kind: string;
+  totalItems: number;
+}

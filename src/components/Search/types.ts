@@ -1,8 +1,5 @@
-export type PropsType = {
-  getData: (query: string | null) => void;
-};
+import { Dispatch, SetStateAction } from 'react';
 
-export type StateType = {
-  value: string;
-  getData: (query: string | null) => void;
+export type PropsType = {
+  setQuery: Dispatch<SetStateAction<string>>;
 };

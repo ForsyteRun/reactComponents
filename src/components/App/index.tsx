@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { URL } from '../../constants';
 import { IItem } from '../../types';
 import fetchData from '../../utils/fetchData';
 import ListItems from '../ListItem';
+import Pagination from '../Pagination';
 import Search from '../Search';
 import s from './App.module.css';
-import Pagination from '../Pagination';
-import { useLocation } from 'react-router-dom';
 
 const App = () => {
   const location = useLocation();
@@ -15,12 +15,38 @@ const App = () => {
   const [query, setQuery] = useState<string>('nature');
   const [books, setBooks] = useState<IItem[]>([]);
   const [error, setError] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [detail, setDetail] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   if (error) {
     throw new Error('Error');
   }
 
-  const currentPage = parseInt(location.search.replace(/[^\d]/g, ''));
+  const removeQueryParams = () => {
+    const param = searchParams.get('page');
+
+    if (param) {
+      searchParams.delete('page');
+
+      setSearchParams(searchParams);
+    }
+  };
+
+  const current = parseInt(location.search.replace(/[^\d]/g, ''));
+
+  useEffect(() => {
+    if (current) {
+      setCurrentPage(current);
+    }
+  }, [current]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    removeQueryParams();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   const handleError = () => {
     setError(true);

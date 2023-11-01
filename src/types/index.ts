@@ -1,5 +1,5 @@
 export interface IItem {
-  id: number;
+  id: string;
   volumeInfo: {
     title: string;
     language: string;

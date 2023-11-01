@@ -1,18 +1,20 @@
+import { Link } from 'react-router-dom';
 import { DEFAULT_IMG, DEFAULT_PAGE_COUNT } from '../../constants';
 import { IItem } from '../../types';
 import s from './listItem.module.css';
-import { PropsType } from './types';
 
-const ListItems = ({ items }: PropsType) => {
+const ListItems = ({ items }: { items: IItem[] }) => {
   return (
     <>
       <ul>
         {items.map(({ id, volumeInfo }: IItem) => (
           <li key={id} className={s.item}>
-            <img
-              src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
-              alt={volumeInfo.title}
-            />
+            <Link to={id}>
+              <img
+                src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
+                alt={volumeInfo.title}
+              />
+            </Link>
             <div className={s.content}>
               <div>
                 <span className={s.title}>name:</span> {volumeInfo.title}

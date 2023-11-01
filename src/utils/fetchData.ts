@@ -1,12 +1,12 @@
+import { ITEMS_PER_PAGE } from '../constants';
 import { IFetchData } from '../types';
 
 const fetchData = async (
   URL: string,
   query: string,
-  itemsPageCount?: number,
-  pageNumber?: number
+  pageNumber: number = 1
 ): Promise<IFetchData> => {
-  const fullURL = buildURL(URL, query, itemsPageCount, pageNumber);
+  const fullURL = buildURL(URL, query, pageNumber);
   const data = await fetchAndParseData(fullURL);
   return data;
 };
@@ -14,16 +14,18 @@ const fetchData = async (
 const buildURL = (
   baseURL: string,
   query: string,
-  itemsPageCount?: number,
-  pageNumber?: number
+  pageNumber: number
 ): string => {
   let url = baseURL + query.trim();
-  if (itemsPageCount) {
-    url += `&maxResults=${itemsPageCount}`;
-  }
-  if (pageNumber) {
+
+  if (pageNumber === 1) {
     url += `&startIndex=${pageNumber}`;
+  } else if (pageNumber === 2) {
+    url += `&startIndex=${pageNumber + ITEMS_PER_PAGE - 1}`;
+  } else {
+    url += `&startIndex=${pageNumber * ITEMS_PER_PAGE - ITEMS_PER_PAGE + 1}`;
   }
+
   return url;
 };
 

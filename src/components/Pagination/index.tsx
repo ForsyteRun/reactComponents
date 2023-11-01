@@ -1,22 +1,17 @@
 import { Link } from 'react-router-dom';
 import s from './pagination.module.css';
+import { PAGES_COUNT } from '../../constants';
 
-const Pagination = ({
-  pagesCount,
-  pageNumber,
-}: {
-  pagesCount: number;
-  pageNumber: number;
-}) => {
+const Pagination = ({ pageNumber }: { pageNumber: number }) => {
   return (
     <div className={s.pagination}>
-      {Array.from(Array(pagesCount).keys()).map((num: number) => (
+      {Array.from(Array(PAGES_COUNT).keys()).map((num: number) => (
         <Link
-          key={num}
-          to={`?page=${num}`}
-          className={pageNumber === num ? 'active' : undefined}
+          key={num + 1}
+          to={`?page=${num + 1}`}
+          className={pageNumber === num + 1 ? 'active' : undefined}
         >
-          {num}
+          {num + 1}
         </Link>
       ))}
     </div>

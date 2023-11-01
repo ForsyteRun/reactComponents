@@ -10,6 +10,15 @@ const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>('nature');
   const [books, setBooks] = useState<IItem[]>([]);
+  const [error, setError] = useState<boolean>(false);
+
+  if (error) {
+    throw new Error('Error');
+  }
+
+  const handleError = () => {
+    setError(true);
+  };
 
   useEffect(() => {
     (async () => {
@@ -27,13 +36,15 @@ const App = () => {
       } catch (error) {
         setLoading(false);
         setBooks([]);
+        setError(true);
       }
     })();
   }, [query]);
 
   return (
     <div className={s.container}>
-      <Search setQuery={setQuery} query={query} />
+      <Search setQuery={setQuery} />
+      <button onClick={handleError}>get error</button>
       {loading ? (
         <div className="lds-dual-ring"></div>
       ) : (

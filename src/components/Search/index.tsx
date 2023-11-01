@@ -12,12 +12,8 @@ const Search = ({ query, setQuery }: PropsType) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.target as HTMLFormElement;
-    const input = form.firstChild as HTMLInputElement;
-
-    localStorage.setItem('formValue', JSON.stringify(input.value));
-
-    setQuery(input.value);
+    localStorage.setItem('formValue', JSON.stringify(value));
+    setQuery(value);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

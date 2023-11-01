@@ -33,3 +33,14 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.active {
+  background: #1b17e2;
+  color: #fff;
+}
+
+.pending {
+  background: #999;
+  color: #fff;
+  pointer-events: none;
+}

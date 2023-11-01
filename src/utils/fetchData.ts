@@ -1,15 +1,14 @@
-import { IFetchData } from '../components/App/types';
-import { IItem } from '../types';
+import { IFetchData } from '../types';
 
 const fetchData = async (
   URL: string,
   query: string,
   itemsPageCount?: number,
   pageNumber?: number
-): Promise<IItem[]> => {
+): Promise<IFetchData> => {
   const fullURL = buildURL(URL, query, itemsPageCount, pageNumber);
   const data = await fetchAndParseData(fullURL);
-  return data.items;
+  return data;
 };
 
 const buildURL = (

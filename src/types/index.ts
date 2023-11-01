@@ -10,3 +10,9 @@ export interface IItem {
     authors: Array<string>;
   };
 }
+
+export interface IFetchData {
+  items: IItem[];
+  kind: string;
+  totalItems: number;
+}

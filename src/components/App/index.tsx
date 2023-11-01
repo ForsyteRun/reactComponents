@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import ListItems from '../ListItem';
-import Search from '../Search';
-import s from './App.module.css';
+import { useEffect, useState } from 'react';
 import { URL } from '../../constants';
 import { IItem } from '../../types';
 import fetchData from '../../utils/fetchData';
+import ListItems from '../ListItem';
+import Search from '../Search';
+import s from './App.module.css';
+import Pagination from '../Pagination';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>('nature');
+  // const [pageNumber, setPageNumber] = useState<number>(1);
+  // const [itemsPageCount, setItemsPageCount] = useState<number>(10);
   const [books, setBooks] = useState<IItem[]>([]);
   const [error, setError] = useState<boolean>(false);
 
@@ -29,7 +32,7 @@ const App = () => {
           localStorage.getItem('formValue') as string
         );
 
-        const data = await fetchData(URL, storageData ? storageData : query);
+        const data = await fetchData(URL, storageData ? storageData : query, 3);
 
         setLoading(false);
         setBooks(data);
@@ -48,7 +51,10 @@ const App = () => {
       {loading ? (
         <div className="lds-dual-ring"></div>
       ) : (
-        <ListItems items={books} query={query} />
+        <>
+          <ListItems items={books} query={query} />
+          <Pagination />
+        </>
       )}
     </div>
   );

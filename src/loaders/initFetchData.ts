@@ -7,8 +7,9 @@ export const initFetchData = async (
 ): Promise<IFetchData> => {
   const storageData = JSON.parse(localStorage.getItem(storageKey) as string);
 
-  const fullURL = buildURL(URL, storageData || 'nature', 1);
+  const fullURL = buildURL(URL, storageData ? storageData : 'nature', 1);
   const data = await fetchAndParseData(fullURL);
+
   return data;
 };
 

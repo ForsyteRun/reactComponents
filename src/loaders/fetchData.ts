@@ -6,7 +6,8 @@ export const fetchData = async (
   query: string,
   pageNumber: number
 ): Promise<IFetchData | null> => {
-  const fullURL = buildURL(URL, query || 'nature', pageNumber);
+  const fullURL = buildURL(URL, query, pageNumber);
+
   const data = await fetchAndParseData(fullURL);
   return data;
 };

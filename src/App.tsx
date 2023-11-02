@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import s from './App.module.css';
 import { ListItems, Pagination, Search } from './components';
@@ -7,6 +7,7 @@ import { fetchData } from './loaders';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [bookId, setBookId] = useState<string>('');
   const [query, setQuery] = useState<string>('');
   const [books, setBooks] = useState<IItem[]>([]);
@@ -15,20 +16,24 @@ const App = () => {
 
   const fetchInitData = useLoaderData() as IFetchData;
 
-  console.log(bookId);
-
   if (error) {
     throw new Error('Error');
   }
 
+  const firstUpdate = useRef(true);
+
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     async function getData() {
       try {
         setLoading(true);
 
         const data = await fetchData(query, pageNumber);
 
-        if (!data) {
+        if (!data?.items) {
           setLoading(false);
           return;
         }
@@ -46,7 +51,8 @@ const App = () => {
 
   useEffect(() => {
     setBooks(fetchInitData.items);
-  }, [fetchInitData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleError = () => {
     setError(true);

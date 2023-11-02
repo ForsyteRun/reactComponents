@@ -5,7 +5,7 @@ const buildURL = (
   query: string,
   pageNumber: number
 ): string => {
-  let url = baseURL + query.trim();
+  let url = baseURL + (query ? query.trim() : 'nature');
 
   if (pageNumber === 1) {
     url += `&startIndex=${pageNumber}`;

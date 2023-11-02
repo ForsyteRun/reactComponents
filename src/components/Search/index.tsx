@@ -21,8 +21,8 @@ const Search = ({ setQuery }: PropsType) => {
 
   useEffect(() => {
     const storageData = localStorage.getItem('formValue') as string;
-    setValue(JSON.parse(storageData));
-    setQuery(JSON.parse(storageData));
+    setValue(JSON.parse(storageData) ? JSON.parse(storageData) : '');
+    setQuery(JSON.parse(storageData) ? JSON.parse(storageData) : '');
     setQueryParam('search', JSON.parse(storageData));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

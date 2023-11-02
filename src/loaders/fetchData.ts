@@ -1,11 +1,24 @@
-import { ITEMS_PER_PAGE } from '../constants';
+import { ITEMS_PER_PAGE, URL } from '../constants';
 import { IFetchData } from '../types';
 
-const fetchData = async (
-  URL: string,
-  query: string,
+export const initFetchData = async (
+  storageKey: string,
   pageNumber: number = 1
 ): Promise<IFetchData> => {
+  const storageData = JSON.parse(localStorage.getItem(storageKey) as string);
+
+  const fullURL = buildURL(URL, storageData || 'nature', pageNumber);
+  const data = await fetchAndParseData(fullURL);
+  return data;
+};
+
+export const fetchDataByQuery = async (
+  query: string,
+  pageNumber: number = 1
+): Promise<IFetchData | null> => {
+  if (!query) {
+    query = 'nature';
+  }
   const fullURL = buildURL(URL, query, pageNumber);
   const data = await fetchAndParseData(fullURL);
   return data;
@@ -17,6 +30,7 @@ const buildURL = (
   pageNumber: number
 ): string => {
   let url = baseURL + query.trim();
+  console.log(pageNumber);
 
   if (pageNumber === 1) {
     url += `&startIndex=${pageNumber}`;
@@ -34,5 +48,3 @@ const fetchAndParseData = async (URL: string): Promise<IFetchData> => {
   const data = await response.json();
   return data;
 };
-
-export default fetchData;

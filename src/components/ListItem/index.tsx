@@ -1,20 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Dispatch, SetStateAction } from 'react';
 import { DEFAULT_IMG, DEFAULT_PAGE_COUNT } from '../../constants';
 import { IItem } from '../../types';
 import s from './listItem.module.css';
 
-const ListItems = ({ items }: { items: IItem[] }) => {
+const ListItems = ({
+  items,
+  setBookId,
+}: {
+  items: IItem[];
+  setBookId: Dispatch<SetStateAction<string>>;
+}) => {
   return (
     <>
       <ul>
         {items.map(({ id, volumeInfo }: IItem) => (
           <li key={id} className={s.item}>
-            <Link to={id}>
-              <img
-                src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
-                alt={volumeInfo.title}
-              />
-            </Link>
+            <img
+              src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
+              alt={volumeInfo.title}
+              onClick={() => setBookId(id)}
+            />
             <div className={s.content}>
               <div>
                 <span className={s.title}>name:</span> {volumeInfo.title}

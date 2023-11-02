@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import s from './App.module.css';
-import { ListItems, Search } from './components';
+import { ListItems, Pagination, Search } from './components';
 import { fetchDataByQuery } from './loaders/fetchData';
 import { IFetchData, IItem } from './types';
 
@@ -11,8 +11,7 @@ const App = () => {
   const [query, setQuery] = useState<string>('');
   const [books, setBooks] = useState<IItem[]>([]);
   const [error, setError] = useState<boolean>(false);
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const [searchParams, setSearchParams] = useSearchParams();
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
   const fetchData = useLoaderData() as IFetchData;
 
@@ -44,7 +43,8 @@ const App = () => {
     async function fetchData() {
       try {
         setLoading(true);
-        const data = await fetchDataByQuery(query);
+
+        const data = await fetchDataByQuery(query, pageNumber);
 
         if (!data) {
           setLoading(false);
@@ -60,21 +60,13 @@ const App = () => {
     }
 
     fetchData();
-  }, [query]);
+  }, [query, pageNumber]);
 
   useEffect(() => {
+    console.log('second');
+
     setBooks(fetchData.items);
   }, [fetchData]);
-
-  // useEffect(() => {
-  //   const data = fetchDataByQuery(query);
-
-  //   console.log(data);
-
-  //   // setCurrentPage(1);
-  //   // removeQueryParams();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [query]);
 
   const handleError = () => {
     setError(true);
@@ -89,7 +81,7 @@ const App = () => {
       ) : books ? (
         <>
           <ListItems items={books} setBookId={setBookId} />
-          {/* <Pagination pageNumber={currentPage} /> */}
+          <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </>
       ) : (
         <div>Not found book with name {query ? query : 'Noname'}</div>

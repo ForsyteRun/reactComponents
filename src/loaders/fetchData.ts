@@ -2,22 +2,21 @@ import { ITEMS_PER_PAGE, URL } from '../constants';
 import { IFetchData } from '../types';
 
 export const initFetchData = async (
-  storageKey: string,
-  pageNumber: number = 1
+  storageKey: string
 ): Promise<IFetchData> => {
   const storageData = JSON.parse(localStorage.getItem(storageKey) as string);
 
-  const fullURL = buildURL(URL, storageData || 'nature', pageNumber);
+  const fullURL = buildURL(URL, storageData || 'nature', 1);
   const data = await fetchAndParseData(fullURL);
   return data;
 };
 
 export const fetchDataByQuery = async (
   query: string,
-  pageNumber: number = 1
+  pageNumber: number
 ): Promise<IFetchData | null> => {
   if (!query) {
-    query = 'nature';
+    return null;
   }
   const fullURL = buildURL(URL, query, pageNumber);
   const data = await fetchAndParseData(fullURL);

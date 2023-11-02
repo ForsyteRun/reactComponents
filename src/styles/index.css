@@ -8,6 +8,10 @@ body {
   background-color: aliceblue;
 }
 
+a {
+  cursor: pointer;
+}
+
 .lds-dual-ring {
   display: inline-block;
   width: 80px;

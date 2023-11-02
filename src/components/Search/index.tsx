@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PropsType } from './types';
-import setQueryParam from '../../utils/setQueryParam';
+import { setQueryParam } from '../../utils';
 
 const Search = ({ setQuery }: PropsType) => {
   const [value, setValue] = useState<string>('');
@@ -10,10 +10,7 @@ const Search = ({ setQuery }: PropsType) => {
 
     localStorage.setItem('formValue', JSON.stringify(value));
 
-    if (value.length) {
-      setQueryParam('page', '1');
-    }
-
+    setQueryParam('page', '1');
     setQuery(value);
   };
 

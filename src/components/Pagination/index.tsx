@@ -1,7 +1,7 @@
 import s from './pagination.module.css';
 import { PAGES_COUNT } from '../../constants';
-import setQueryParam from '../../utils/setQueryParam';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import { setQueryParam } from '../../utils';
 
 interface IPagination {
   pageNumber: number;

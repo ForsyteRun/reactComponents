@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import s from './App.module.css';
 import { ListItems, Pagination, Search } from './components';
-import { fetchDataByQuery } from './loaders/fetchData';
 import { IFetchData, IItem } from './types';
+import { fetchData } from './loaders';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,7 +13,7 @@ const App = () => {
   const [error, setError] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const fetchData = useLoaderData() as IFetchData;
+  const fetchInitData = useLoaderData() as IFetchData;
 
   console.log(bookId);
 
@@ -22,11 +22,11 @@ const App = () => {
   }
 
   useEffect(() => {
-    async function fetchData() {
+    async function getData() {
       try {
         setLoading(true);
 
-        const data = await fetchDataByQuery(query, pageNumber);
+        const data = await fetchData(query, pageNumber);
 
         if (!data) {
           setLoading(false);
@@ -41,12 +41,12 @@ const App = () => {
       }
     }
 
-    fetchData();
+    getData();
   }, [query, pageNumber]);
 
   useEffect(() => {
-    setBooks(fetchData.items);
-  }, [fetchData]);
+    setBooks(fetchInitData.items);
+  }, [fetchInitData]);
 
   const handleError = () => {
     setError(true);

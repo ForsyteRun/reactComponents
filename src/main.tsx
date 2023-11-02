@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import ErrorBoundary from './components/Error';
+import { ErrorBoundary } from './components';
 import './styles/index.css';
 import App from './App';
-import { initFetchData } from './loaders/fetchData';
+import { initFetchData } from './loaders';
 
 const router = createBrowserRouter([
   {

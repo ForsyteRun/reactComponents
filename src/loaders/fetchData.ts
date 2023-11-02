@@ -29,7 +29,6 @@ const buildURL = (
   pageNumber: number
 ): string => {
   let url = baseURL + query.trim();
-  console.log(pageNumber);
 
   if (pageNumber === 1) {
     url += `&startIndex=${pageNumber}`;

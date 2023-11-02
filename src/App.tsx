@@ -21,24 +21,6 @@ const App = () => {
     throw new Error('Error');
   }
 
-  // const removeQueryParams = () => {
-  //   const param = searchParams.get('page');
-
-  //   if (param) {
-  //     searchParams.delete('page');
-
-  //     setSearchParams(searchParams);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const pageNumber = searchParams.get('page');
-
-  //   if (pageNumber) {
-  //     setCurrentPage(Number(pageNumber));
-  //   }
-  // }, [searchParams]);
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -63,8 +45,6 @@ const App = () => {
   }, [query, pageNumber]);
 
   useEffect(() => {
-    console.log('second');
-
     setBooks(fetchData.items);
   }, [fetchData]);
 

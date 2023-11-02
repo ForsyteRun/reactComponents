@@ -9,6 +9,11 @@ const Search = ({ setQuery }: PropsType) => {
     event.preventDefault();
 
     localStorage.setItem('formValue', JSON.stringify(value));
+
+    if (value.length) {
+      setQueryParam('page', '1');
+    }
+
     setQuery(value);
   };
 

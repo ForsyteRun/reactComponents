@@ -22,13 +22,7 @@ const App = () => {
     throw new Error('Error');
   }
 
-  // const firstUpdate = useRef(true);
-
   useEffect(() => {
-    // if (firstUpdate.current) {
-    //   firstUpdate.current = false;
-    //   return;
-    // }
     async function getData() {
       try {
         setLoading(true);

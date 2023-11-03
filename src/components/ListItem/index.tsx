@@ -16,7 +16,7 @@ const ListItems = ({
       <ul>
         {items.map(({ id, volumeInfo }: IItem) => (
           <li key={id} className={s.item}>
-            <Link to={`/${id}`}>
+            <Link to={`/${id}?details=1`}>
               <img
                 src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
                 alt={volumeInfo.title}

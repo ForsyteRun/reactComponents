@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { ErrorBoundary } from './components';
+import { DetailsCard, ErrorBoundary } from './components';
 import './styles/index.css';
 import App from './App';
 import { initFetchData } from './loaders';
@@ -12,6 +12,14 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     loader: () => initFetchData('formValue'),
+    children: [
+      {
+        index: true,
+        path: '/info',
+        element: <DetailsCard />,
+        // loader: () => initFetchData('formValue'),
+      },
+    ],
   },
 ]);
 

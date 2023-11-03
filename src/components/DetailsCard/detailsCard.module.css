@@ -1,0 +1,6 @@
+.container {
+  height: min-content;
+  position: sticky;
+  top: 0;
+  flex-grow: 1;
+}

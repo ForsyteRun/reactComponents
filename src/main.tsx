@@ -5,6 +5,7 @@ import { DetailsCard, ErrorBoundary } from './components';
 import './styles/index.css';
 import App from './App';
 import { initFetchData } from './loaders';
+import detailsLoader from './loaders/detailsLoader';
 
 const router = createBrowserRouter([
   {
@@ -15,9 +16,9 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: '/info',
+        path: '/:id',
         element: <DetailsCard />,
-        // loader: () => initFetchData('formValue'),
+        loader: detailsLoader,
       },
     ],
   },

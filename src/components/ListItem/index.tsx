@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { DEFAULT_IMG, DEFAULT_PAGE_COUNT } from '../../constants';
 import { IItem } from '../../types';
 import s from './listItem.module.css';
@@ -6,24 +6,20 @@ import { Link, Outlet } from 'react-router-dom';
 
 const ListItems = ({
   items,
-  setBookId,
 }: {
   items: IItem[];
   setBookId: Dispatch<SetStateAction<string>>;
 }) => {
-  const [value, setValue] = useState<string>();
-
   return (
     <div className={s.container}>
-      <Outlet context={[value]} />
+      <Outlet />
       <ul>
         {items.map(({ id, volumeInfo }: IItem) => (
           <li key={id} className={s.item}>
-            <Link to={'/info'} onClick={() => setValue(id)}>
+            <Link to={`/${id}`}>
               <img
                 src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
                 alt={volumeInfo.title}
-                onClick={() => setBookId(id)}
               />
             </Link>
             <div className={s.content}>

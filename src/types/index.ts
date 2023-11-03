@@ -10,6 +10,10 @@ export interface IItem {
     authors: Array<string>;
   };
 }
+export interface Identifiers {
+  type: string;
+  identifier: string;
+}
 
 export interface IFetchData {
   items: IItem[];

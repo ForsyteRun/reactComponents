@@ -3,5 +3,34 @@
   position: sticky;
   top: 0;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   padding: 2rem;
+}
+
+.container img {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.title b {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem;
+}
+
+.title b {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem;
+}
+
+.title ~ span {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 1rem;
+}
+
+.content div {
+  margin: 1rem 0;
 }

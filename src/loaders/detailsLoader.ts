@@ -12,7 +12,11 @@ const detailsLoader: LoaderFunction<{ id: string }> = async ({
     (el: IItem) => el.id === params.id
   );
 
-  return foundItem || null;
+  if (!foundItem) {
+    return null;
+  }
+
+  return foundItem;
 };
 
 export default detailsLoader;

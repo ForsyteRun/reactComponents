@@ -13,24 +13,33 @@ const DetailsCard = () => {
   return (
     <div className={s.container}>
       <img
-        src={fetchData?.volumeInfo.imageLinks.thumbnail || DEFAULT_IMG}
+        src={fetchData?.volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
         alt={fetchData.volumeInfo.title}
       />
       <div className={s.content}>
         <div>
-          <span className={s.title}>name:</span> {fetchData.volumeInfo.title}
+          <span className={s.title}>
+            <b>name:</b>
+          </span>
+          <span>{fetchData.volumeInfo.title}</span>
         </div>
         <div>
-          <span className={s.title}>authors:</span>{' '}
-          {fetchData.volumeInfo.authors}
+          <span className={s.title}>
+            <b>authors:</b>
+          </span>
+          <span>{fetchData.volumeInfo.authors}</span>
         </div>
         <div>
-          <span className={s.title}>language:</span>{' '}
-          {fetchData.volumeInfo.language}
+          <span className={s.title}>
+            <b>language:</b>
+          </span>
+          <span>{fetchData.volumeInfo.language}</span>
         </div>
         <div>
-          <span className={s.title}>pageCount:</span>
-          {fetchData.volumeInfo.pageCount || DEFAULT_PAGE_COUNT}
+          <span className={s.title}>
+            <b>pageCount:</b>
+          </span>
+          <span>{fetchData.volumeInfo.pageCount || DEFAULT_PAGE_COUNT}</span>
         </div>
       </div>
     </div>

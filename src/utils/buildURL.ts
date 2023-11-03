@@ -4,7 +4,7 @@ const buildURL = (
   baseURL: string,
   query: string,
   pageNumber: number,
-  itemsPerPage: number
+  itemsPerPage?: number
 ): string => {
   let url = baseURL + (query ? query.trim() : 'nature');
 

@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import s from './App.module.css';
 import { ListItems, Pagination, Search } from './components';
 import { IFetchData, IItem } from './types';
 import { fetchData } from './loaders';
+import Select from './components/Select';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,6 +14,7 @@ const App = () => {
   const [books, setBooks] = useState<IItem[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   const fetchInitData = useLoaderData() as IFetchData;
 
@@ -20,18 +22,17 @@ const App = () => {
     throw new Error('Error');
   }
 
-  const firstUpdate = useRef(true);
+  // const firstUpdate = useRef(true);
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+    // if (firstUpdate.current) {
+    //   firstUpdate.current = false;
+    //   return;
+    // }
     async function getData() {
       try {
         setLoading(true);
-
-        const data = await fetchData(query, pageNumber);
+        const data = await fetchData(query, pageNumber, itemsPerPage);
 
         if (!data?.items) {
           setLoading(false);
@@ -47,7 +48,7 @@ const App = () => {
     }
 
     getData();
-  }, [query, pageNumber]);
+  }, [query, pageNumber, itemsPerPage]);
 
   useEffect(() => {
     setBooks(fetchInitData.items);
@@ -62,6 +63,7 @@ const App = () => {
     <div className={s.container}>
       <Search setQuery={setQuery} />
       <button onClick={handleError}>get error</button>
+      <Select setItemsPerPage={setItemsPerPage} />
       {loading ? (
         <div className="lds-dual-ring"></div>
       ) : books ? (

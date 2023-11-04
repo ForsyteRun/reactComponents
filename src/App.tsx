@@ -8,8 +8,6 @@ import Select from './components/Select';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [bookId, setBookId] = useState<string>('');
   const [query, setQuery] = useState<string>('');
   const [books, setBooks] = useState<IItem[]>([]);
   const [error, setError] = useState<boolean>(false);
@@ -62,7 +60,7 @@ const App = () => {
         <div className="lds-dual-ring"></div>
       ) : books ? (
         <>
-          <ListItems items={books} setBookId={setBookId} />
+          <ListItems items={books} />
           <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </>
       ) : (

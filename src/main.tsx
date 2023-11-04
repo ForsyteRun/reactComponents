@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { DetailsCard, Error } from './components';
 import './styles/index.css';
 import App from './App';
-import { detailsLoader, initFetchData } from './loaders';
+import { initFetchData } from './loaders';
 import React from 'react';
 
 const router = createBrowserRouter([
@@ -16,9 +16,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: '/:id',
+        path: '/:id/details',
         element: <DetailsCard />,
-        loader: detailsLoader,
       },
     ],
   },

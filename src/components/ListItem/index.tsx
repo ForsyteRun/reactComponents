@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { DEFAULT_IMG, DEFAULT_PAGE_COUNT } from '../../constants';
+import { DEFAULT_IMG } from '../../constants';
 import { IItem } from '../../types';
+import CardContent from '../CardContent';
 import s from './listItem.module.css';
 
 const ListItems = ({ items }: { items: IItem[] }) => {
@@ -29,21 +30,7 @@ const ListItems = ({ items }: { items: IItem[] }) => {
                 alt={volumeInfo.title}
               />
             </Link>
-            <div className={s.content}>
-              <div>
-                <span className={s.title}>name:</span> {volumeInfo.title}
-              </div>
-              <div>
-                <span className={s.title}>authors:</span> {volumeInfo.authors}
-              </div>
-              <div>
-                <span className={s.title}>language:</span> {volumeInfo.language}
-              </div>
-              <div>
-                <span className={s.title}>pageCount:</span>
-                {volumeInfo.pageCount || DEFAULT_PAGE_COUNT}
-              </div>
-            </div>
+            <CardContent volumeInfo={volumeInfo} />
           </li>
         ))}
       </ul>

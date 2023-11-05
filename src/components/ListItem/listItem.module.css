@@ -22,8 +22,7 @@
 }
 
 .item {
-  max-width: 50rem;
-  font-size: 1.5rem;
+  width: 50rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -31,16 +30,4 @@
   gap: 2rem;
   padding: 2rem 0.5rem;
   border-bottom: 0.1rem solid #999;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-.title {
-  font-weight: 700;
 }

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { DEFAULT_IMG, DEFAULT_PAGE_COUNT } from '../../constants';
+import { DEFAULT_IMG } from '../../constants';
 import { detailsLoader } from '../../loaders';
 import { IItem } from '../../types';
+import CardContent from '../CardContent';
 import s from './detailsCard.module.css';
 
 const DetailsCard = () => {
@@ -43,6 +44,12 @@ const DetailsCard = () => {
     getInitData();
   }, []);
 
+  if (!value) {
+    return;
+  }
+
+  const { volumeInfo } = value;
+
   return (
     <div className={s.container}>
       {loading ? (
@@ -50,35 +57,10 @@ const DetailsCard = () => {
       ) : (
         <div>
           <img
-            src={value?.volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
-            alt={value?.volumeInfo.title}
+            src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
+            alt={volumeInfo.title}
           />
-          <div className={s.content}>
-            <div>
-              <span className={s.title}>
-                <b>name:</b>
-              </span>
-              <span>{value?.volumeInfo.title}</span>
-            </div>
-            <div>
-              <span className={s.title}>
-                <b>authors:</b>
-              </span>
-              <span>{value?.volumeInfo.authors}</span>
-            </div>
-            <div>
-              <span className={s.title}>
-                <b>language:</b>
-              </span>
-              <span>{value?.volumeInfo.language}</span>
-            </div>
-            <div>
-              <span className={s.title}>
-                <b>pageCount:</b>
-              </span>
-              <span>{value?.volumeInfo.pageCount || DEFAULT_PAGE_COUNT}</span>
-            </div>
-          </div>
+          <CardContent volumeInfo={volumeInfo} />
         </div>
       )}
     </div>

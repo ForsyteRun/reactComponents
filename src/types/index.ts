@@ -1,14 +1,16 @@
 export interface IItem {
   id: string;
-  volumeInfo: {
-    title: string;
-    language: string;
-    pageCount: number;
-    imageLinks: {
-      thumbnail: string;
-    };
-    authors: Array<string>;
+  volumeInfo: IVolumeInfo;
+}
+
+export interface IVolumeInfo {
+  title: string;
+  language: string;
+  pageCount: number;
+  imageLinks: {
+    thumbnail: string;
   };
+  authors: Array<string>;
 }
 export interface Identifiers {
   type: string;

@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider
       router={router}
-      fallbackElement={<div className="lds-dual-ring"></div>} //TODO
+      fallbackElement={<div className="lds-dual-ring"></div>}
     />
   </React.StrictMode>
 );

@@ -8,9 +8,11 @@ import s from './listItem.module.css';
 const ListItems = ({ items }: { items: IItem[] }) => {
   const [id, setId] = useState<string>('');
   const [query, setQuery] = useState<string>('');
+  const [visible, setVisible] = useState<boolean>(true);
 
   const handleClick = (id: string) => {
     setId(id);
+    setVisible(true);
   };
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const ListItems = ({ items }: { items: IItem[] }) => {
 
   return (
     <div className={s.container}>
-      <Outlet context={id} />
+      <Outlet context={{ id, visible, setVisible }} />
       <ul>
         {items.map(({ id, volumeInfo }: IItem) => (
           <li key={id} className={s.item}>

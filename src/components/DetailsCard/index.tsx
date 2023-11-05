@@ -1,16 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { DEFAULT_IMG } from '../../constants';
 import { detailsLoader } from '../../loaders';
 import { IItem } from '../../types';
 import CardContent from '../CardContent';
 import s from './detailsCard.module.css';
-
-type ContextType = {
-  id: string;
-  visible: boolean;
-  setVisible: Dispatch<SetStateAction<boolean>>;
-};
+import ContextType from './type';
 
 const DetailsCard = () => {
   const { id, visible, setVisible } = useOutletContext<ContextType>();
@@ -18,12 +13,31 @@ const DetailsCard = () => {
   const [value, SetValue] = useState<IItem | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
+  const ref: RefObject<HTMLDivElement> = useRef(null);
 
   const handleClick = () => {
     setVisible(false);
   };
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        ref.current &&
+        !ref.current.contains(event.target as Node) &&
+        !(event.target instanceof HTMLImageElement)
+      ) {
+        handleClick();
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref]);
 
   useEffect(() => {
     setLoading(true);
@@ -63,33 +77,13 @@ const DetailsCard = () => {
 
   const { volumeInfo } = value;
 
-  function useOutsideAlerter(ref: React.RefObject<HTMLDivElement>) {
-    useEffect(() => {
-      function handleClickOutside(event: MouseEvent) {
-        if (
-          ref.current &&
-          !ref.current.contains(event.target as Node) &&
-          !(event.target instanceof HTMLImageElement)
-        ) {
-          handleClick();
-        }
-      }
-
-      document.addEventListener('mousedown', handleClickOutside);
-
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, [ref]);
-  }
-
   return (
     visible && (
       <div className={s.container}>
         {loading ? (
           <div className="lds-dual-ring"></div>
         ) : (
-          <div ref={wrapperRef}>
+          <div ref={ref}>
             <img
               src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
               alt={volumeInfo.title}

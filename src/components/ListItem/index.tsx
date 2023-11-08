@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { DEFAULT_IMG } from '../../constants';
+import { useBooksValue } from '../../context';
 import { IItem } from '../../types';
 import CardContent from '../CardContent';
 import s from './listItem.module.css';
 
-const ListItems = ({ items }: { items: IItem[] }) => {
+const ListItems = () => {
+  const books = useBooksValue();
+
   const [id, setId] = useState<string>('');
   const [query, setQuery] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(true);
@@ -24,7 +27,7 @@ const ListItems = ({ items }: { items: IItem[] }) => {
     <div className={s.container}>
       <Outlet context={{ id, visible, setVisible }} />
       <ul>
-        {items.map(({ id, volumeInfo }: IItem) => (
+        {books.map(({ id, volumeInfo }: IItem) => (
           <li key={id} className={s.item}>
             <Link to={`/${id}/details${query}`} onClick={() => handleClick(id)}>
               <img

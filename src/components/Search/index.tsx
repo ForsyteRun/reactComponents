@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PropsType } from './types';
 import { setQueryParam } from '../../utils';
+import { PropsType } from './types';
 
 const Search = ({ setQuery }: PropsType) => {
   const [value, setValue] = useState<string>('');

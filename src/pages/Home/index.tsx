@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
-import s from './App.module.css';
-import { IFetchData, IItem } from '../../types';
-import { fetchData } from '../../loaders';
 import { ListItems, Pagination, Search } from '../../components';
 import Select from '../../components/Select';
+import { fetchData } from '../../loaders';
+import s from './styles.module.css';
+import { useBooksValue, useSetBooksValue } from '../../context';
 
-const App = () => {
+const Home = () => {
+  const books = useBooksValue();
+  const setBooks = useSetBooksValue();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>('');
-  const [books, setBooks] = useState<IItem[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-
-  const fetchInitData = useLoaderData() as IFetchData;
 
   if (error) {
     throw new Error('Error');
@@ -40,12 +39,8 @@ const App = () => {
     }
 
     getData();
-  }, [query, pageNumber, itemsPerPage]);
-
-  useEffect(() => {
-    setBooks(fetchInitData.items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query, pageNumber, itemsPerPage]);
 
   const handleError = useCallback(() => {
     setError(true);
@@ -60,7 +55,7 @@ const App = () => {
         <div className="lds-dual-ring"></div>
       ) : books ? (
         <>
-          <ListItems items={books} />
+          <ListItems />
           <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </>
       ) : (
@@ -70,4 +65,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

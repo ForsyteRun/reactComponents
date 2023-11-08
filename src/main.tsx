@@ -1,10 +1,10 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { DetailsCard, Error } from './components';
 import './styles/index.css';
 import { initFetchData } from './loaders';
-import React from 'react';
-import { App } from './pages';
+import App from './App';
 
 const router = createBrowserRouter([
   {

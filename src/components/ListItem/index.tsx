@@ -10,7 +10,7 @@ const ListItems = () => {
   const books = useBooksValue();
 
   const [id, setId] = useState<string>('');
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const handleClick = useCallback((id: string) => {
     setId(id);

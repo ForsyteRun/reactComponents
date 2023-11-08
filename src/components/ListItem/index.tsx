@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { DEFAULT_IMG } from '../../constants';
 import { IItem } from '../../types';
@@ -10,10 +10,10 @@ const ListItems = ({ items }: { items: IItem[] }) => {
   const [query, setQuery] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(true);
 
-  const handleClick = (id: string) => {
+  const handleClick = useCallback((id: string) => {
     setId(id);
     setVisible(true);
-  };
+  }, []);
 
   useEffect(() => {
     const path = window.location.search;

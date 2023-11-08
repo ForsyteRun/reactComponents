@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { setQueryParam } from '../../utils';
 
 interface ISelect {
@@ -6,12 +6,15 @@ interface ISelect {
 }
 
 const Select = ({ setItemsPerPage }: ISelect) => {
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedValue = event.target.value;
 
-    setItemsPerPage(Number(selectedValue));
-    setQueryParam('page', '1');
-  };
+      setItemsPerPage(Number(selectedValue));
+      setQueryParam('page', '1');
+    },
+    [setItemsPerPage]
+  );
 
   return (
     <select defaultValue={10} onChange={handleChange}>

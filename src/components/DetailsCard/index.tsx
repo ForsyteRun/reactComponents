@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { DEFAULT_IMG } from '../../constants';
 import { detailsLoader } from '../../loaders';
@@ -15,9 +15,9 @@ const DetailsCard = () => {
 
   const ref: RefObject<HTMLDivElement> = useRef(null);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setVisible(false);
-  };
+  }, [setVisible]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

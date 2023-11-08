@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { PropsType } from './types';
 import { setQueryParam } from '../../utils';
 
 const Search = ({ setQuery }: PropsType) => {
   const [value, setValue] = useState<string>('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    localStorage.setItem('formValue', JSON.stringify(value));
+      localStorage.setItem('formValue', JSON.stringify(value));
 
-    setQueryParam('page', '1');
-    setQuery(value);
-  };
+      setQueryParam('page', '1');
+      setQuery(value);
+    },
+    [value, setQuery]
+  );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQueryParam('search', event.target.value);
-    setValue(event.target.value);
-  };
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setQueryParam('search', event.target.value);
+      setValue(event.target.value);
+    },
+    []
+  );
 
   useEffect(() => {
     const storageData = localStorage.getItem('formValue') as string;

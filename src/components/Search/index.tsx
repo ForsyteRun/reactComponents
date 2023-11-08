@@ -4,6 +4,7 @@ import {
   useSetSearchValue,
 } from '../../context/SearchProvider/hooks';
 import { setQueryParam } from '../../utils';
+import { storageData } from '../../types';
 
 const Search = () => {
   const setQuery = useSetSearchValue();
@@ -18,7 +19,7 @@ const Search = () => {
       const form = event.target as HTMLFormElement;
       const input = form.elements.namedItem('search') as HTMLInputElement;
 
-      localStorage.setItem('formValue', JSON.stringify(input.value));
+      localStorage.setItem(storageData.formValue, JSON.stringify(input.value));
 
       setQueryParam('page', '1');
       setQuery(input.value);
@@ -35,9 +36,9 @@ const Search = () => {
   );
 
   useEffect(() => {
-    const storageData = localStorage.getItem('formValue') as string;
-    setQuery(JSON.parse(storageData) ? JSON.parse(storageData) : '');
-    setQueryParam('search', JSON.parse(storageData));
+    const data = localStorage.getItem(storageData.formValue) as string;
+    setQuery(JSON.parse(data) ? JSON.parse(data) : '');
+    setQueryParam('search', JSON.parse(data));
   }, [setQuery]);
 
   return (

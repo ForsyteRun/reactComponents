@@ -2,7 +2,7 @@ import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { DEFAULT_IMG } from '../../constants';
 import { detailsLoader } from '../../loaders';
-import { IItem } from '../../types';
+import { IItem, storageData } from '../../types';
 import CardContent from '../CardContent';
 import s from './detailsCard.module.css';
 import ContextType from './type';
@@ -44,7 +44,7 @@ const DetailsCard = () => {
 
     async function getData(id: string) {
       if (id) {
-        localStorage.setItem('id', id);
+        localStorage.setItem(storageData.id, id);
 
         const data = await detailsLoader(id);
 
@@ -58,7 +58,7 @@ const DetailsCard = () => {
 
   useEffect(() => {
     async function getInitData() {
-      const storageId = localStorage.getItem('id');
+      const storageId = localStorage.getItem(storageData.id);
 
       if (storageId) {
         const data = await detailsLoader(storageId);

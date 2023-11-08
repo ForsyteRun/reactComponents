@@ -5,13 +5,14 @@ import { DetailsCard, Error } from './components';
 import './styles/index.css';
 import { initFetchData } from './loaders';
 import App from './App';
+import { storageData } from './types';
 
 const router = createBrowserRouter([
   {
     id: 'root',
     path: '/',
     element: <App />,
-    loader: () => initFetchData('formValue'),
+    loader: () => initFetchData(storageData.formValue),
     errorElement: <Error />,
     children: [
       {

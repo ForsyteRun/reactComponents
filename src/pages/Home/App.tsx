@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import s from './App.module.css';
-import { ListItems, Pagination, Search } from './components';
-import { IFetchData, IItem } from './types';
-import { fetchData } from './loaders';
-import Select from './components/Select';
+import { IFetchData, IItem } from '../../types';
+import { fetchData } from '../../loaders';
+import { ListItems, Pagination, Search } from '../../components';
+import Select from '../../components/Select';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -47,9 +47,9 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleError = () => {
+  const handleError = useCallback(() => {
     setError(true);
-  };
+  }, []);
 
   return (
     <div className={s.container}>

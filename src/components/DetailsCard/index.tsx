@@ -24,7 +24,7 @@ const DetailsCard = () => {
       if (
         ref.current &&
         !ref.current.contains(event.target as Node) &&
-        !(event.target instanceof HTMLImageElement)
+        event.target instanceof HTMLImageElement
       ) {
         handleClick();
       }

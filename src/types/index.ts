@@ -22,3 +22,8 @@ export interface IFetchData {
   kind: string;
   totalItems: number;
 }
+
+export enum storageData {
+  formValue = 'formValue',
+  id = 'id',
+}

@@ -1,16 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ListItems, Pagination, Search } from '../../components';
 import Select from '../../components/Select';
+import {
+  useBooksValue,
+  useSetBooksValue,
+} from '../../context/BooksProvider/hooks';
+import { useSearchValue } from '../../context/SearchProvider/hooks';
 import { fetchData } from '../../loaders';
 import s from './styles.module.css';
-import { useBooksValue, useSetBooksValue } from '../../context';
 
 const Home = () => {
   const books = useBooksValue();
+  const query = useSearchValue();
   const setBooks = useSetBooksValue();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [query, setQuery] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -18,6 +22,10 @@ const Home = () => {
   if (error) {
     throw new Error('Error');
   }
+
+  const handleError = useCallback(() => {
+    setError(true);
+  }, []);
 
   useEffect(() => {
     async function getData() {
@@ -42,13 +50,9 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, pageNumber, itemsPerPage]);
 
-  const handleError = useCallback(() => {
-    setError(true);
-  }, []);
-
   return (
     <div className={s.container}>
-      <Search setQuery={setQuery} />
+      <Search />
       <button onClick={handleError}>get error</button>
       <Select setItemsPerPage={setItemsPerPage} />
       {loading ? (

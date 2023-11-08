@@ -3,24 +3,15 @@ import {
   ReactNode,
   Dispatch,
   SetStateAction,
-  useContext,
   useState,
   useEffect,
 } from 'react';
-import { IItem } from '../types';
+import { IItem } from '../../types';
 
-const BooksContext = createContext<IItem[]>([]);
-const SetBooksContext = createContext<Dispatch<SetStateAction<IItem[]>>>(
+export const BooksContext = createContext<IItem[]>([]);
+export const SetBooksContext = createContext<Dispatch<SetStateAction<IItem[]>>>(
   () => {}
 );
-
-export const useBooksValue = () => {
-  return useContext(BooksContext);
-};
-
-export const useSetBooksValue = () => {
-  return useContext(SetBooksContext);
-};
 
 const BooksProvider = ({
   value,

@@ -1,20 +1,29 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import {
+  useSearchValue,
+  useSetSearchValue,
+} from '../../context/SearchProvider/hooks';
 import { setQueryParam } from '../../utils';
-import { PropsType } from './types';
 
-const Search = ({ setQuery }: PropsType) => {
-  const [value, setValue] = useState<string>('');
+const Search = () => {
+  const setQuery = useSetSearchValue();
+  const query = useSearchValue();
+
+  const [value, setValue] = useState(query);
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      localStorage.setItem('formValue', JSON.stringify(value));
+      const form = event.target as HTMLFormElement;
+      const input = form.elements.namedItem('search') as HTMLInputElement;
+
+      localStorage.setItem('formValue', JSON.stringify(input.value));
 
       setQueryParam('page', '1');
-      setQuery(value);
+      setQuery(input.value);
     },
-    [value, setQuery]
+    [setQuery]
   );
 
   const handleChange = useCallback(
@@ -27,11 +36,9 @@ const Search = ({ setQuery }: PropsType) => {
 
   useEffect(() => {
     const storageData = localStorage.getItem('formValue') as string;
-    setValue(JSON.parse(storageData) ? JSON.parse(storageData) : '');
     setQuery(JSON.parse(storageData) ? JSON.parse(storageData) : '');
     setQueryParam('search', JSON.parse(storageData));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setQuery]);
 
   return (
     <form role="search" onSubmit={handleSubmit}>

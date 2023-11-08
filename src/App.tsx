@@ -1,17 +1,23 @@
 // import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-import BooksProvider from './context';
+import BooksProvider from './context/BooksProvider';
+import SearchProvider from './context/SearchProvider';
 import { Home } from './pages';
-import { IFetchData } from './types';
+import { IFetchData, storageData } from './types';
+import { getStorageData } from './utils';
 
 const App = () => {
   const fetchInitData = useLoaderData() as IFetchData;
 
+  const storageQuery = getStorageData(storageData.formValue);
+
   return (
-    <BooksProvider value={fetchInitData.items}>
-      <Home />
-    </BooksProvider>
+    <SearchProvider value={storageQuery}>
+      <BooksProvider value={fetchInitData.items}>
+        <Home />
+      </BooksProvider>
+    </SearchProvider>
   );
 };
 

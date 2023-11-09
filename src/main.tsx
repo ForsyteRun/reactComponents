@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { DetailsCard, Error } from './components';
 import './styles/index.css';
-import { initFetchData } from './loaders';
+import { detailsLoader, initFetchData } from './loaders';
 import App from './App';
 import { storageData } from './types';
 
@@ -19,6 +19,7 @@ const router = createBrowserRouter([
         index: true,
         path: '/:id/details',
         element: <DetailsCard />,
+        loader: detailsLoader,
       },
     ],
   },

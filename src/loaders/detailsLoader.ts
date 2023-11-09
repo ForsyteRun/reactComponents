@@ -1,14 +1,22 @@
+import { LoaderFunction } from 'react-router-dom';
 import { URL } from '../constants';
-import { IFetchData, IItem } from '../types';
+import { IFetchData, IItem, IVolumeInfo } from '../types';
 
-const detailsLoader = async (id: string): Promise<IItem | null> => {
-  const res: Response = await fetch(URL + `${id}`);
-  const resJson: IFetchData = await res.json();
+const detailsLoader: LoaderFunction = async ({
+  params,
+}): Promise<IVolumeInfo | null> => {
+  try {
+    const response = await fetch(URL + params.id);
+    const resJson: IFetchData = await response.json();
 
-  const foundItem: IItem | null =
-    resJson.items.find((el: IItem) => el.id === id) || null;
+    const foundItem: IItem | undefined = resJson.items.find(
+      (el: IItem) => el.id === params.id
+    );
 
-  return foundItem && foundItem;
+    return foundItem?.volumeInfo || null;
+  } catch (error) {
+    return null;
+  }
 };
 
 export default detailsLoader;

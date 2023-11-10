@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "deploy": "npx gh-pages -d dist -e reactClassComponents -m \"feat: update deploy\"",
-    "test": "jest --runInBand"
+    "test": "jest"
   },
   "dependencies": {
     "react": "^18.2.0",

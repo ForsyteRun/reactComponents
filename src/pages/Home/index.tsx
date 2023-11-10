@@ -41,6 +41,7 @@ const Home = () => {
         setBooks(data.items);
         setLoading(false);
       } catch (error) {
+        console.log(22);
         setLoading(false);
         throw new Error('error' + error);
       }

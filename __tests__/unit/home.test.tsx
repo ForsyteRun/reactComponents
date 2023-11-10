@@ -2,17 +2,24 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { Home } from '../../src/pages/index';
 
 global.React = React;
 
-test('renders Home component', async () => {
-  await act(async () => {
-    render(<Home />);
+describe('Home component', () => {
+  test('snapshot page when loading', () => {
+    const { asFragment } = render(<Home />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  expect(screen.getByRole('textbox')).toBeInTheDocument();
+  test('render spinner in init loading', () => {
+    const { container } = render(<Home />);
+
+    const spinner = container.querySelector('.lds-dual-ring');
+
+    expect(spinner).toBeInTheDocument();
+  });
 });

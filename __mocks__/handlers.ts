@@ -15,19 +15,7 @@ export const handlers = [
       return HttpResponse.json({ productId });
     }
   ),
-  http.get('https://www.googleapis.com/books/v1/volumes', ({ request }) => {
-    // const url = new URL(request.url);
-
-    // const qParam = url.searchParams.get('q') as string;
-    // const startParam = url.searchParams.get('startIndex') as string;
-    // const maxResultParam = url.searchParams.get('maxResults') as string;
-
-    // url.searchParams.set('q', qParam);
-    // url.searchParams.set('startIndex', startParam);
-    // url.searchParams.set('maxResults', maxResultParam);
-
-    console.log(request.url);
-
+  http.get('https://www.googleapis.com/books/v1/volumes', () => {
     return HttpResponse.json({
       items: [
         {

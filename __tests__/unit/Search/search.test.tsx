@@ -27,7 +27,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Search component', () => {
-  it('clicking the Search button saves the entered value to the local storage;', async () => {
+  it('Check that the component retrieves the value from the local storage upon mounting', async () => {
     const router = createBrowserRouter([
       {
         id: 'root',

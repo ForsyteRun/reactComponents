@@ -7,8 +7,8 @@ import { default as React } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import BooksProvider from '../../../src/context/BooksProvider';
 import { Home } from '../../../src/pages';
-import data from './../../../__mocks__/data.json';
 import { IFetchData } from '../../../src/types';
+import data from './../../../__mocks__/data.json';
 
 global.React = React;
 const jsonData: IFetchData = data;

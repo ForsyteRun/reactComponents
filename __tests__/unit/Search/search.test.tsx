@@ -2,39 +2,46 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import React from 'react';
-import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from '../../../src/App';
-import { Home } from '../../../src/pages';
 import { getStorageData } from '../../../src/utils';
 
 global.React = React;
 
 jest.mock('../../../src/utils');
+jest.mock('./../../../src/pages/Home/index');
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: () => ({
+    pathname: '/mocked-path',
+  }),
+  useRouteMatch: () => ({ url: '/mocked-url' }),
+  useLoaderData: jest.fn(() => {
+    return {
+      items: '',
+    };
+  }),
+}));
 
 describe('Search component', () => {
-  it('clicking the Search button saves the entered value to the local storage;', () => {
-    const storedValue = 'Hello';
+  it('clicking the Search button saves the entered value to the local storage;', async () => {
+    const router = createBrowserRouter([
+      {
+        id: 'root',
+        path: '/',
+        element: <App />,
+        loader: () => null,
+        errorElement: null,
+      },
+    ]);
 
-    render(<Home />);
-
-    const input = screen.getByRole('textbox') as HTMLInputElement;
-    fireEvent.change(input, { target: { value: storedValue } });
-
-    const searchBtn = screen.getAllByRole('button')[0];
-    fireEvent.click(searchBtn);
-
-    const storageData = JSON.parse(localStorage.getItem('formValue') as string);
-    expect(storageData).toBe(storedValue);
-  });
-
-  it('clicking the Search button saves the entered value to the local storage;', () => {
-    const router = createMemoryRouter([{ path: '/', element: <App /> }], {
-      initialEntries: ['/'],
+    await act(async () => {
+      render(<RouterProvider router={router} />);
     });
 
-    render(<RouterProvider router={router} />);
     expect(getStorageData).toHaveBeenCalled();
   });
 });

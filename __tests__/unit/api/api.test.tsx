@@ -1,4 +1,6 @@
-describe('render Home Page', () => {
+import fetch from 'isomorphic-fetch';
+
+describe('check API Home Page', () => {
   it('native fetch return 200 without query params', async () => {
     const response = await fetch('https://www.googleapis.com/books/v1/volumes');
 
@@ -6,10 +8,12 @@ describe('render Home Page', () => {
     expect(response.statusText).toBe('OK');
   });
 
-  it('receives a mocked resp', async () => {
+  it('receives a mocked resp for id', async () => {
     const response = await fetch(
-      'https://www.googleapis.com/books/v1/volumes/D75NDwAAQBAJ'
+      'https://www.googleapis.com/books/v1/volumes/pfaeBAAAQBAJ'
     );
-    expect(response.status).toBe(404);
+
+    expect(response.status).toBe(200);
+    expect(response.statusText).toBe('OK');
   });
 });

@@ -34,14 +34,15 @@ const Home = () => {
         const data = await fetchData(query, pageNumber, itemsPerPage);
 
         if (!data?.items) {
+          setBooks([]);
           setLoading(false);
-          return;
+
+          return <div>Not found book</div>;
         }
 
         setBooks(data.items);
         setLoading(false);
       } catch (error) {
-        console.log(22);
         setLoading(false);
         throw new Error('error' + error);
       }
@@ -51,6 +52,8 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, pageNumber, itemsPerPage]);
 
+  console.log(books.length);
+
   return (
     <div className={s.container}>
       <Search />
@@ -58,13 +61,13 @@ const Home = () => {
       <Select setItemsPerPage={setItemsPerPage} />
       {loading ? (
         <div className="lds-dual-ring"></div>
-      ) : books ? (
+      ) : books.length ? (
         <>
           <ListItems />
           <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} />
         </>
       ) : (
-        <div>Not found book with name {query ? query : 'Noname'}</div>
+        <div style={{ fontSize: '4rem' }}>Not found books</div>
       )}
     </div>
   );

@@ -12,6 +12,7 @@ import ContextType from './type';
 
 const DetailsCard = () => {
   const { visible, setVisible } = useOutletContext<ContextType>();
+  console.log(22);
 
   const volumeInfo = useLoaderData() as IVolumeInfo;
 

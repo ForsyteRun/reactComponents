@@ -14,7 +14,6 @@ export const handlers = [
 
     const foundItem = jsonData.items.find((item) => item.id === id);
 
-    console.log(foundItem);
     return HttpResponse.json(foundItem);
   }),
 ];

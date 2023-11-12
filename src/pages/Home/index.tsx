@@ -34,10 +34,9 @@ const Home = () => {
         const data = await fetchData(query, pageNumber, itemsPerPage);
 
         if (!data?.items) {
-          setBooks([]);
           setLoading(false);
 
-          return <div>Not found book</div>;
+          return;
         }
 
         setBooks(data.items);
@@ -51,8 +50,6 @@ const Home = () => {
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, pageNumber, itemsPerPage]);
-
-  console.log(books.length);
 
   return (
     <div className={s.container}>

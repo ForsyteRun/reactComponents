@@ -1,0 +1,12 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 2rem;
+  gap: 2rem;
+}
+
+.title {
+  font-weight: 700;
+}

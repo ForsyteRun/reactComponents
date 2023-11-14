@@ -52,8 +52,8 @@ exports[`Home component snapshot page when loading 1`] = `
     </select>
     <div
       class="lds-dual-ring"
-      style=""
     />
   </div>
+  ;
 </DocumentFragment>
 `;

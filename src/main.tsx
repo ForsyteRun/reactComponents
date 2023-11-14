@@ -6,6 +6,8 @@ import './styles/index.css';
 import { detailsLoader, initFetchData } from './loaders';
 import App from './App';
 import { storageData } from './types';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const router = createBrowserRouter([
   {
@@ -27,9 +29,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider
-      router={router}
-      fallbackElement={<div className="lds-dual-ring"></div>}
-    />
+    <Provider store={store}>
+      <RouterProvider
+        router={router}
+        fallbackElement={<div className="lds-dual-ring"></div>}
+      />
+    </Provider>
   </React.StrictMode>
 );

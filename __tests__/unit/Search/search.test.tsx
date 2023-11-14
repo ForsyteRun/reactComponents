@@ -1,10 +1,10 @@
 /**
  * @jest-environment jsdom
  */
+
 import '@testing-library/jest-dom';
-import { act, render } from '@testing-library/react';
 import React from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { renderWithProviders } from '../../../__mocks__/reduxProvide';
 import App from '../../../src/App';
 import { getStorageData } from '../../../src/utils';
 
@@ -15,10 +15,6 @@ jest.mock('./../../../src/pages/Home/index');
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useLocation: () => ({
-    pathname: '/mocked-path',
-  }),
-  useRouteMatch: () => ({ url: '/mocked-url' }),
   useLoaderData: jest.fn(() => {
     return {
       items: '',
@@ -28,19 +24,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('Search component', () => {
   it('Check that the component retrieves the value from the local storage upon mounting', async () => {
-    const router = createBrowserRouter([
-      {
-        id: 'root',
-        path: '/',
-        element: <App />,
-        loader: () => null,
-        errorElement: null,
-      },
-    ]);
-
-    await act(async () => {
-      render(<RouterProvider router={router} />);
-    });
+    renderWithProviders(<App />);
 
     expect(getStorageData).toHaveBeenCalled();
   });

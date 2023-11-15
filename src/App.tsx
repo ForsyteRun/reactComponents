@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { useEffect } from 'react';
 import { Home } from './pages';
 import { IFetchData, storageData } from './types';
@@ -9,10 +8,10 @@ import { useLoaderData } from 'react-router-dom';
 import { addBooks } from './store/slices/books';
 
 const App = () => {
+  const storageQuery = getStorageData(storageData.formValue);
+
   const dispatch = useAppDispatch();
   const fetchInitData = useLoaderData() as IFetchData;
-
-  const storageQuery = getStorageData(storageData.formValue);
 
   useEffect(() => {
     dispatch(setSearchValue(storageQuery));

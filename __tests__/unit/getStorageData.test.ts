@@ -30,12 +30,10 @@ describe('getStorageData', () => {
     const key = 'testKey';
     const value = { some: 'data' };
 
-    // Set the value in localStorage
     localStorage.setItem(key, JSON.stringify(value));
 
     const result = getStorageData(key);
 
-    // Expectations
     expect(result).toEqual(value);
     expect(localStorage.getItem).toHaveBeenCalledWith(key);
   });
@@ -43,10 +41,8 @@ describe('getStorageData', () => {
   it('returns null for non-existing key', () => {
     const key = 'nonExistingKey';
 
-    // Call the function
     const result = getStorageData(key);
 
-    // Expectations
     expect(result).toBeNull();
     expect(localStorage.getItem).toHaveBeenCalledWith(key);
   });

@@ -3,12 +3,13 @@ import { ListItems, Pagination, Search } from '../../components';
 import Select from '../../components/Select';
 import { fetchData } from '../../loaders';
 import s from './styles.module.css';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { addBooks } from '../../store/slices/books';
 
 const Home = () => {
-  // const dispatch = useAppDispatch();
-  const { data } = useAppSelector((state) => state.books);
-  const { value } = useAppSelector((state) => state.search);
+  const dispatch = useAppDispatch();
+  const { data: books } = useAppSelector((state) => state.books);
+  const { value: query } = useAppSelector((state) => state.search);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -27,15 +28,14 @@ const Home = () => {
     async function getData() {
       try {
         setLoading(true);
-        const data = await fetchData(value, pageNumber, itemsPerPage);
+        const data = await fetchData(query, pageNumber, itemsPerPage);
 
         if (!data?.items) {
           setLoading(false);
-
           return;
         }
 
-        // setBooks(data.items);
+        dispatch(addBooks(data.items));
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -44,7 +44,8 @@ const Home = () => {
     }
 
     getData();
-  }, [value, pageNumber, itemsPerPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, pageNumber, itemsPerPage]);
 
   return (
     <div className={s.container}>
@@ -53,7 +54,7 @@ const Home = () => {
       <Select setItemsPerPage={setItemsPerPage} />
       {loading ? (
         <div className="lds-dual-ring"></div>
-      ) : data.length ? (
+      ) : books.length ? (
         <>
           <ListItems />
           <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} />

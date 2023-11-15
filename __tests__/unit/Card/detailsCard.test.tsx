@@ -2,24 +2,20 @@
  * @jest-environment jsdom
  */
 
+import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import Select from '../../../src/components/Select';
+import { renderWithProviders } from '../../../__mocks__/reduxProvide';
+import { Select } from '../../../src/components';
 
 global.React = React;
 
 describe('Select component', () => {
   test('handles change correctly', () => {
-    const setItemsPerPageMock = jest.fn();
-
-    const { getByRole } = render(
-      <Select setItemsPerPage={setItemsPerPageMock} />
-    );
-
-    const selectElement = getByRole('combobox');
+    renderWithProviders(<Select />);
+    const selectElement = screen.getByRole('combobox') as HTMLSelectElement;
 
     fireEvent.change(selectElement, { target: { value: '15' } });
 
-    expect(setItemsPerPageMock).toHaveBeenCalledWith(15);
+    expect(selectElement.value).toBe('15');
   });
 });

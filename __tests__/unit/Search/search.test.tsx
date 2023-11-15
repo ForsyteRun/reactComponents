@@ -11,7 +11,6 @@ import { getStorageData } from '../../../src/utils';
 global.React = React;
 
 jest.mock('../../../src/utils');
-jest.mock('./../../../src/pages/Home/index');
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -23,7 +22,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Search component', () => {
-  it('Check that the component retrieves the value from the local storage upon mounting', async () => {
+  it('Check that the component retrieves the value from the local storage upon mounting', () => {
     renderWithProviders(<App />);
 
     expect(getStorageData).toHaveBeenCalled();

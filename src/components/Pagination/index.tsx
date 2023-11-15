@@ -6,7 +6,7 @@ import { setPageNumber } from '../../store/slices/pagination';
 
 const Pagination = () => {
   const dispatch = useAppDispatch();
-  const { pageNumber, totalCount } = useAppSelector(
+  const { currentPage, totalCount, pageSize } = useAppSelector(
     (state) => state.pagination
   );
 
@@ -27,13 +27,11 @@ const Pagination = () => {
 
   return (
     <div className={s.pagination}>
-      {Array.from(Array(totalCount / 10).keys()).map(
-        (
-          num: number //TODO
-        ) => (
+      {Array.from(Array(Math.floor(totalCount / pageSize)).keys()).map(
+        (num: number) => (
           <a
             key={num + 1}
-            className={pageNumber === num + 1 ? 'active' : undefined}
+            className={currentPage === num + 1 ? 'active' : undefined}
             onClick={() => handlePageNumber(num)}
           >
             {num + 1}

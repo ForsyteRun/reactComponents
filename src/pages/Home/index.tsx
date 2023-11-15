@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ListItems, Pagination, Search } from '../../components';
+import { ListItems, Search } from '../../components';
 import Select from '../../components/Select';
-import { fetchData } from '../../loaders';
-import s from './styles.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { fetchData } from '../../loaders';
 import { addBooks } from '../../store/slices/books';
+import s from './styles.module.css';
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const { data: books } = useAppSelector((state) => state.books);
+
   const { value: query } = useAppSelector((state) => state.search);
-  const { pageNumber } = useAppSelector((state) => state.pagination);
+  const { currentPage, pageSize } = useAppSelector((state) => state.pagination);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   if (error) {
     throw new Error('Error');
@@ -28,7 +27,7 @@ const Home = () => {
     async function getData() {
       try {
         setLoading(true);
-        const data = await fetchData(query, pageNumber, itemsPerPage);
+        const data = await fetchData(query, currentPage, pageSize);
 
         if (!data?.items) {
           setLoading(false);
@@ -45,23 +44,14 @@ const Home = () => {
 
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, pageNumber, itemsPerPage]);
+  }, [query, , pageSize, currentPage]);
 
   return (
     <div className={s.container}>
       <Search />
       <button onClick={handleError}>get error</button>
-      <Select setItemsPerPage={setItemsPerPage} />
-      {loading ? (
-        <div className="lds-dual-ring"></div>
-      ) : books.length ? (
-        <>
-          <ListItems />
-          <Pagination />
-        </>
-      ) : (
-        <div style={{ fontSize: '4rem' }}>Not found books</div>
-      )}
+      <Select />
+      {loading ? <div className="lds-dual-ring"></div> : <ListItems />}
     </div>
   );
 };

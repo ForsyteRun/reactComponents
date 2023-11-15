@@ -29,7 +29,6 @@ exports[`Home component snapshot page when loading 1`] = `
         5
       </option>
       <option
-        selected=""
         value="10"
       >
         10

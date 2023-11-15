@@ -21,7 +21,14 @@
   flex-basis: 70%;
 }
 
-.item {
+.containerList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .item {
   width: 50rem;
   display: flex;
   flex-direction: row;
@@ -30,4 +37,4 @@
   gap: 2rem;
   padding: 2rem 0.5rem;
   border-bottom: 0.1rem solid #999;
-}
+} */

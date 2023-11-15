@@ -1,23 +1,35 @@
-import { Dispatch, SetStateAction, useCallback } from 'react';
-import { setQueryParam } from '../../utils';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { setPageSize } from '../../store/slices/pagination';
+import { getStorageData, setQueryParam } from '../../utils';
 
-interface ISelect {
-  setItemsPerPage: Dispatch<SetStateAction<number>>;
-}
+const Select = () => {
+  const dispatch = useAppDispatch();
+  const { pageSize } = useAppSelector((state) => state.pagination);
 
-const Select = ({ setItemsPerPage }: ISelect) => {
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedValue = event.target.value;
+    ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedValue = value;
 
-      setItemsPerPage(Number(selectedValue));
+      localStorage.setItem('pageSize', JSON.stringify(value));
       setQueryParam('page', '1');
+
+      dispatch(setPageSize(Number(selectedValue)));
     },
-    [setItemsPerPage]
+    []
   );
 
+  useEffect(() => {
+    const cardsPage = getStorageData('pageSize');
+
+    if (cardsPage) {
+      dispatch(setPageSize(Number(cardsPage)));
+    }
+  }, []);
+
   return (
-    <select defaultValue={10} onChange={handleChange}>
+    <select value={pageSize} onChange={handleChange}>
       <option value="5">5</option>
       <option value="10">10</option>
       <option value="15">15</option>

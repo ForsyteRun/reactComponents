@@ -1,4 +1,5 @@
 import Search from './Search';
+import Select from './Select';
 import ListItems from './ListItem';
 import Pagination from './Pagination';
 import ErrorBoundary from './ErrorBoundary';
@@ -14,4 +15,5 @@ export {
   DetailsCard,
   Error,
   CardContent,
+  Select,
 };

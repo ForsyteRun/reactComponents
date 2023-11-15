@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react';
-import { setQueryParam } from '../../utils';
-import { storageData } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setSearchValue } from '../../store/slices/search';
+import { storageData } from '../../types';
+import { getStorageData, setQueryParam } from '../../utils';
 
 const Search = () => {
+  const dispatch = useAppDispatch();
   const { value } = useAppSelector((state) => state.search);
-  const dipatch = useAppDispatch();
 
-  const [query, setQuery] = useState(value);
+  const [queryOnChange, setQueryOnChange] = useState('');
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -21,29 +22,40 @@ const Search = () => {
 
       setQueryParam('page', '1');
 
-      dipatch(setSearchValue(input.value));
+      dispatch(setSearchValue(input.value));
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value]
+    []
   );
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setQueryParam('search', event.target.value);
-      setQuery(event.target.value);
+    ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+      setQueryParam('search', value);
+      setQueryOnChange(value);
     },
     []
   );
 
   useEffect(() => {
-    const data = localStorage.getItem(storageData.formValue) as string;
-    setQuery(JSON.parse(data) ? JSON.parse(data) : '');
-    setQueryParam('search', JSON.parse(data));
+    const data = getStorageData(storageData.formValue);
+
+    if (data) {
+      dispatch(setSearchValue(JSON.parse(data) ? JSON.parse(data) : ''));
+      setQueryParam('search', JSON.parse(data));
+    }
   }, []);
+
+  useEffect(() => {
+    setQueryOnChange(value);
+  }, [value]);
 
   return (
     <form role="search" onSubmit={handleSubmit}>
-      <input type="text" name="search" onChange={handleChange} value={query} />
+      <input
+        type="text"
+        name="search"
+        onChange={handleChange}
+        value={queryOnChange}
+      />
       <button type="submit">search</button>
     </form>
   );

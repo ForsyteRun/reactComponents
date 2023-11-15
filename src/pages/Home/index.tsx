@@ -10,10 +10,10 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const { data: books } = useAppSelector((state) => state.books);
   const { value: query } = useAppSelector((state) => state.search);
+  const { pageNumber } = useAppSelector((state) => state.pagination);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [pageNumber, setPageNumber] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   if (error) {
@@ -57,7 +57,7 @@ const Home = () => {
       ) : books.length ? (
         <>
           <ListItems />
-          <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} />
+          <Pagination />
         </>
       ) : (
         <div style={{ fontSize: '4rem' }}>Not found books</div>

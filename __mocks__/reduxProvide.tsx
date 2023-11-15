@@ -6,13 +6,18 @@ import { render } from '@testing-library/react';
 
 import booksSlice from './../src/store/slices/books';
 import searchSlice from './../src/store/slices/search';
+import paginationSlice from './../src/store/slices/pagination';
 
 export function renderWithProviders(
   ui,
   {
     preloadedState = {},
     store = configureStore({
-      reducer: { books: booksSlice, search: searchSlice },
+      reducer: {
+        books: booksSlice,
+        search: searchSlice,
+        pagination: paginationSlice,
+      },
       preloadedState,
     }),
     ...renderOptions

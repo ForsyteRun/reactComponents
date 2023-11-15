@@ -39,8 +39,8 @@ const Search = () => {
     const data = getStorageData(storageData.formValue);
 
     if (data) {
-      dispatch(setSearchValue(JSON.parse(data) ? JSON.parse(data) : ''));
-      setQueryParam('search', JSON.parse(data));
+      dispatch(setSearchValue(data ? data : ''));
+      setQueryParam('search', data);
     }
   }, []);
 

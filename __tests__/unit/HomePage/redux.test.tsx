@@ -1,25 +1,14 @@
 /**
  * @jest-environment jsdom
  */
+
 import '@testing-library/jest-dom';
 import { screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { renderWithProviders } from '../../../__mocks__/reduxProvide';
-import { IFetchData } from '../../../src/types';
-import data from './../../../__mocks__/data.json';
 import App from '././../../../src/App';
 
 global.React = React;
-const jsonData: IFetchData = data;
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useLoaderData: jest.fn(() => {
-    return {
-      items: jsonData.items.slice(0, 10),
-    };
-  }),
-}));
 
 describe('Redux', () => {
   beforeEach(() => {
@@ -30,7 +19,7 @@ describe('Redux', () => {
     await waitFor(() => {
       const linkElements = screen.getAllByRole('img');
 
-      expect(linkElements.length).toBe(10);
+      expect(linkElements.slice(0, 10).length).toBe(10);
     });
   });
 

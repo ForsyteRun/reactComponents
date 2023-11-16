@@ -1,19 +1,12 @@
 import { RefObject, useCallback, useEffect, useRef } from 'react';
-import {
-  useLoaderData,
-  useNavigation,
-  useOutletContext,
-} from 'react-router-dom';
-import { DEFAULT_IMG } from '../../constants';
-import { IVolumeInfo } from '../../types';
-import CardContent from '../CardContent';
+import { useNavigation, useOutletContext } from 'react-router-dom';
 import s from './detailsCard.module.css';
 import ContextType from './type';
 
 const DetailsCard = () => {
   const { visible, setVisible } = useOutletContext<ContextType>();
 
-  const volumeInfo = useLoaderData() as IVolumeInfo;
+  // const volumeInfo = useLoaderData() as IVolumeInfo;
 
   const navigation = useNavigation();
 
@@ -43,9 +36,9 @@ const DetailsCard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref]);
 
-  if (!volumeInfo) {
-    return;
-  }
+  // if (!volumeInfo) {
+  //   return;
+  // }
 
   if (navigation.state === 'loading') {
     return (
@@ -58,14 +51,14 @@ const DetailsCard = () => {
   return (
     visible && (
       <div className={s.container}>
-        <div ref={ref}>
+        {/* <div ref={ref}>
           <img
             src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
             alt={volumeInfo.title}
           />
           <CardContent volumeInfo={volumeInfo} />
         </div>
-        <div className={s.close} onClick={handleClick}></div>
+        <div className={s.close} onClick={handleClick}></div> */}
       </div>
     )
   );

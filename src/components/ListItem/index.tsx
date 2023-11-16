@@ -1,13 +1,13 @@
 import { useCallback, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useGetAllBooksQuery } from '../../services/fetchData';
 import { IItem } from '../../types';
 import Card from '../Card';
 import Pagination from '../Pagination';
 import s from './listItem.module.css';
 
 const ListItems = () => {
-  const { data: books } = useAppSelector((state) => state.books);
+  const { data: books } = useGetAllBooksQuery('');
 
   const [id, setId] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(false);
@@ -17,15 +17,16 @@ const ListItems = () => {
     setVisible(true);
   }, []);
 
-  if (!books.length) {
+  if (!books?.items) {
     return <div style={{ fontSize: '4rem' }}>Not found books</div>;
   }
+
   return (
     <div className={s.container}>
       <Outlet context={{ id, visible, setVisible }} />
       <div className={s.containerList}>
         <ul>
-          {books.map((data: IItem) => (
+          {books.items.map((data: IItem) => (
             <Card data={data} handleClick={handleClick} key={data.id} />
           ))}
         </ul>

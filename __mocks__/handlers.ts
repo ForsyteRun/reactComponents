@@ -6,7 +6,7 @@ const jsonData: IFetchData = data;
 
 export const handlers = [
   http.get('https://www.googleapis.com/books/v1/volumes', () => {
-    return HttpResponse.json(jsonData.items);
+    return HttpResponse.json(jsonData);
   }),
 
   http.get('https://www.googleapis.com/books/v1/volumes/:id', (req) => {

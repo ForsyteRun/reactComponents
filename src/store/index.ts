@@ -1,15 +1,26 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {
+  ThunkMiddleware,
+  combineReducers,
+  configureStore,
+} from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import searchSlice from './slices/search';
-import booksSlice from './slices/books';
 import paginationSlice from './slices/pagination';
+import { booksApi } from '../services/fetchData';
+
+const rootReducer = combineReducers({
+  [booksApi.reducerPath]: booksApi.reducer,
+  search: searchSlice,
+  pagination: paginationSlice,
+});
 
 export const store = configureStore({
-  reducer: {
-    search: searchSlice,
-    books: booksSlice,
-    pagination: paginationSlice,
-  },
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(booksApi.middleware as ThunkMiddleware),
 });
+
+setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 

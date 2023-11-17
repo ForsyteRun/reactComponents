@@ -1,27 +1,22 @@
-import { useEffect } from 'react';
 import { useAppDispatch } from './hooks/useRedux';
 import { Home } from './pages';
 import { setSearchValue } from './store/slices/search';
 import { setPageNumber, setPageSize } from './store/slices/pagination';
+import { useSearchParams } from 'react-router-dom';
 
 const App = () => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const queryFromUrl = searchParams.get('search');
-    const pageFromUrl = searchParams.get('page');
-    const pageSizeFromUrl = searchParams.get('pageSize');
+  const [params] = useSearchParams();
+  const urlParams: Record<string, string> = {};
 
-    if (!queryFromUrl) {
-      return;
-    }
+  for (const [key, value] of params.entries()) {
+    urlParams[key] = value;
+  }
 
-    dispatch(setPageNumber(Number(pageFromUrl) || 1));
-    dispatch(setPageSize(Number(pageSizeFromUrl) || 10));
-    dispatch(setSearchValue(queryFromUrl));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  dispatch(setPageNumber(Number(urlParams['page']) || 1));
+  dispatch(setPageSize(Number(urlParams['pageSize']) || 10));
+  dispatch(setSearchValue(urlParams['search'] || 'nature'));
 
   return <Home />;
 };

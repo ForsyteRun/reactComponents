@@ -5,7 +5,6 @@ import App from './App';
 import { DetailsCard, Error } from './components';
 import { store } from './store';
 import './styles/index.css';
-import React from 'react';
 
 const router = createBrowserRouter([
   {
@@ -24,12 +23,12 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider
-        router={router}
-        fallbackElement={<div className="lds-dual-ring"></div>}
-      />
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider
+      router={router}
+      fallbackElement={<div className="lds-dual-ring"></div>}
+    />
+  </Provider>
+  // </React.StrictMode>
 );

@@ -6,7 +6,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  value: '',
+  value: 'nature',
 };
 
 const searchSlice = createSlice({

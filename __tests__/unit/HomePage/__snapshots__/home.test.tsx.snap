@@ -11,7 +11,7 @@ exports[`Home component snapshot page when loading 1`] = `
       <input
         name="search"
         type="text"
-        value=""
+        value="nature"
       />
       <button
         type="submit"

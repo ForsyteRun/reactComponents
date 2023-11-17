@@ -1,11 +1,12 @@
-import { useCallback, useEffect } from 'react';
-import { setQueryParam } from '../../utils';
-import s from './pagination.module.css';
+import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setPageNumber } from '../../store/slices/pagination';
+import { setQueryParam } from '../../utils';
+import s from './pagination.module.css';
 
 const Pagination = () => {
   const dispatch = useAppDispatch();
+
   const { currentPage, totalCount, pageSize } = useAppSelector(
     (state) => state.pagination
   );
@@ -14,14 +15,6 @@ const Pagination = () => {
     setQueryParam('page', String(num + 1));
 
     dispatch(setPageNumber(num + 1));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const pageFromUrl = searchParams.get('page');
-
-    dispatch(setPageNumber(Number(pageFromUrl) || 1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

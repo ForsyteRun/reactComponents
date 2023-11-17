@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setPageSize } from '../../store/slices/pagination';
-import { getStorageData, setQueryParam } from '../../utils';
+import { setQueryParam } from '../../utils';
 
 const Select = () => {
   const dispatch = useAppDispatch();
@@ -12,22 +12,12 @@ const Select = () => {
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedValue = value;
 
-      localStorage.setItem('pageSize', JSON.stringify(value));
       setQueryParam('page', '1');
 
       dispatch(setPageSize(Number(selectedValue)));
     },
     []
   );
-
-  useEffect(() => {
-    const cardsPage = getStorageData('pageSize');
-
-    if (cardsPage) {
-      dispatch(setPageSize(Number(cardsPage)));
-    }
-  }, []);
-
   return (
     <select value={pageSize} onChange={handleChange}>
       <option value="5">5</option>

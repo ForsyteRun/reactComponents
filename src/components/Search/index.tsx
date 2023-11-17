@@ -2,14 +2,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setSearchValue } from '../../store/slices/search';
-import { storageData } from '../../types';
-import { getStorageData, setQueryParam } from '../../utils';
+import { setQueryParam } from '../../utils';
 
 const Search = () => {
   const dispatch = useAppDispatch();
   const { value } = useAppSelector((state) => state.search);
 
-  const [queryOnChange, setQueryOnChange] = useState('');
+  const [queryOnChange, setQueryOnChange] = useState<string>(value);
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -17,8 +16,6 @@ const Search = () => {
 
       const form = event.target as HTMLFormElement;
       const input = form.elements.namedItem('search') as HTMLInputElement;
-
-      localStorage.setItem(storageData.formValue, JSON.stringify(input.value));
 
       setQueryParam('page', '1');
 
@@ -34,15 +31,6 @@ const Search = () => {
     },
     []
   );
-
-  useEffect(() => {
-    const data = getStorageData(storageData.formValue);
-
-    if (data) {
-      dispatch(setSearchValue(data ? data : ''));
-      setQueryParam('search', data);
-    }
-  }, []);
 
   useEffect(() => {
     setQueryOnChange(value);

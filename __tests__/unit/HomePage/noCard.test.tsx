@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import React from 'react';
 import { renderWithProviders } from '../../../__mocks__/reduxProvide';
 import App from '../../../src/App';
@@ -20,7 +20,5 @@ test('render error message when 0 card present in Home Page init loading', async
 
   renderWithProviders(<App />);
 
-  await waitFor(() => {
-    expect(screen.getByText('Not found books')).toBeInTheDocument();
-  });
+  expect(await screen.findByText('Books not found')).toBeInTheDocument();
 });

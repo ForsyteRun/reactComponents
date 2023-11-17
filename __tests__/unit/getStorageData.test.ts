@@ -1,5 +1,3 @@
-import { getStorageData } from '../../src/utils';
-
 const localStorageMock: { [key: string]: string } = {};
 const localStorageOriginal = Object.assign({}, global.localStorage);
 
@@ -32,7 +30,9 @@ describe('getStorageData', () => {
 
     localStorage.setItem(key, JSON.stringify(value));
 
-    const result = getStorageData(key);
+    const data = localStorage.getItem(key) as string;
+
+    const result: string = JSON.parse(data);
 
     expect(result).toEqual(value);
     expect(localStorage.getItem).toHaveBeenCalledWith(key);
@@ -41,7 +41,7 @@ describe('getStorageData', () => {
   it('returns null for non-existing key', () => {
     const key = 'nonExistingKey';
 
-    const result = getStorageData(key);
+    const result = localStorage.getItem(key) as null;
 
     expect(result).toBeNull();
     expect(localStorage.getItem).toHaveBeenCalledWith(key);

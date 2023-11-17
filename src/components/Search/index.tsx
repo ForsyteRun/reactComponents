@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setSearchValue } from '../../store/slices/search';
 import { setQueryParam } from '../../utils';
+import { setPageNumber } from '../../store/slices/pagination';
 
 const Search = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,7 @@ const Search = () => {
 
       setQueryParam('page', '1');
 
+      dispatch(setPageNumber(1));
       dispatch(setSearchValue(input.value));
     },
     []

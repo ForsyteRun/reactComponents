@@ -10,14 +10,14 @@ const Select = () => {
 
   const handleChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedValue = value;
-
+      setQueryParam('pageSize', value);
       setQueryParam('page', '1');
 
-      dispatch(setPageSize(Number(selectedValue)));
+      dispatch(setPageSize(Number(value)));
     },
     []
   );
+
   return (
     <select value={pageSize} onChange={handleChange}>
       <option value="5">5</option>

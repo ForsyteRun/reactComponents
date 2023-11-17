@@ -16,7 +16,7 @@ const Home = () => {
     shallowEqual
   );
 
-  const { data, isError, isLoading } = useGetAllBooksQuery({
+  const { data, isError, isFetching } = useGetAllBooksQuery({
     value,
     startIndex: currentPage,
     maxResults: pageSize,
@@ -37,7 +37,7 @@ const Home = () => {
       <Search />
       <button onClick={handleError}>get error</button>
       <Select />
-      {isLoading ? (
+      {isFetching ? (
         <div className="lds-dual-ring"></div>
       ) : (
         <ListItems data={data?.items} />

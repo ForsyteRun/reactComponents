@@ -11,7 +11,7 @@ const initialState: InitialState = {
 };
 
 const booksSlice = createSlice({
-  name: 'data',
+  name: 'books',
   initialState,
   reducers: {
     addBooks: (state: InitialState, action: PayloadAction<IItem[]>) => {

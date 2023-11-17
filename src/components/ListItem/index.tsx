@@ -1,28 +1,20 @@
-import { useCallback, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useRedux';
 import { IItem } from '../../types';
 import Card from '../Card';
 import Pagination from '../Pagination';
 import s from './listItem.module.css';
 
 const ListItems = ({ data: books }: { data?: IItem[] }) => {
-  const [id, setId] = useState<string>('');
-  const [visible, setVisible] = useState<boolean>(false);
-
-  const handleClick = useCallback((id: string) => {
-    setId(id);
-    setVisible(true);
-  }, []);
+  const { isVisible } = useAppSelector((state) => state.card);
 
   return (
     <div className={s.container}>
-      <Outlet context={{ id, visible, setVisible }} />
+      {isVisible && <Outlet />}
       <div className={s.containerList}>
         <ul>
           {books ? (
-            books.map((data: IItem) => (
-              <Card data={data} handleClick={handleClick} key={data.id} />
-            ))
+            books.map((book: IItem) => <Card data={book} key={book.id} />)
           ) : (
             <div style={{ fontSize: '5rem', margin: '2rem 0' }}>
               Books not found

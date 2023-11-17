@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { IFetchData } from '../types';
+import type { IFetchData, IItem } from '../types';
 
 export const booksApi = createApi({
   reducerPath: 'booksApi',
@@ -18,7 +18,10 @@ export const booksApi = createApi({
         }&startIndex=${startIndex}&maxResults=${maxResults}`,
       providesTags: ['Books'],
     }),
+    getBook: builder.query<IItem, string>({
+      query: (id) => `/${id}`,
+    }),
   }),
 });
 
-export const { useGetAllBooksQuery, useLazyGetAllBooksQuery } = booksApi;
+export const { useGetAllBooksQuery, useGetBookQuery } = booksApi;

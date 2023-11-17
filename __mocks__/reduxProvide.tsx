@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { booksApi } from '../src/services/fetchData';
 import paginationSlice from './../src/store/slices/pagination';
 import searchSlice from './../src/store/slices/search';
+import cardSlice from './../src/store/slices/card';
 
 export function renderWithProviders(
   ui,
@@ -17,6 +18,7 @@ export function renderWithProviders(
         [booksApi.reducerPath]: booksApi.reducer,
         search: searchSlice,
         pagination: paginationSlice,
+        card: cardSlice,
       },
       middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(booksApi.middleware as ThunkMiddleware),

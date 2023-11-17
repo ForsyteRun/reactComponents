@@ -6,12 +6,14 @@ import {
 import { setupListeners } from '@reduxjs/toolkit/query';
 import searchSlice from './slices/search';
 import paginationSlice from './slices/pagination';
+import cardSlice from './slices/card';
 import { booksApi } from '../services/fetchData';
 
 const rootReducer = combineReducers({
   [booksApi.reducerPath]: booksApi.reducer,
   search: searchSlice,
   pagination: paginationSlice,
+  card: cardSlice,
 });
 
 export const store = configureStore({

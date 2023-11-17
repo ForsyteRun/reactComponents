@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setPageSize } from '../../store/slices/pagination';
 import { setQueryParam } from '../../utils';
+import { setVisible } from '../../store/slices/card';
 
 const Select = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,8 @@ const Select = () => {
       setQueryParam('pageSize', value);
       setQueryParam('page', '1');
 
+      console.log(33);
+      dispatch(setVisible(false));
       dispatch(setPageSize(Number(value)));
     },
     []

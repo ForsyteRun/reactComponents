@@ -1,3 +1,4 @@
+import getStartIndex from './getStartIndex';
 import setQueryParam from './setQueryParam';
 
-export { setQueryParam };
+export { getStartIndex, setQueryParam };

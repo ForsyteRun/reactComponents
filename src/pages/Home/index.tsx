@@ -5,6 +5,7 @@ import { useAppSelector } from '../../hooks/useRedux';
 import { useGetAllBooksQuery } from '../../services/fetchData';
 import s from './styles.module.css';
 import { shallowEqual } from 'react-redux';
+import { getStartIndex } from '../../utils';
 
 const Home = () => {
   const { value } = useAppSelector((state) => state.search, {
@@ -18,7 +19,7 @@ const Home = () => {
 
   const { data, isError, isFetching } = useGetAllBooksQuery({
     value,
-    startIndex: currentPage,
+    startIndex: getStartIndex(currentPage, pageSize),
     maxResults: pageSize,
   });
 
@@ -31,8 +32,6 @@ const Home = () => {
   if (error || isError) {
     throw new Error('Error');
   }
-
-  console.log(5656);
 
   return (
     <div className={s.container}>

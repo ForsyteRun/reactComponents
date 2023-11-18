@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setVisible } from '../../store/slices/card';
-import { setQueryParam } from '../../utils';
 
 const Select = () => {
   const dispatch = useAppDispatch();
@@ -14,10 +13,10 @@ const Select = () => {
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
       setSearchParams((params) => {
         params.set('pageSize', value);
+        params.set('page', '1');
         return params;
       });
 
-      setQueryParam('page', '1');
       dispatch(setVisible(false));
     },
     []

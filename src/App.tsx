@@ -10,9 +10,17 @@ const App = () => {
   const [params] = useSearchParams();
 
   useEffect(() => {
-    dispatch(setPageNumber(Number(params.get('page')) || 1));
-    dispatch(setPageSize(Number(params.get('pageSize')) || 10));
-    dispatch(setSearchValue(params.get('search') || 'nature'));
+    if (params.get('page')) {
+      dispatch(setPageNumber(Number(params.get('page'))));
+    }
+
+    if (params.get('pageSize')) {
+      dispatch(setPageSize(Number(params.get('pageSize'))));
+    }
+
+    if (params.get('search')) {
+      dispatch(setSearchValue(params.get('search') as string));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 

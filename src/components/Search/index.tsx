@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { setSearchValue } from '../../store/slices/search';
-import { setQueryParam } from '../../utils';
-import { setPageNumber } from '../../store/slices/pagination';
+import { useSearchParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useRedux';
+import setQueryParam from '../../utils/setQueryParam';
 
 const Search = () => {
-  const dispatch = useAppDispatch();
   const { value } = useAppSelector((state) => state.search);
 
   const [queryOnChange, setQueryOnChange] = useState<string>(value);
+  const [, setSearchParams] = useSearchParams();
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,10 +17,11 @@ const Search = () => {
       const form = event.target as HTMLFormElement;
       const input = form.elements.namedItem('search') as HTMLInputElement;
 
-      setQueryParam('page', '1');
-
-      dispatch(setPageNumber(1));
-      dispatch(setSearchValue(input.value));
+      setSearchParams((params) => {
+        params.set('page', '1');
+        params.set('search', input.value || 'nature');
+        return params;
+      });
     },
     []
   );

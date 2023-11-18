@@ -1,19 +1,19 @@
 import { useCallback, useState } from 'react';
-import { shallowEqual } from 'react-redux';
 import { ListItems, Search } from '../../components';
 import Select from '../../components/Select';
 import { useAppSelector } from '../../hooks/useRedux';
 import { useGetAllBooksQuery } from '../../services/fetchData';
 import s from './styles.module.css';
+import { shallowEqual } from 'react-redux';
 
 const Home = () => {
-  const [value, currentPage, pageSize] = useAppSelector(
-    ({ search: { value }, pagination: { currentPage, pageSize } }) => [
-      value,
-      currentPage,
-      pageSize,
-    ],
-    shallowEqual
+  const { value } = useAppSelector((state) => state.search, {
+    equalityFn: shallowEqual,
+  });
+
+  const { currentPage, pageSize } = useAppSelector(
+    (state) => state.pagination,
+    { equalityFn: shallowEqual }
   );
 
   const { data, isError, isFetching } = useGetAllBooksQuery({
@@ -31,6 +31,8 @@ const Home = () => {
   if (error || isError) {
     throw new Error('Error');
   }
+
+  console.log(5656);
 
   return (
     <div className={s.container}>

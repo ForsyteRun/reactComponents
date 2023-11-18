@@ -1,22 +1,24 @@
 import { useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { setPageNumber } from '../../store/slices/pagination';
-import { setQueryParam } from '../../utils';
-import s from './pagination.module.css';
 import { setVisible } from '../../store/slices/card';
+import s from './pagination.module.css';
 
 const Pagination = () => {
   const dispatch = useAppDispatch();
+  const [, setSearchParams] = useSearchParams();
 
   const { currentPage, totalCount, pageSize } = useAppSelector(
     (state) => state.pagination
   );
 
   const handlePageNumber = useCallback((num: number) => {
-    setQueryParam('page', String(num + 1));
+    setSearchParams((param) => {
+      param.set('page', String(num + 1));
+      return param;
+    });
 
     dispatch(setVisible(false));
-    dispatch(setPageNumber(num + 1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -14,8 +14,8 @@ describe('Select component', () => {
     renderWithProviders(<Select />);
     const selectElement = screen.getByRole('combobox') as HTMLSelectElement;
 
-    fireEvent.change(selectElement, { target: { value: '15' } });
+    fireEvent.change(selectElement, { target: { value: '10' } });
 
-    expect(selectElement.value).toBe('15');
+    expect(selectElement.value).toBe('10');
   });
 });

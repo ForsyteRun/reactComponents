@@ -1,22 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { setPageSize } from '../../store/slices/pagination';
-import { setQueryParam } from '../../utils';
 import { setVisible } from '../../store/slices/card';
+import { setQueryParam } from '../../utils';
 
 const Select = () => {
   const dispatch = useAppDispatch();
   const { pageSize } = useAppSelector((state) => state.pagination);
+  const [, setSearchParams] = useSearchParams();
 
   const handleChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
-      setQueryParam('pageSize', value);
-      setQueryParam('page', '1');
+      setSearchParams((params) => {
+        params.set('pageSize', value);
+        return params;
+      });
 
-      console.log(33);
+      setQueryParam('page', '1');
       dispatch(setVisible(false));
-      dispatch(setPageSize(Number(value)));
     },
     []
   );

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useRedux';
 import { IItem } from '../../types';
@@ -5,7 +6,7 @@ import Card from '../Card';
 import Pagination from '../Pagination';
 import s from './listItem.module.css';
 
-const ListItems = ({ data: books }: { data?: IItem[] }) => {
+const ListItems = React.memo(({ data: books }: { data?: IItem[] }) => {
   const { isVisible } = useAppSelector((state) => state.card);
 
   return (
@@ -25,6 +26,6 @@ const ListItems = ({ data: books }: { data?: IItem[] }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ListItems;

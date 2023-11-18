@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { DEFAULT_IMG } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { useGetBookQuery } from '../../services/fetchData';
@@ -12,9 +12,10 @@ const DetailsCard = React.memo(() => {
 
   const { data, isFetching } = useGetBookQuery(bookId);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     dispatch(setVisible(false));
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!data) {
     return;
@@ -22,7 +23,6 @@ const DetailsCard = React.memo(() => {
 
   const { volumeInfo } = data;
 
-  console.log(33);
   return isFetching ? (
     <div className={s.container}>
       <div className="lds-dual-ring"></div>

@@ -1,25 +1,20 @@
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from './hooks/useRedux';
 import { Home } from './pages';
-import { setSearchValue } from './store/slices/search';
 import { setPageNumber, setPageSize } from './store/slices/pagination';
-import { useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { setSearchValue } from './store/slices/search';
 
 const App = () => {
   const dispatch = useAppDispatch();
-
   const [params] = useSearchParams();
-  const urlParams: Record<string, string> = {};
 
   useEffect(() => {
-    for (const [key, value] of params.entries()) {
-      urlParams[key] = value;
-    }
-    dispatch(setPageNumber(Number(urlParams['page']) || 1));
-    dispatch(setPageSize(Number(urlParams['pageSize']) || 10));
-    dispatch(setSearchValue(urlParams['search'] || 'nature'));
+    dispatch(setPageNumber(Number(params.get('page')) || 1));
+    dispatch(setPageSize(Number(params.get('pageSize')) || 10));
+    dispatch(setSearchValue(params.get('search') || 'nature'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params]);
 
   return <Home />;
 };

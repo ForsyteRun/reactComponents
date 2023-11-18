@@ -16,12 +16,9 @@ const searchSlice = createSlice({
     setSearchValue: (state: InitialState, action: PayloadAction<string>) => {
       state.value = action.payload;
     },
-    removeSearchValue: (state: InitialState) => {
-      state.value = '';
-    },
   },
 });
 
-export const { setSearchValue, removeSearchValue } = searchSlice.actions;
+export const { setSearchValue } = searchSlice.actions;
 
 export default searchSlice.reducer;

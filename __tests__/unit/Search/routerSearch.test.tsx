@@ -6,6 +6,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 import { renderWithProviders } from '../../../__mocks__/reduxProvide';
 import App from '../../../src/App';
+import { selectorValue } from '../../../__mocks__/selectors';
 
 global.React = React;
 
@@ -23,5 +24,13 @@ describe('Search component', () => {
 
     const storageData = JSON.parse(localStorage.getItem('formValue') as string);
     expect(storageData).toBeNull;
+  });
+
+  it('should select search value from state', () => {
+    const search = { value: 'sex' };
+
+    const result = selectorValue(search);
+
+    expect(result).toBe(search.value);
   });
 });

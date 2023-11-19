@@ -10,7 +10,7 @@ import App from '././../../../src/App';
 
 global.React = React;
 
-describe('Redux', () => {
+describe('Redux & RTKQuery', () => {
   beforeEach(() => {
     renderWithProviders(<App />);
   });

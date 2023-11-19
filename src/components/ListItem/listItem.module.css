@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  position: relative;
+  width: 120rem;
+}
+
+.container > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 100%;
+}
+.container > div ~ ul {
+  flex-basis: 30%;
+}
+
+.container > div {
+  flex-basis: 70%;
+}
+
+.containerList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .item {
+  width: 50rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem 0.5rem;
+  border-bottom: 0.1rem solid #999;
+} */

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home component snapshot page when loading 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <form
+      role="search"
+    >
+      <input
+        name="search"
+        type="text"
+        value="nature"
+      />
+      <button
+        type="submit"
+      >
+        search
+      </button>
+    </form>
+    <button>
+      get error
+    </button>
+    <select>
+      <option
+        value="5"
+      >
+        5
+      </option>
+      <option
+        value="10"
+      >
+        10
+      </option>
+      <option
+        value="15"
+      >
+        15
+      </option>
+      <option
+        value="20"
+      >
+        20
+      </option>
+      <option
+        value="25"
+      >
+        25
+      </option>
+    </select>
+    <div
+      class="lds-dual-ring"
+    />
+  </div>
+  ;
+</DocumentFragment>
+`;

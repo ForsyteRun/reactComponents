@@ -7,6 +7,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import searchSlice from './slices/search';
 import paginationSlice from './slices/pagination';
 import cardSlice from './slices/card';
+import loadingSlice from './slices/loading';
 import { booksApi } from '../services/fetchData';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   search: searchSlice,
   pagination: paginationSlice,
   card: cardSlice,
+  loading: loadingSlice,
 });
 
 export const store = configureStore({

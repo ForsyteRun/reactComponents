@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { DEFAULT_IMG } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { useGetBookQuery } from '../../services/fetchData';
 import { setVisible } from '../../store/slices/card';
 import CardContent from '../CardContent';
 import s from './detailsCard.module.css';
+import { toggleLoading } from '../../store/slices/loading';
 
 const DetailsCard = React.memo(() => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,15 @@ const DetailsCard = React.memo(() => {
     dispatch(setVisible(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (isFetching) {
+      dispatch(toggleLoading(true));
+    } else {
+      dispatch(toggleLoading(false));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching]);
 
   if (!data) {
     return;

@@ -1,4 +1,4 @@
-import loadingSlice, { toggleLoading } from '../../../src/store/slices/loading';
+import loadingSlice, { toggleLoading } from '../../../store/slices/loading';
 
 describe('loadingSlice redux', () => {
   it('reducer should return initial value', () => {

@@ -5,21 +5,21 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { default as React } from 'react';
 import { renderWithProviders } from '../../../__mocks__/reduxProvide';
-import App from '../../../src/App';
-import { IFetchData } from '../../../src/types';
 import data from './../../../__mocks__/data.json';
+import { IFetchData } from './../../../types';
+import App from './../../../pages';
 
 global.React = React;
-const jsonData: IFetchData = data;
+// const jsonData: IFetchData = data;
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useLoaderData: jest.fn(() => {
-    return {
-      items: jsonData.items.slice(0, 10),
-    };
-  }),
-}));
+// jest.mock('react-router-dom', () => ({
+//   ...jest.requireActual('react-router-dom'),
+//   useLoaderData: jest.fn(() => {
+//     return {
+//       items: jsonData.items.slice(0, 10),
+//     };
+//   }),
+// }));
 
 describe('Home component', () => {
   let fragment: () => DocumentFragment;

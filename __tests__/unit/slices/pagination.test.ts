@@ -1,7 +1,7 @@
 import paginationSlice, {
   setPageNumber,
   setPageSize,
-} from '../../../src/store/slices/pagination';
+} from '../../../store/slices/pagination';
 
 describe('paginationSlice redux', () => {
   it('reducer should return initial value', () => {

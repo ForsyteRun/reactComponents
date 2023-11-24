@@ -1,4 +1,4 @@
-import cardSlice, { addId, setVisible } from '../../../src/store/slices/card';
+import cardSlice, { addId, setVisible } from '../../../store/slices/card';
 
 describe('cardSlice redux', () => {
   it('reducer should return initial value', () => {

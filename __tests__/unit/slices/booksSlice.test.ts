@@ -1,4 +1,4 @@
-import bookSlice, { addBooks } from '../../../src/store/slices/books';
+import bookSlice, { addBooks } from '../../../store/slices/books';
 
 describe('bookSlice redux', () => {
   it('reducer should return initial value', () => {

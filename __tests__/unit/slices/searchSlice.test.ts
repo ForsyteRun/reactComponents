@@ -1,4 +1,4 @@
-import searchSlice, { setSearchValue } from '../../../src/store/slices/search';
+import searchSlice, { setSearchValue } from '../../../store/slices/search';
 
 describe('searchSlice redux', () => {
   it('reducer should return initial value', () => {

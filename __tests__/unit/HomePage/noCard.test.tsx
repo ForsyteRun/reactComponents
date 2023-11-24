@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import React from 'react';
 import { renderWithProviders } from '../../../__mocks__/reduxProvide';
-import App from '../../../src/App';
+import App from '../../../App';
 import { http, HttpResponse } from 'msw';
 import { server } from './../../../__mocks__/node';
 

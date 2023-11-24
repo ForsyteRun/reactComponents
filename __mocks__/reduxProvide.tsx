@@ -1,20 +1,20 @@
-import { ThunkMiddleware, configureStore } from '@reduxjs/toolkit';
-import { render } from '@testing-library/react';
 import React from 'react';
+import * as toolkit from '@reduxjs/toolkit';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 
-import { booksApi } from '../src/services/fetchData';
-import paginationSlice from './../src/store/slices/pagination';
-import searchSlice from './../src/store/slices/search';
-import cardSlice from './../src/store/slices/card';
-import loadingSlice from './../src/store/slices/loading';
+;
+import searchSlice from './../store/slices/search';
+import paginationSlice from './../store/slices/pagination';
+import cardSlice from './../store/slices/card';
+import loadingSlice from './../store/slices/loading';
+import { booksApi } from './../services/fetchData';
 
 export function renderWithProviders(
   ui,
   {
-    preloadedState = {},
-    store = configureStore({
+    preloadedState = {} as Record<string, string>,
+    store = toolkit.configureStore({
       reducer: {
         [booksApi.reducerPath]: booksApi.reducer,
         search: searchSlice,
@@ -23,7 +23,7 @@ export function renderWithProviders(
         loading: loadingSlice,
       },
       middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(booksApi.middleware as ThunkMiddleware),
+        getDefaultMiddleware().concat(booksApi.middleware as toolkit.ThunkMiddleware),
       preloadedState,
     }),
     ...renderOptions
@@ -31,9 +31,7 @@ export function renderWithProviders(
 ) {
   function Wrapper({ children }) {
     return (
-      <BrowserRouter>
-        <Provider store={store}>{children}</Provider>;
-      </BrowserRouter>
+        <Provider store={store}>{children}</Provider>
     );
   }
 

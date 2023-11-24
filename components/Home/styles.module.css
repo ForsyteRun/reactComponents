@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.list {
+  max-width: 150rem;
+  flex: 1;
+  font-size: 1.5rem;
+}

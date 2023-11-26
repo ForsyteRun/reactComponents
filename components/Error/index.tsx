@@ -1,12 +1,13 @@
 // import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import ErrorBoundary from '../ErrorBoundary';
 import s from './error.module.css';
 
 const Error = () => {
-  // const navigate = useNavigate();
+  const navigate = useRouter();
 
   const handleClick = () => {
-    // navigate('/');
+    navigate.push('/');
   };
 
   return (

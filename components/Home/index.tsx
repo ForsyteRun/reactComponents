@@ -1,12 +1,12 @@
 /* eslint-disable import/no-unresolved */
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 
-import { IItem } from '@/types';
 import { ListItems, Search, Select } from './../../components';
 import { useAppDispatch } from './../../hooks/useRedux';
 import ErrorPage from './../../pages/error';
 import { toggleLoading } from './../../store/slices/loading';
 import s from './styles.module.css';
+import { IItem } from '../../types';
 
 interface IHome {
   children?: ReactNode;

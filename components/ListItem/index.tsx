@@ -9,8 +9,6 @@ interface IListItem {
 }
 
 const ListItems = React.memo(({ data }: IListItem) => {
-  console.log(data, 77);
-
   return (
     <div className={s.container}>
       <div className={s.containerList}>

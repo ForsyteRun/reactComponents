@@ -6,9 +6,11 @@ import { IItem } from '../../types';
 import CardContent from '../CardContent';
 import { DEFAULT_IMG } from './../../utils/constants';
 import s from './detailsCard.module.css';
+import { useAppSelector } from '../../hooks/useRedux';
 
 const DetailsCard = React.memo(({ data }: { data: IItem | undefined }) => {
   const router = useRouter();
+  const { isLoadingDetails } = useAppSelector((state) => state.loading);
 
   const handleClick = useCallback(() => {
     const query = router.asPath.split('?');
@@ -19,10 +21,18 @@ const DetailsCard = React.memo(({ data }: { data: IItem | undefined }) => {
 
   const { volumeInfo } = data;
 
+  if (isLoadingDetails) {
+    return (
+      <div className={s.container} style={{ flexBasis: '50%' }}>
+        <div className="lds-dual-ring"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {data && (
-        <div className={s.container}>
+        <div className={s.container} style={{ flexBasis: '50%' }}>
           <Image
             src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
             alt={volumeInfo.title}

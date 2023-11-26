@@ -35,6 +35,7 @@ export interface ISlices {
     };
     loading?: {
       isLoading: boolean;
+      isLoadingDetails: boolean;
     };
     pagination?: {
       currentPage: number;

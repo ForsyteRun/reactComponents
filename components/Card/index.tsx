@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useCallback } from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useAppDispatch } from '../../hooks/useRedux';
-import { addId, setVisible } from '../../store/slices/card';
+import { addId } from '../../store/slices/card';
+import { toggleDetailsLoading } from '../../store/slices/loading';
 import { IItem } from '../../types';
 import CardContent from '../CardContent';
 import { DEFAULT_IMG } from './../../utils/constants';
 import s from './style.module.css';
-import { useRouter } from 'next/router';
 
 const Card = ({ data: { id, volumeInfo } }: { data: IItem }) => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ const Card = ({ data: { id, volumeInfo } }: { data: IItem }) => {
   const handleClick = useCallback(
     (id: string) => {
       dispatch(addId(id));
-      dispatch(setVisible(true));
+      dispatch(toggleDetailsLoading(true));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [id]

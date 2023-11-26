@@ -14,7 +14,6 @@ global.React = React;
 jest.mock('next/router', () => {
   return {
     useRouter: jest.fn(() => ({
-      // pathname: jest.fn(() => '/WWWWWWW'),
       asPath: jest.fn(() => '/WWWWW?page=2'),
     })),
   };
@@ -88,6 +87,7 @@ describe('DetailsCard component', () => {
       },
       loading: {
         isLoading: false,
+        isLoadingDetails: false,
       },
     };
 
@@ -108,31 +108,23 @@ describe('DetailsCard component', () => {
 
     expect(useRouter().asPath).toEqual('/WWWWW?page=2');
   });
-  it('renders card details and handles click', () => {
+  it('renders loader card details', () => {
     const mockData = {
+      id: 'www',
       volumeInfo: {
+        language: 'ru',
+        pageCount: 10,
+        authors: ['Ivanov'],
         title: 'Test Book',
         imageLinks: {
           thumbnail: 'test-image-url',
         },
       },
     };
-    const isFetching = false;
 
-    const { container } = renderWithProviders(
-      <DetailsCard data={mockData} isFetching={isFetching} />
-    );
+    const { container } = renderWithProviders(<DetailsCard data={mockData} />);
 
-    expect(screen.getAllByText('Test Book').length).toBe(2);
-
-    expect(screen.getAllByAltText('Test Book')[0]).toBeInTheDocument();
-    expect(screen.getAllByAltText('Test Book')[0].getAttribute('src')).toBe(
-      'test-image-url'
-    );
-
-    const closeButton = container.querySelector('.close');
-    expect(closeButton).toBeInTheDocument();
-
-    fireEvent.click(closeButton);
+    const spinner = container.querySelector('.lds-dual-ring');
+    expect(spinner).toBeInTheDocument();
   });
 });

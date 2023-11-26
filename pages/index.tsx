@@ -38,8 +38,6 @@ const App = (props: ISlices) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.value.books.data.items]);
 
-  console.log(props);
-
   return (
     <>
       <Head>
@@ -56,6 +54,7 @@ const App = (props: ISlices) => {
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context) => {
     store.dispatch(toggleLoading(false));
+
     const response = await fetch(
       URL +
         (context.query.search ? String(context.query.search) : 'nature') +

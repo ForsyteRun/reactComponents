@@ -5,41 +5,91 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { default as React } from 'react';
 import { renderWithProviders } from '../../../__mocks__/reduxProvide';
-import data from './../../../__mocks__/data.json';
-import { IFetchData } from './../../../types';
 import App from './../../../pages';
 
 global.React = React;
-// const jsonData: IFetchData = data;
 
-// jest.mock('react-router-dom', () => ({
-//   ...jest.requireActual('react-router-dom'),
-//   useLoaderData: jest.fn(() => {
-//     return {
-//       items: jsonData.items.slice(0, 10),
-//     };
-//   }),
-// }));
+jest.mock('next/router', () => require('next-router-mock'));
+jest.mock('next/navigation', () => {
+  return {
+    useSearchParams: jest.fn(() => ({
+      get: jest.fn(),
+    })),
+  };
+});
 
 describe('Home component', () => {
   let fragment: () => DocumentFragment;
-  let rootContainer: HTMLElement;
 
   beforeEach(() => {
-    const { asFragment, container } = renderWithProviders(<App />);
+    const value = {
+      books: {
+        data: {
+          items: [
+            {
+              id: 'pfaeBAAAQBAJ',
+              volumeInfo: {
+                title:
+                  'Disorders of Sex Development in Gynaecology (Russian edition)',
+                authors: ['Zograb Makiyan'],
+                pageCount: 167,
+                imageLinks: {
+                  thumbnail:
+                    'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+                },
+                language: 'ru',
+              },
+            },
+            {
+              id: '8cm3DwAAQBAJ',
+              volumeInfo: {
+                title:
+                  'Disorders of Sex Development in Gynaecology (Russian edition)',
+                authors: ['Zograb Makiyan'],
+                pageCount: 167,
+                imageLinks: {
+                  thumbnail:
+                    'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+                },
+                language: 'ru',
+              },
+            },
+          ],
+          kind: 'test',
+          totalItems: 100,
+        },
+        singleBook: [
+          {
+            id: 'pfaeBAAAQBAJ',
+            volumeInfo: {
+              title:
+                'Disorders of Sex Development in Gynaecology (Russian edition)',
+              authors: ['Zograb Makiyan'],
+              pageCount: 167,
+              imageLinks: {
+                thumbnail:
+                  'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+              },
+              language: 'ru',
+            },
+          },
+        ],
+      },
+    };
+
+    const { asFragment } = renderWithProviders(<App value={value} />);
 
     fragment = asFragment;
-    rootContainer = container;
   });
 
-  test('snapshot page when loading', () => {
+  test('snapshot page', () => {
     expect(fragment()).toMatchSnapshot();
   });
 
-  test('render spinner when loading', () => {
-    const spinner = rootContainer.querySelector('.lds-dual-ring');
+  test('render images', () => {
+    const images = screen.getAllByRole('img');
 
-    expect(spinner).toBeInTheDocument();
+    expect(images.length).toBe(2);
   });
 
   test('render correct title Card', async () => {

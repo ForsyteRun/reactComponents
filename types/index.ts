@@ -23,6 +23,30 @@ export interface IFetchData {
   totalItems: number;
 }
 
+export interface ISlices {
+  value: {
+    books: {
+      data: IFetchData;
+      singleBook: IItem[];
+    };
+    card?: {
+      bookId: string;
+      isVisible: boolean;
+    };
+    loading?: {
+      isLoading: boolean;
+    };
+    pagination?: {
+      currentPage: number;
+      pageSize: number;
+      totalCount: number;
+    };
+    search?: {
+      value: string;
+    };
+  };
+}
+
 export enum storageData {
   formValue = 'formValue',
   id = 'id',

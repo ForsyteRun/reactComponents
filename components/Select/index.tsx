@@ -6,22 +6,20 @@ import { useRouter } from 'next/router';
 const Select = () => {
   const dispatch = useAppDispatch();
   const { pageSize } = useAppSelector((state) => state.pagination);
-  const {query, pathname, push} = useRouter();
+  const { query, pathname, push } = useRouter();
 
   const handleChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
-      
-      
       const newQuery = {
         ...query,
-        'page': '1',
-        'pageSize': value
-      }
-  
+        page: '1',
+        pageSize: value,
+      };
+
       push({
         pathname,
-        query: newQuery
-      })
+        query: newQuery,
+      });
 
       dispatch(setVisible(false));
     },

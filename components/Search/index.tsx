@@ -6,26 +6,25 @@ import setQueryParam from '../../utils/setQueryParam';
 import { useRouter } from 'next/router';
 
 const Search = () => {
-  const {query, pathname, push} = useRouter();
+  const { query, pathname, push } = useRouter();
   const { value } = useAppSelector((state) => state.search);
-  
+
   const [queryOnChange, setQueryOnChange] = useState<string>(value);
 
-  const handleSubmit = 
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      
-      const form = event.target as HTMLFormElement;
-      const input = form.elements.namedItem('search') as HTMLInputElement;
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-      const modifyQuery = {
-        ...query,
-        'page': '1',
-        'search': input.value || 'nature'
-      }
+    const form = event.target as HTMLFormElement;
+    const input = form.elements.namedItem('search') as HTMLInputElement;
 
-      push({ pathname, query: modifyQuery })
-    }
+    const modifyQuery = {
+      ...query,
+      page: '1',
+      search: input.value || 'nature',
+    };
+
+    push({ pathname, query: modifyQuery });
+  };
 
   const handleChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {

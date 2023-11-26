@@ -6,20 +6,82 @@ import '@testing-library/jest-dom';
 import { screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { renderWithProviders } from '../../../__mocks__/reduxProvide';
-import App from '././../../../src/App';
+import App from './../../../pages/index';
 
 global.React = React;
+jest.mock('next/router', () => require('next-router-mock'));
+jest.mock('next/navigation', () => {
+  return {
+    useSearchParams: jest.fn(() => ({
+      get: jest.fn(),
+    })),
+  };
+});
 
 describe('Redux & RTKQuery', () => {
   beforeEach(() => {
-    renderWithProviders(<App />);
+    const value = {
+      books: {
+        data: {
+          items: [
+            {
+              id: 'pfaeBAAAQBAJ',
+              volumeInfo: {
+                title:
+                  'Disorders of Sex Development in Gynaecology (Russian edition)',
+                authors: ['Zograb Makiyan'],
+                pageCount: 167,
+                imageLinks: {
+                  thumbnail:
+                    'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+                },
+                language: 'ru',
+              },
+            },
+            {
+              id: '8cm3DwAAQBAJ',
+              volumeInfo: {
+                title:
+                  'Disorders of Sex Development in Gynaecology (Russian edition)',
+                authors: ['Zograb Makiyan'],
+                pageCount: 167,
+                imageLinks: {
+                  thumbnail:
+                    'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+                },
+                language: 'ru',
+              },
+            },
+          ],
+          kind: 'test',
+          totalItems: 100,
+        },
+        singleBook: [
+          {
+            id: 'pfaeBAAAQBAJ',
+            volumeInfo: {
+              title:
+                'Disorders of Sex Development in Gynaecology (Russian edition)',
+              authors: ['Zograb Makiyan'],
+              pageCount: 167,
+              imageLinks: {
+                thumbnail:
+                  'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+              },
+              language: 'ru',
+            },
+          },
+        ],
+      },
+    };
+    renderWithProviders(<App value={value} />);
   });
 
   test('render all 10 cards in Home Page init loading via redux', async () => {
     await waitFor(() => {
       const linkElements = screen.getAllByRole('img');
 
-      expect(linkElements.slice(0, 10).length).toBe(10);
+      expect(linkElements.length).toBe(2);
     });
   });
 

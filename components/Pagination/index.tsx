@@ -6,27 +6,29 @@ import { useRouter } from 'next/router';
 
 const Pagination = () => {
   const dispatch = useAppDispatch();
-  const {query, pathname, push} = useRouter();
+  const { query, pathname, push } = useRouter();
 
   const { currentPage, totalCount, pageSize } = useAppSelector(
     (state) => state.pagination
   );
 
-  const handlePageNumber = useCallback((num: number) => {
-    
-    const newQuery = {
-      ...query,
-      'page': `${String(num + 1)}`
-    }
-    
-    push({
-      pathname,
-      query: newQuery
-    })
-    
-    dispatch(setVisible(false));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, pathname])
+  const handlePageNumber = useCallback(
+    (num: number) => {
+      const newQuery = {
+        ...query,
+        page: `${String(num + 1)}`,
+      };
+
+      push({
+        pathname,
+        query: newQuery,
+      });
+
+      dispatch(setVisible(false));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [query, pathname]
+  );
 
   return (
     <div className={s.pagination}>

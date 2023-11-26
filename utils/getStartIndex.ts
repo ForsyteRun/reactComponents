@@ -1,5 +1,12 @@
-const getStartIndex = (currentPage: number, pageSize: number): number => {
+const getStartIndex = (
+  currentPage: number = 1,
+  pageSize: number = 10
+): number => {
   let startIndex = 1;
+
+  if (!pageSize) {
+    pageSize = 10;
+  }
 
   if (currentPage === 2) {
     startIndex += pageSize;

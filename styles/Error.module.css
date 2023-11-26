@@ -3,10 +3,10 @@
 }
 
 .container > button {
-    position: absolute;
-    left: 50%;
-    top: 55%;
-    padding: 0.5rem 1rem;
-    border-radius: 0.2rem;
-    cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
 }

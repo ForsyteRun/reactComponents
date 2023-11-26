@@ -1,7 +1,7 @@
+import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { setVisible } from '../../store/slices/card';
-import { useRouter } from 'next/router';
+import { toggleLoading } from '../../store/slices/loading';
 
 const Select = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const Select = () => {
         query: newQuery,
       });
 
-      dispatch(setVisible(false));
+      dispatch(toggleLoading(true));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [query, pathname]

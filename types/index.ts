@@ -27,7 +27,7 @@ export interface ISlices {
   value: {
     books: {
       data: IFetchData;
-      singleBook: IItem[];
+      singleBook: IItem;
     };
     card?: {
       bookId: string;

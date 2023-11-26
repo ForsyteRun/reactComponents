@@ -40,13 +40,12 @@ const Detail = (
     }
 
     isMountRef.current = true;
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath.split('?')[1]]);
 
   return (
     <Home data={data}>
-      <DetailsCard data={props.value.books.singleBook} isFetching={false} />
+      <DetailsCard data={props.value.books.singleBook} />
     </Home>
   );
 };

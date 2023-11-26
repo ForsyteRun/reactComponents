@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { setVisible } from '../../store/slices/card';
-import s from './pagination.module.css';
 import { useRouter } from 'next/router';
+import { toggleLoading } from '../../store/slices/loading';
+import s from './pagination.module.css';
 
 const Pagination = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const Pagination = () => {
         query: newQuery,
       });
 
-      dispatch(setVisible(false));
+      dispatch(toggleLoading(true));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [query, pathname]

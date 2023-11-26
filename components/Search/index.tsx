@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { useAppSelector } from '../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import setQueryParam from '../../utils/setQueryParam';
 import { useRouter } from 'next/router';
+import { toggleLoading } from '../../store/slices/loading';
 
 const Search = () => {
+  const dispatch = useAppDispatch();
   const { query, pathname, push } = useRouter();
   const { value } = useAppSelector((state) => state.search);
 
@@ -24,6 +26,7 @@ const Search = () => {
     };
 
     push({ pathname, query: modifyQuery });
+    dispatch(toggleLoading(true));
   };
 
   const handleChange = useCallback(

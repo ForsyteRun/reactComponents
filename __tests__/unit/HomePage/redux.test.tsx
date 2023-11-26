@@ -56,22 +56,23 @@ describe('Redux & RTKQuery', () => {
           kind: 'test',
           totalItems: 100,
         },
-        singleBook: [
-          {
-            id: 'pfaeBAAAQBAJ',
-            volumeInfo: {
-              title:
-                'Disorders of Sex Development in Gynaecology (Russian edition)',
-              authors: ['Zograb Makiyan'],
-              pageCount: 167,
-              imageLinks: {
-                thumbnail:
-                  'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-              },
-              language: 'ru',
+        singleBook: {
+          id: 'pfaeBAAAQBAJ',
+          volumeInfo: {
+            title:
+              'Disorders of Sex Development in Gynaecology (Russian edition)',
+            authors: ['Zograb Makiyan'],
+            pageCount: 167,
+            imageLinks: {
+              thumbnail:
+                'http://books.google.com/books/content?id=pfaeBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
             },
+            language: 'ru',
           },
-        ],
+        },
+      },
+      loading: {
+        isLoading: false,
       },
     };
     renderWithProviders(<App value={value} />);

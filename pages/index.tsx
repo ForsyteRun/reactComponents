@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import { toggleLoading } from '../store/slices/loading';
 import Home from './../components/Home';
 import { useAppDispatch } from './../hooks/useRedux';
 import { wrapper } from './../store';
@@ -14,7 +15,6 @@ import { URL } from './../utils/constants';
 
 const App = (props: ISlices) => {
   const dispatch = useAppDispatch();
-
   const params = useSearchParams();
 
   useEffect(() => {
@@ -34,8 +34,11 @@ const App = (props: ISlices) => {
 
   useEffect(() => {
     dispatch(addBooks(props.value.books.data.items));
+    dispatch(toggleLoading(props.value.loading.isLoading));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.value.books.data.items]);
+
+  console.log(props);
 
   return (
     <>
@@ -45,35 +48,15 @@ const App = (props: ISlices) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Home
-        data={props.value.books.data.items}
-        isFetching={false}
-        isError={false}
-      />
+      <Home data={props.value.books.data.items} />
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context) => {
-    console.log(context.query, 77);
-
+    store.dispatch(toggleLoading(false));
     const response = await fetch(
-      URL +
-        (context.query.search ? String(context.query.search) : 'nature') +
-        `&maxResults=${
-          context.query.pageSize ? String(context.query.pageSize) : '10'
-        }` +
-        `&startIndex=${
-          context.query.page
-            ? String(
-                getStartIndex(+context.query.page, +context.query.pageSize)
-              )
-            : '1'
-        }`
-    );
-
-    console.log(
       URL +
         (context.query.search ? String(context.query.search) : 'nature') +
         `&maxResults=${

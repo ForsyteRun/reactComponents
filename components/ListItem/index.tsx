@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppSelector } from '../../hooks/useRedux';
 import { IItem } from '../../types';
 import Card from '../Card';
 import Pagination from '../Pagination';
@@ -9,6 +10,12 @@ interface IListItem {
 }
 
 const ListItems = React.memo(({ data }: IListItem) => {
+  const { isLoading } = useAppSelector((state) => state.loading);
+
+  if (isLoading) {
+    return <div className="lds-dual-ring"></div>;
+  }
+
   return (
     <div className={s.container}>
       <div className={s.containerList}>

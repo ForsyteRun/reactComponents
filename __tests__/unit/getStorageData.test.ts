@@ -1,0 +1,49 @@
+const localStorageMock: { [key: string]: string } = {};
+const localStorageOriginal = Object.assign({}, global.localStorage);
+
+beforeEach(() => {
+  Object.defineProperty(global, 'localStorage', {
+    value: {
+      getItem: jest.fn((key) => localStorageMock[key] || null),
+      setItem: jest.fn((key, value) => (localStorageMock[key] = value)),
+      removeItem: jest.fn((key) => delete localStorageMock[key]),
+      clear: jest.fn(() =>
+        Object.keys(localStorageMock).forEach(
+          (key) => delete localStorageMock[key]
+        )
+      ),
+      key: jest.fn((index) => Object.keys(localStorageMock)[index] || null),
+      length: Object.keys(localStorageMock).length,
+    },
+    writable: true,
+  });
+});
+
+afterEach(() => {
+  Object.assign(global, { localStorage: localStorageOriginal });
+});
+
+describe('getStorageData', () => {
+  it('returns the parsed value from localStorage', () => {
+    const key = 'testKey';
+    const value = { some: 'data' };
+
+    localStorage.setItem(key, JSON.stringify(value));
+
+    const data = localStorage.getItem(key) as string;
+
+    const result: string = JSON.parse(data);
+
+    expect(result).toEqual(value);
+    expect(localStorage.getItem).toHaveBeenCalledWith(key);
+  });
+
+  it('returns null for non-existing key', () => {
+    const key = 'nonExistingKey';
+
+    const result = localStorage.getItem(key) as null;
+
+    expect(result).toBeNull();
+    expect(localStorage.getItem).toHaveBeenCalledWith(key);
+  });
+});

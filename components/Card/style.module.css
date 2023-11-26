@@ -1,0 +1,10 @@
+.item {
+  width: 50rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem 0.5rem;
+  border-bottom: 0.1rem solid #999;
+}

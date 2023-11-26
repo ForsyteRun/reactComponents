@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <form
+      role="search"
+    >
+      <input
+        name="search"
+        type="text"
+        value="nature"
+      />
+      <button
+        type="submit"
+      >
+        search
+      </button>
+    </form>
+    <button>
+      get error
+    </button>
+    <select>
+      <option
+        value="5"
+      >
+        5
+      </option>
+      <option
+        value="10"
+      >
+        10
+      </option>
+      <option
+        value="15"
+      >
+        15
+      </option>
+      <option
+        value="20"
+      >
+        20
+      </option>
+      <option
+        value="25"
+      >
+        25
+      </option>
+    </select>
+    <div
+      style="display: flex; flex-direction: row;"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="containerList"
+        >
+          <ul>
+            <li
+              class="item"
+            >
+              <a
+                href="/pfaeBAAAQBAJ/details?"
+              >
+                <img
+                  alt="Disorders of Sex Development in Gynaecology (Russian edition)"
+                  data-nimg="1"
+                  decoding="async"
+                  height="130"
+                  loading="eager"
+                  src="/_next/image?url=http%3A%2F%2Fbooks.google.com%2Fbooks%2Fcontent%3Fid%3DpfaeBAAAQBAJ%26printsec%3Dfrontcover%26img%3D1%26zoom%3D1%26edge%3Dcurl%26source%3Dgbs_api&w=256&q=75"
+                  srcset="/_next/image?url=http%3A%2F%2Fbooks.google.com%2Fbooks%2Fcontent%3Fid%3DpfaeBAAAQBAJ%26printsec%3Dfrontcover%26img%3D1%26zoom%3D1%26edge%3Dcurl%26source%3Dgbs_api&w=128&q=75 1x, /_next/image?url=http%3A%2F%2Fbooks.google.com%2Fbooks%2Fcontent%3Fid%3DpfaeBAAAQBAJ%26printsec%3Dfrontcover%26img%3D1%26zoom%3D1%26edge%3Dcurl%26source%3Dgbs_api&w=256&q=75 2x"
+                  style="color: transparent;"
+                  width="100"
+                />
+              </a>
+              <div
+                class="content"
+              >
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    name:
+                  </span>
+                   Disorders of Sex Development in Gynaecology (Russian edition)
+                  <span>
+                    Disorders of Sex Development in Gynaecology (Russian edition)
+                  </span>
+                </h3>
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    authors:
+                  </span>
+                   Zograb Makiyan
+                  <span>
+                    Zograb Makiyan
+                  </span>
+                </h3>
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    language:
+                  </span>
+                  <span>
+                    ru
+                  </span>
+                </h3>
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    pageCount:
+                  </span>
+                  <span>
+                    167
+                  </span>
+                </h3>
+              </div>
+            </li>
+            <li
+              class="item"
+            >
+              <a
+                href="/8cm3DwAAQBAJ/details?"
+              >
+                <img
+                  alt="Disorders of Sex Development in Gynaecology (Russian edition)"
+                  data-nimg="1"
+                  decoding="async"
+                  height="130"
+                  loading="eager"
+                  src="/_next/image?url=http%3A%2F%2Fbooks.google.com%2Fbooks%2Fcontent%3Fid%3DpfaeBAAAQBAJ%26printsec%3Dfrontcover%26img%3D1%26zoom%3D1%26edge%3Dcurl%26source%3Dgbs_api&w=256&q=75"
+                  srcset="/_next/image?url=http%3A%2F%2Fbooks.google.com%2Fbooks%2Fcontent%3Fid%3DpfaeBAAAQBAJ%26printsec%3Dfrontcover%26img%3D1%26zoom%3D1%26edge%3Dcurl%26source%3Dgbs_api&w=128&q=75 1x, /_next/image?url=http%3A%2F%2Fbooks.google.com%2Fbooks%2Fcontent%3Fid%3DpfaeBAAAQBAJ%26printsec%3Dfrontcover%26img%3D1%26zoom%3D1%26edge%3Dcurl%26source%3Dgbs_api&w=256&q=75 2x"
+                  style="color: transparent;"
+                  width="100"
+                />
+              </a>
+              <div
+                class="content"
+              >
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    name:
+                  </span>
+                   Disorders of Sex Development in Gynaecology (Russian edition)
+                  <span>
+                    Disorders of Sex Development in Gynaecology (Russian edition)
+                  </span>
+                </h3>
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    authors:
+                  </span>
+                   Zograb Makiyan
+                  <span>
+                    Zograb Makiyan
+                  </span>
+                </h3>
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    language:
+                  </span>
+                  <span>
+                    ru
+                  </span>
+                </h3>
+                <h3>
+                  <span
+                    class="title"
+                  >
+                    pageCount:
+                  </span>
+                  <span>
+                    167
+                  </span>
+                </h3>
+              </div>
+            </li>
+          </ul>
+          <div
+            class="pagination"
+          >
+            <a
+              class="active"
+            >
+              1
+            </a>
+            <a>
+              2
+            </a>
+            <a>
+              3
+            </a>
+            <a>
+              4
+            </a>
+            <a>
+              5
+            </a>
+            <a>
+              6
+            </a>
+            <a>
+              7
+            </a>
+            <a>
+              8
+            </a>
+            <a>
+              9
+            </a>
+            <a>
+              10
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

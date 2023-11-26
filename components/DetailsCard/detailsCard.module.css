@@ -1,0 +1,55 @@
+.container {
+  height: min-content;
+  position: sticky;
+  top: 0;
+  flex-grow: 1;
+  gap: 3rem;
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+}
+
+.container img {
+  object-fit: contain;
+  margin-right: 3rem;
+}
+
+.title ~ span {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 1rem;
+}
+
+.content div {
+  margin: 1rem 0;
+}
+
+.close {
+  position: relative;
+  right: 0;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.close:before,
+.close:after {
+  content: ' ';
+  position: absolute;
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}

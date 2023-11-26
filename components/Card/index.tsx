@@ -34,7 +34,7 @@ const Card = ({ data: { id, volumeInfo } }: { data: IItem }) => {
           src={volumeInfo?.imageLinks?.thumbnail || DEFAULT_IMG}
           alt={volumeInfo.title}
           width={100}
-          height={100}
+          height={130}
           loading="eager"
         />
       </Link>

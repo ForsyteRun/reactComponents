@@ -3,26 +3,15 @@
   position: sticky;
   top: 0;
   flex-grow: 1;
+  gap: 3rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 2rem;
 }
 
 .container img {
-  width: 30%;
-  margin: 0 auto;
-}
-
-.title b {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 1rem;
-}
-
-.title b {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 1rem;
+  object-fit: contain;
+  margin-right: 3rem;
 }
 
 .title ~ span {
@@ -36,9 +25,9 @@
 }
 
 .close {
-  position: absolute;
-  right: 32px;
-  top: 32px;
+  position: relative;
+  right: 0;
+  top: 0;
   width: 32px;
   height: 32px;
   cursor: pointer;
@@ -50,9 +39,8 @@
 
 .close:before,
 .close:after {
-  position: absolute;
-  left: 15px;
   content: ' ';
+  position: absolute;
   height: 33px;
   width: 2px;
   background-color: #333;

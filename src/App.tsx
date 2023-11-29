@@ -1,7 +1,17 @@
 import './App.css';
+import { Link } from 'react-router-dom';
 
-function App() {
-  return <div> INIt</div>;
-}
+const App = () => {
+  return (
+    <>
+      <div>
+        <Link to={'/uncontrolled'}>Uncontrolled form</Link>
+      </div>
+      <div>
+        <Link to={'/form'}>React Hook Form</Link>
+      </div>
+    </>
+  );
+};
 
 export default App;

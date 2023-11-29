@@ -1,38 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { CountryType } from '../../types';
 
-export interface CounterState {
+export interface InitialState {
   name: string;
-  age: number | null;
+  age: number;
   email: string;
   password: string;
-  gender: 'male' | 'female' | null;
-  file: string;
-  country: ICountry;
+  gender: 'male' | 'female';
+  file: string | undefined;
+  country: CountryType;
   terms: boolean;
 }
 
-type ICountry =
-  | 'United States'
-  | 'Canada'
-  | 'United Kingdom'
-  | 'Germany'
-  | 'France'
-  | 'Australia'
-  | 'Japan'
-  | 'Brazil'
-  | 'India'
-  | 'South Africa'
-  | null;
-
-const initialState: CounterState = {
+const initialState: InitialState = {
   name: '',
-  age: null,
+  age: 0,
   email: '',
   password: '',
-  gender: null,
-  file: '',
-  country: null,
+  gender: 'male',
+  file: undefined,
+  country: 'Australia',
   terms: false,
 };
 
@@ -40,7 +28,7 @@ export const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    addFormData: (state, action: PayloadAction<CounterState>) => {
+    addFormData: (state, action: PayloadAction<InitialState>) => {
       const { name, age, email, password, gender, file, country, terms } =
         action.payload;
 

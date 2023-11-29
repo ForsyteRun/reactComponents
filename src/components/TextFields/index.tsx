@@ -5,16 +5,20 @@ const TextFields = () => {
         <input type="text" name="name" placeholder="Name" />
       </label>
       <label>
-        <input type="number" placeholder="Age" />
+        <input type="number" name="age" placeholder="Age" />
       </label>
       <label>
-        <input type="email" placeholder="Email" />
+        <input type="email" name="email" placeholder="Email" />
       </label>
       <label>
-        <input type="password" placeholder="Password" />
+        <input type="password" name="password" placeholder="Password" />
       </label>
       <label>
-        <input type="password" placeholder="Confirm Password" />
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+        />
       </label>
     </>
   );

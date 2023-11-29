@@ -1,6 +1,5 @@
 import { FormEvent } from 'react';
-import { Select, Terms, TextFields, Gender } from '../../components';
-import s from './styles.module.css';
+import { Select, Terms, TextFields, Gender, Upload } from '../../components';
 
 const Uncontrolled = () => {
   const submit = (event: FormEvent) => {
@@ -10,13 +9,11 @@ const Uncontrolled = () => {
 
   return (
     <>
-      <div className={s.title}>Uncontrolled form</div>
-      <form action="" className={s.formUncontrolled} onSubmit={submit}>
+      <div className="title">Uncontrolled form</div>
+      <form action="" onSubmit={submit}>
         <TextFields />
         <Gender />
-        <div className={s.upload}>
-          <input type="file" />
-        </div>
+        <Upload />
         <Select />
         <Terms />
         <button type="submit">Submit</button>

@@ -1,13 +1,19 @@
 import s from './styles.module.css';
 import { Link } from 'react-router-dom';
 
-const Terms = () => {
+interface ITerm {
+  errorTerms: string[];
+}
+const Terms = ({ errorTerms }: ITerm) => {
   return (
     <div className={s.terms}>
-      <input type="checkbox" name="terms" />
-      <span>
-        agree with <Link to={'/'}>Terms and Conditions</Link>
-      </span>
+      <div>
+        <input type="checkbox" name="terms" />
+        <span>
+          agree with <Link to={'/'}>Terms and Conditions</Link>
+        </span>
+      </div>
+      {errorTerms && <h5>{errorTerms[0]}</h5>}
     </div>
   );
 };

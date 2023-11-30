@@ -30,23 +30,23 @@ const formSchema: ObjectSchema<IInitialBufferState> = object({
     .oneOf([ref('password')], 'Your passwords do not match.')
     .min(8, 'too short.'),
   gender: string()
-    .oneOf(['male', 'female'], 'Invalid gender selection')
+    .oneOf(['male', 'female'], 'invalid gender selection')
     .required('Gender is required'),
   file: mixed<IFile>()
-    .test('fileSize', 'File is too large', (value) => {
+    .test('fileSize', 'file is too large', (value) => {
       if (typeof value === 'object' && value instanceof File) {
         return value.size <= FILE_SIZE;
       }
     })
     .test(
       'fileType',
-      'Invalid file type',
+      'invalid file type',
       (value) => value && SUPPORTED_FORMATS.includes(value?.type)
     ),
   country: mixed<CountryType>()
     .test(
       'isValidCountry',
-      'Invalid country',
+      'invalid country',
       function (value: string | undefined) {
         return (
           value !== undefined &&
@@ -56,10 +56,10 @@ const formSchema: ObjectSchema<IInitialBufferState> = object({
         );
       }
     )
-    .required('Country is required'),
+    .required('country is required'),
   terms: boolean()
-    .required('The terms and conditions must be accepted.')
-    .oneOf([true], 'The terms and conditions must be accepted.'),
+    .required('the terms and conditions must be accepted.')
+    .oneOf([true], 'the terms and conditions must be accepted.'),
 });
 
 export default formSchema;

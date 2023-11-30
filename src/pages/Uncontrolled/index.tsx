@@ -14,6 +14,7 @@ const Uncontrolled = () => {
   const [imageEncode, setImageEncode] = useState<string | ArrayBuffer | null>(
     null
   );
+
   const [errors, setErrors] =
     useState<Omit<IConfirmPassword, 'fixedData'>>(formDataErrors);
 
@@ -38,6 +39,8 @@ const Uncontrolled = () => {
 
     const data = event.currentTarget;
 
+    console.log((data.elements.namedItem('terms') as HTMLInputElement).checked);
+
     try {
       const validateResult = await formSchema.validate(
         {
@@ -53,9 +56,7 @@ const Uncontrolled = () => {
           file: imagePreview,
           country: (data.elements.namedItem('country') as HTMLInputElement)
             .value,
-          terms: Boolean(
-            (data.elements.namedItem('terms') as HTMLInputElement).value
-          ),
+          terms: (data.elements.namedItem('terms') as HTMLInputElement).checked,
         },
         { abortEarly: false }
       );
@@ -83,7 +84,6 @@ const Uncontrolled = () => {
   };
 
   console.log(errors);
-  console.log(imagePreview, 77);
 
   return (
     <>
@@ -96,10 +96,10 @@ const Uncontrolled = () => {
           errorsPassword={errors.password}
           errorsConfirmPassword={errors.confirmPassword}
         />
-        <Gender />
-        <Upload imageUpload={imageUpload} />
+        <Gender errorsGender={errors.gender} />
+        <Upload errorsUpload={errors.file} imageUpload={imageUpload} />
         <Select errorCountry={errors.country} />
-        <Terms />
+        <Terms errorTerms={errors.terms} />
         <button type="submit">Submit</button>
       </form>
     </>

@@ -52,9 +52,15 @@ form > button:active {
 .upload {
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
   border-bottom: 1px solid #9999997c;
   padding: 0.5rem 0;
+}
+
+.upload > h5 {
+  align-self: normal;
 }
 
 h5 {

@@ -8,9 +8,12 @@ export interface InitialState {
   email: string;
   password: string;
   gender: 'male' | 'female';
-  file: string | undefined;
+  file: string | ArrayBuffer | null;
   country: CountryType;
   terms: boolean;
+  fixedData: {
+    allCountries: CountryType[];
+  };
 }
 
 const initialState: InitialState = {
@@ -19,17 +22,34 @@ const initialState: InitialState = {
   email: '',
   password: '',
   gender: 'male',
-  file: undefined,
+  file: null,
   country: 'Australia',
   terms: false,
+  fixedData: {
+    allCountries: [
+      'United States',
+      'Canada',
+      'United Kingdom',
+      'Germany',
+      'France',
+      'Australia',
+      'Japan',
+      'Brazil',
+      'India',
+      'South Africa',
+    ],
+  },
 };
 
 export const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    addFormData: (state, action: PayloadAction<InitialState>) => {
-      const { name, age, email, password, gender, file, country, terms } =
+    addFormData: (
+      state,
+      action: PayloadAction<Omit<InitialState, 'fixedData'>>
+    ) => {
+      const { name, age, email, password, gender, file, terms, country } =
         action.payload;
 
       state.name = name;
@@ -37,10 +57,13 @@ export const formSlice = createSlice({
       state.email = email;
       state.password = password;
       state.gender = gender;
-      state.file = file;
       state.country = country;
+      state.file = file;
       state.terms = terms;
     },
+    // addCountry: (state, action: PayloadAction<CountryType>) => {
+    //   state.country = action.payload;
+    // },
   },
 });
 

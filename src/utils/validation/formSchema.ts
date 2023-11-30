@@ -1,39 +1,65 @@
-import { object, string, number, date, ref, ObjectSchema, boolean } from 'yup';
-import { InitialState } from '../../store/slices/formSlice';
-import * as Yup from 'yup';
+import { ObjectSchema, boolean, mixed, number, object, ref, string } from 'yup';
+import { IFile, IInitialBufferState } from '../../interfaces';
+import { FILE_SIZE, SUPPORTED_FORMATS } from '../constants';
+import { store } from '../../store';
+import { CountryType } from '../../types';
 
-const formSchema: ObjectSchema<InitialState> = object({
-  name: string().required(),
-  age: number().required().positive().integer(),
-  email: string().email().required(),
+const formSchema: ObjectSchema<IInitialBufferState> = object({
+  name: string()
+    .required('name is required')
+    .test('firstUppercase', 'First letter must be uppercase', (value) => {
+      if (!value) {
+        return true;
+      }
+      return /^[A-Z]/.test(value);
+    }),
+  age: number()
+    .required('age is required')
+    .positive('must be a positive')
+    .integer('must be an integer')
+    .typeError('age must be a number'),
+  email: string().email('email incorrect').required('email is required'),
   password: string()
-    .required('Please enter your password.')
-    .min(8, 'Your password is too short.'),
+    .matches(/^(?=.*[a-z])/, 'at least one lowercase character')
+    .matches(/^(?=.*[A-Z])/, 'at least one uppercase character')
+    .matches(/^(?=.*[0-9])/, 'at least one number')
+    .matches(/^(?=.*[!@#%&])/, 'at least one special character')
+    .min(8, 'too short')
+    .required(),
   confirmPassword: string()
-    .required('Please retype your password.')
-    .oneOf([ref('password')], 'Your passwords do not match.'),
-  gender: Yup.string()
+    .oneOf([ref('password')], 'Your passwords do not match.')
+    .min(8, 'too short.'),
+  gender: string()
     .oneOf(['male', 'female'], 'Invalid gender selection')
     .required('Gender is required'),
-  file: string(),
-  country: string()
-    .oneOf([
-      'United States',
-      'Canada',
-      'United Kingdom',
-      'Germany',
-      'France',
-      'Australia',
-      'Japan',
-      'Brazil',
-      'India',
-      'South Africa',
-    ])
+  file: mixed<IFile>()
+    .test('fileSize', 'File is too large', (value) => {
+      if (typeof value === 'object' && value instanceof File) {
+        return value.size <= FILE_SIZE;
+      }
+    })
+    .test(
+      'fileType',
+      'Invalid file type',
+      (value) => value && SUPPORTED_FORMATS.includes(value?.type)
+    ),
+  country: mixed<CountryType>()
+    .test(
+      'isValidCountry',
+      'Invalid country',
+      function (value: string | undefined) {
+        return (
+          value !== undefined &&
+          store
+            .getState()
+            .form.fixedData.allCountries.includes(value as CountryType)
+        );
+      }
+    )
     .required('Country is required'),
   terms: boolean()
     .required('The terms and conditions must be accepted.')
     .oneOf([true], 'The terms and conditions must be accepted.'),
-  createdOn: date().default(() => new Date()),
 });
 
 export default formSchema;

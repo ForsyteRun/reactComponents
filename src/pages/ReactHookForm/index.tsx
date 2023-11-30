@@ -9,7 +9,7 @@ const ReactHookForm = () => {
 
   return (
     <>
-      <div className="title">ReactHookForm use</div>
+      <h1 className="title">ReactHookForm use</h1>
       <form action="" onSubmit={submit}>
         <TextFields />
         <Gender />

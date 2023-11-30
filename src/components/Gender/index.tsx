@@ -5,11 +5,11 @@ const Gender = () => {
     <div className={s.gender}>
       <div>
         <label htmlFor="contactChoice1">Male</label>
-        <input type="radio" id="contactChoice1" name="contact" value="email" />
+        <input type="radio" id="contactChoice1" name="gender" value="male" />
       </div>
       <div>
         <label htmlFor="contactChoice2">Female</label>
-        <input type="radio" id="contactChoice2" name="contact" value="phone" />
+        <input type="radio" id="contactChoice2" name="gender" value="female" />
       </div>
     </div>
   );

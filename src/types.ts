@@ -9,3 +9,5 @@ export type CountryType =
   | 'Brazil'
   | 'India'
   | 'South Africa';
+
+export type SupportedImageFormats = 'image/jpeg' | 'image/png';

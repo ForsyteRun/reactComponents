@@ -39,8 +39,6 @@ const Uncontrolled = () => {
 
     const data = event.currentTarget;
 
-    console.log((data.elements.namedItem('terms') as HTMLInputElement).checked);
-
     try {
       const validateResult = await formSchema.validate(
         {
@@ -64,6 +62,7 @@ const Uncontrolled = () => {
       const resultData = { ...validateResult, file: imageEncode };
 
       dispatch(addFormData(resultData));
+      setErrors(formDataErrors);
     } catch (error) {
       if (error instanceof ValidationError) {
         const result: Record<string, string[]> = {};
@@ -82,8 +81,6 @@ const Uncontrolled = () => {
       }
     }
   };
-
-  console.log(errors);
 
   return (
     <>

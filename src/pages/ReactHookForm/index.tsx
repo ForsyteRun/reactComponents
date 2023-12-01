@@ -1,17 +1,17 @@
-import { FormEvent } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Gender, Select, Terms, TextFields, Upload } from '../../components';
+import { IConfirmPassword } from '../../interfaces';
 
 const ReactHookForm = () => {
-  const submit = (event: FormEvent) => {
-    event.preventDefault();
-    // console.log(event.target.name.value);
-  };
+  const { register, handleSubmit } = useForm<IConfirmPassword>();
+
+  const onSubmit: SubmitHandler<IConfirmPassword> = (data) => console.log(data);
 
   return (
     <>
       <h1 className="title">ReactHookForm use</h1>
-      <form action="" onSubmit={submit}>
-        <TextFields />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextFields register={register} />
         <Gender />
         <Upload />
         <Select />

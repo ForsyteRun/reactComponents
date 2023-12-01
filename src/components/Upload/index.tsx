@@ -1,8 +1,8 @@
 import { ChangeEventHandler } from 'react';
 
 type UploadType = {
-  errorsUpload: string[];
-  imageUpload: ChangeEventHandler<HTMLInputElement>;
+  errorsUpload?: string[];
+  imageUpload?: ChangeEventHandler<HTMLInputElement>;
 };
 
 const Upload = ({ errorsUpload, imageUpload }: UploadType) => {

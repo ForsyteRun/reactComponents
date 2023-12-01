@@ -1,3 +1,5 @@
+import { UseFormRegister } from 'react-hook-form';
+import { IConfirmPassword } from '../../interfaces';
 import s from './styles.module.css';
 
 interface ITextFields {
@@ -6,6 +8,7 @@ interface ITextFields {
   errorsEmail?: string[];
   errorsPassword?: string[];
   errorsConfirmPassword?: string[];
+  register: UseFormRegister<IConfirmPassword>;
 }
 
 const TextFields = ({
@@ -14,30 +17,47 @@ const TextFields = ({
   errorsEmail,
   errorsPassword,
   errorsConfirmPassword,
+  register,
 }: ITextFields) => {
   return (
     <div className={s.container}>
       <div>
         <label>
-          <input type="text" name="name" placeholder="Name" />
+          <input
+            type="text"
+            placeholder="Name"
+            {...(register ? register('name') : { name: 'name' })}
+          />
         </label>
         {errorsName && <h5>{errorsName[0]}</h5>}
       </div>
       <div>
         <label>
-          <input type="number" name="age" placeholder="Age" />
+          <input
+            type="number"
+            placeholder="Age"
+            {...(register ? register('age') : { name: 'age' })}
+          />
         </label>
         {errorsAge && <h5>{errorsAge[0]}</h5>}
       </div>
       <div>
         <label>
-          <input type="email" name="email" placeholder="Email" />
+          <input
+            type="email"
+            placeholder="Email"
+            {...(register ? register('email') : { name: 'email' })}
+          />
         </label>
         {errorsEmail && <h5>{errorsEmail[0]}</h5>}
       </div>
       <div>
         <label>
-          <input type="password" name="password" placeholder="Password" />
+          <input
+            type="password"
+            placeholder="Password"
+            {...(register ? register('password') : { name: 'password' })}
+          />
         </label>
         {errorsPassword && <h5>{errorsPassword[0]}</h5>}
       </div>
@@ -45,8 +65,10 @@ const TextFields = ({
         <label>
           <input
             type="password"
-            name="confirmPassword"
             placeholder="Confirm Password"
+            {...(register
+              ? register('confirmPassword')
+              : { name: 'confirmPassword' })}
           />
         </label>
         {errorsConfirmPassword && <h5>{errorsConfirmPassword[0]}</h5>}

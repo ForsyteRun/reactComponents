@@ -2,15 +2,13 @@ import { useAppSelector } from '../../hooks/redux';
 import s from './styles.module.css';
 
 interface ISelect {
-  errorCountry: string[];
+  errorCountry?: string[];
 }
 
 const Select = ({ errorCountry = [] }: ISelect) => {
   const {
     fixedData: { allCountries },
   } = useAppSelector((state) => state.form);
-
-  console.log(errorCountry);
 
   return (
     <div className={`${s.container} inputContainer`}>

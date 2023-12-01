@@ -1,7 +1,7 @@
 import s from './styles.module.css';
 
 interface IGender {
-  errorsGender: string[];
+  errorsGender?: string[];
 }
 
 const Gender = ({ errorsGender }: IGender) => {

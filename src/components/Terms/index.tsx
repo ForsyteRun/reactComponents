@@ -2,7 +2,7 @@ import s from './styles.module.css';
 import { Link } from 'react-router-dom';
 
 interface ITerm {
-  errorTerms: string[];
+  errorTerms?: string[];
 }
 const Terms = ({ errorTerms }: ITerm) => {
   return (

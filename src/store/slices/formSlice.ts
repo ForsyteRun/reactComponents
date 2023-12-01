@@ -61,9 +61,6 @@ export const formSlice = createSlice({
       state.file = file;
       state.terms = terms;
     },
-    // addCountry: (state, action: PayloadAction<CountryType>) => {
-    //   state.country = action.payload;
-    // },
   },
 });
 

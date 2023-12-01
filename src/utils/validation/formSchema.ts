@@ -7,12 +7,17 @@ import { FILE_SIZE, SUPPORTED_FORMATS } from '../constants';
 const formSchema: ObjectSchema<IInitialBufferState> = object({
   name: string()
     .required('name is required')
-    .test('firstUppercase', 'First letter must be uppercase', (value) => {
-      if (!value) {
-        return true;
+    .test(
+      'firstUppercase',
+      'First letter must be uppercase',
+      (value: string) => {
+        if (!value) {
+          return true;
+        }
+
+        return /^[A-Z]/.test(value);
       }
-      return /^[A-Z]/.test(value);
-    }),
+    ),
   age: number()
     .required('age is required')
     .positive('must be a positive')
@@ -35,7 +40,7 @@ const formSchema: ObjectSchema<IInitialBufferState> = object({
     .required('Gender is required'),
   file: mixed<IFile>()
     .test('fileSize', 'file is too large', (value) => {
-      if (typeof value === 'object' && value instanceof File) {
+      if (typeof value === 'object') {
         return value.size <= FILE_SIZE;
       }
     })

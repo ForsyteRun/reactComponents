@@ -1,38 +1,19 @@
-import { ChangeEventHandler, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { ValidationError } from 'yup';
 import { Gender, Select, Terms, TextFields, Upload } from '../../components';
 import { useAppDispatch } from '../../hooks/redux';
+import useFileReader from '../../hooks/useFileReader';
+import { IInitialBufferState } from '../../interfaces';
 import { addFormData } from '../../store/slices/formSlice';
+import { ErrorType } from '../../types';
 import { formDataErrors } from '../../utils/constants';
 import formSchema from '../../utils/validation/formSchema';
-import { ErrorType } from '../../types';
-import { IInitialBufferState } from '../../interfaces';
 
 const Uncontrolled = () => {
   const dispatch = useAppDispatch();
-
-  const [imagePreview, setImagePreview] = useState<File | null>(null);
-  const [imageEncode, setImageEncode] = useState<string | ArrayBuffer | null>(
-    null
-  );
+  const { pureFile, encodeFile, clearFile, readFile } = useFileReader<File>();
 
   const [errors, setErrors] = useState<ErrorType>(formDataErrors);
-
-  const imageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(file);
-        setImageEncode(reader.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setImagePreview(null);
-      setImageEncode(null);
-    }
-  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,7 +32,7 @@ const Uncontrolled = () => {
             data.elements.namedItem('confirmPassword') as HTMLInputElement
           ).value,
           gender: (data.elements.namedItem('gender') as HTMLInputElement).value,
-          file: imagePreview,
+          file: pureFile,
           country: (data.elements.namedItem('country') as HTMLInputElement)
             .value,
           terms: (data.elements.namedItem('terms') as HTMLInputElement).checked,
@@ -59,9 +40,10 @@ const Uncontrolled = () => {
         { abortEarly: false }
       );
 
-      const resultData = { ...validateResult, file: imageEncode };
+      const resultData = { ...validateResult, file: encodeFile };
 
       dispatch(addFormData(resultData));
+      clearFile();
       setErrors(formDataErrors);
     } catch (error) {
       if (error instanceof ValidationError) {
@@ -91,7 +73,7 @@ const Uncontrolled = () => {
       <form onSubmit={handleSubmit}>
         <TextFields errors={errors} />
         <Gender errors={errors} />
-        <Upload errors={errors} imageUpload={imageUpload} />
+        <Upload errors={errors} readFile={readFile} />
         <Select errors={errors} />
         <Terms errors={errors} />
         <button type="submit">Submit</button>

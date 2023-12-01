@@ -1,24 +1,41 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Gender, Select, Terms, TextFields, Upload } from '../../components';
+import { useAppDispatch } from '../../hooks/redux';
+import useFileReader from '../../hooks/useFileReader';
 import { IInitialBufferState } from '../../interfaces';
 import formSchema from '../../utils/validation/formSchema';
+import { useYupValidationResolver } from '../../utils/validation/useYupValidationResolver';
+import { useEffect } from 'react';
+import { addFormData } from '../../store/slices/formSlice';
 
 const ReactHookForm = () => {
+  const dispatch = useAppDispatch();
+  const { pureFile, encodeFile, clearFile, readFile } = useFileReader<File>();
+  const resolver = useYupValidationResolver(formSchema, pureFile);
+
   const {
     register,
     handleSubmit,
-    watch,
+    trigger,
     formState: { errors },
   } = useForm<IInitialBufferState>({
-    resolver: yupResolver(formSchema),
+    resolver,
+    mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<IInitialBufferState> = (data) => {
-    console.log(data);
-  };
+  useEffect(() => {
+    if (pureFile) {
+      trigger('file');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pureFile]);
 
-  console.log(watch('name'));
+  const onSubmit = (data: IInitialBufferState) => {
+    const resultData = { ...data, file: encodeFile };
+    console.log(resultData);
+    dispatch(addFormData(resultData));
+    clearFile();
+  };
 
   return (
     <>
@@ -26,7 +43,7 @@ const ReactHookForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextFields errors={errors} register={register} />
         <Gender errors={errors} register={register} />
-        <Upload errors={errors} register={register} />
+        <Upload errors={errors} register={register} readFile={readFile} />
         <Select errors={errors} register={register} />
         <Terms errors={errors} register={register} />
         <button type="submit">Submit</button>

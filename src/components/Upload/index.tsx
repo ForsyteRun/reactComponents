@@ -1,14 +1,15 @@
 import { ChangeEventHandler } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import { IConfirmPassword } from '../../interfaces';
+import { IInitialBufferState } from '../../interfaces';
+import { ErrorType } from '../../types';
 
 type UploadType = {
-  errorsUpload?: string[];
+  errors: ErrorType;
   imageUpload?: ChangeEventHandler<HTMLInputElement>;
-  register?: UseFormRegister<IConfirmPassword>;
+  register?: UseFormRegister<IInitialBufferState>;
 };
 
-const Upload = ({ errorsUpload, imageUpload, register }: UploadType) => {
+const Upload = ({ errors: { file }, imageUpload, register }: UploadType) => {
   return (
     <div className={`${'inputContainer'} ${'upload'}`}>
       <input
@@ -16,7 +17,7 @@ const Upload = ({ errorsUpload, imageUpload, register }: UploadType) => {
         {...(register ? register('file') : { name: 'file' })}
         onChange={imageUpload}
       />
-      {errorsUpload && <h5>{errorsUpload[0]}</h5>}
+      {file && <h5>{file.message}</h5>}
     </div>
   );
 };

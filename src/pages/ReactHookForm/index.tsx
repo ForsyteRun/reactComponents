@@ -1,21 +1,34 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Gender, Select, Terms, TextFields, Upload } from '../../components';
-import { IConfirmPassword } from '../../interfaces';
+import { IInitialBufferState } from '../../interfaces';
+import formSchema from '../../utils/validation/formSchema';
 
 const ReactHookForm = () => {
-  const { register, handleSubmit } = useForm<IConfirmPassword>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IInitialBufferState>({
+    resolver: yupResolver(formSchema),
+  });
 
-  const onSubmit: SubmitHandler<IConfirmPassword> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IInitialBufferState> = (data) => {
+    console.log(data);
+  };
+
+  console.log(watch('name'));
 
   return (
     <>
       <h1 className="title">ReactHookForm use</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextFields register={register} />
-        <Gender register={register} />
-        <Upload register={register} />
-        <Select register={register} />
-        <Terms register={register} />
+        <TextFields errors={errors} register={register} />
+        <Gender errors={errors} register={register} />
+        <Upload errors={errors} register={register} />
+        <Select errors={errors} register={register} />
+        <Terms errors={errors} register={register} />
         <button type="submit">Submit</button>
       </form>
     </>

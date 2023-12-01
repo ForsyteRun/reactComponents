@@ -2,10 +2,11 @@ import { ChangeEventHandler, FormEvent, useState } from 'react';
 import { ValidationError } from 'yup';
 import { Gender, Select, Terms, TextFields, Upload } from '../../components';
 import { useAppDispatch } from '../../hooks/redux';
-import { IConfirmPassword } from '../../interfaces';
 import { addFormData } from '../../store/slices/formSlice';
 import { formDataErrors } from '../../utils/constants';
 import formSchema from '../../utils/validation/formSchema';
+import { ErrorType } from '../../types';
+import { IInitialBufferState } from '../../interfaces';
 
 const Uncontrolled = () => {
   const dispatch = useAppDispatch();
@@ -15,8 +16,7 @@ const Uncontrolled = () => {
     null
   );
 
-  const [errors, setErrors] =
-    useState<Omit<IConfirmPassword, 'fixedData'>>(formDataErrors);
+  const [errors, setErrors] = useState<ErrorType>(formDataErrors);
 
   const imageUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
     const file = event.target.files?.[0];
@@ -65,19 +65,22 @@ const Uncontrolled = () => {
       setErrors(formDataErrors);
     } catch (error) {
       if (error instanceof ValidationError) {
-        const result: Record<string, string[]> = {};
+        const result = {} as Record<
+          keyof IInitialBufferState,
+          { message: string }
+        >;
 
         error.inner.forEach((e) => {
-          const path = e.path as string;
+          const path = e.path as keyof IInitialBufferState;
 
           if (!result[path]) {
-            result[path] = [];
+            result[path] = { message: '' };
           }
 
-          result[path].push(e.message);
+          result[path].message = e.message;
         });
 
-        setErrors(result as Omit<IConfirmPassword, 'fixedData'>);
+        setErrors(result);
       }
     }
   };
@@ -86,17 +89,11 @@ const Uncontrolled = () => {
     <>
       <h1 className="title">Uncontrolled form</h1>
       <form onSubmit={handleSubmit}>
-        <TextFields
-          errorsName={errors.name}
-          errorsAge={errors.age}
-          errorsEmail={errors.email}
-          errorsPassword={errors.password}
-          errorsConfirmPassword={errors.confirmPassword}
-        />
-        <Gender errorsGender={errors.gender} />
-        <Upload errorsUpload={errors.file} imageUpload={imageUpload} />
-        <Select errorCountry={errors.country} />
-        <Terms errorTerms={errors.terms} />
+        <TextFields errors={errors} />
+        <Gender errors={errors} />
+        <Upload errors={errors} imageUpload={imageUpload} />
+        <Select errors={errors} />
+        <Terms errors={errors} />
         <button type="submit">Submit</button>
       </form>
     </>

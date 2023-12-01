@@ -1,14 +1,15 @@
 import { useAppSelector } from '../../hooks/redux';
-import { UseFormRegister } from 'react-hook-form';
 import s from './styles.module.css';
-import { IConfirmPassword } from '../../interfaces';
+import { IInitialBufferState } from '../../interfaces';
+import { UseFormRegister } from 'react-hook-form';
+import { ErrorType } from '../../types';
 
 interface ISelect {
-  errorCountry?: string[];
-  register?: UseFormRegister<IConfirmPassword>;
+  errors: ErrorType;
+  register?: UseFormRegister<IInitialBufferState>;
 }
 
-const Select = ({ errorCountry = [], register }: ISelect) => {
+const Select = ({ errors: { country }, register }: ISelect) => {
   const {
     fixedData: { allCountries },
   } = useAppSelector((state) => state.form);
@@ -24,7 +25,7 @@ const Select = ({ errorCountry = [], register }: ISelect) => {
           {...(register ? register('country') : { name: 'country' })}
         />
       </div>
-      {errorCountry.length > 0 && <h5>incorrect country</h5>}
+      {country && <h5>{country.message}</h5>}
       <datalist id="countries">
         {allCountries.map((country: string) => (
           <option key={country} value={country} />

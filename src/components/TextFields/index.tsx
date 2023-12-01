@@ -1,22 +1,15 @@
 import { UseFormRegister } from 'react-hook-form';
-import { IConfirmPassword } from '../../interfaces';
+import { IInitialBufferState } from '../../interfaces';
+import { ErrorType } from '../../types';
 import s from './styles.module.css';
 
 interface ITextFields {
-  errorsName?: string[];
-  errorsAge?: string[];
-  errorsEmail?: string[];
-  errorsPassword?: string[];
-  errorsConfirmPassword?: string[];
-  register: UseFormRegister<IConfirmPassword>;
+  errors: ErrorType;
+  register?: UseFormRegister<IInitialBufferState>;
 }
 
 const TextFields = ({
-  errorsAge,
-  errorsName,
-  errorsEmail,
-  errorsPassword,
-  errorsConfirmPassword,
+  errors: { name, age, email, password, confirmPassword },
   register,
 }: ITextFields) => {
   return (
@@ -29,7 +22,7 @@ const TextFields = ({
             {...(register ? register('name') : { name: 'name' })}
           />
         </label>
-        {errorsName && <h5>{errorsName[0]}</h5>}
+        {name && <h5>{name.message}</h5>}
       </div>
       <div>
         <label>
@@ -39,7 +32,7 @@ const TextFields = ({
             {...(register ? register('age') : { name: 'age' })}
           />
         </label>
-        {errorsAge && <h5>{errorsAge[0]}</h5>}
+        {age && <h5>{age.message}</h5>}
       </div>
       <div>
         <label>
@@ -49,7 +42,7 @@ const TextFields = ({
             {...(register ? register('email') : { name: 'email' })}
           />
         </label>
-        {errorsEmail && <h5>{errorsEmail[0]}</h5>}
+        {email && <h5>{email.message}</h5>}
       </div>
       <div>
         <label>
@@ -59,7 +52,7 @@ const TextFields = ({
             {...(register ? register('password') : { name: 'password' })}
           />
         </label>
-        {errorsPassword && <h5>{errorsPassword[0]}</h5>}
+        {password && <h5>{password.message}</h5>}
       </div>
       <div>
         <label>
@@ -71,7 +64,7 @@ const TextFields = ({
               : { name: 'confirmPassword' })}
           />
         </label>
-        {errorsConfirmPassword && <h5>{errorsConfirmPassword[0]}</h5>}
+        {confirmPassword && <h5>{confirmPassword.message}</h5>}
       </div>
     </div>
   );

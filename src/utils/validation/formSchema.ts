@@ -1,8 +1,8 @@
 import { ObjectSchema, boolean, mixed, number, object, ref, string } from 'yup';
 import { IFile, IInitialBufferState } from '../../interfaces';
-import { FILE_SIZE, SUPPORTED_FORMATS } from '../constants';
 import { store } from '../../store';
 import { CountryType } from '../../types';
+import { FILE_SIZE, SUPPORTED_FORMATS } from '../constants';
 
 const formSchema: ObjectSchema<IInitialBufferState> = object({
   name: string()
@@ -28,7 +28,8 @@ const formSchema: ObjectSchema<IInitialBufferState> = object({
     .required(),
   confirmPassword: string()
     .oneOf([ref('password')], 'Your passwords do not match.')
-    .min(8, 'too short.'),
+    .min(8, 'too short.')
+    .required(),
   gender: string()
     .oneOf(['male', 'female'], 'invalid gender selection')
     .required('Gender is required'),

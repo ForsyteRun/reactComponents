@@ -18,4 +18,5 @@ export interface IConfirmPassword
 export interface IInitialBufferState
   extends Omit<InitialState, 'fixedData' | 'file'> {
   file: IFile | undefined;
+  confirmPassword: string;
 }

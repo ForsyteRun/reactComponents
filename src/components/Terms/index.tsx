@@ -1,14 +1,15 @@
 import { UseFormRegister } from 'react-hook-form';
-import { IConfirmPassword } from '../../interfaces';
 import { Link } from 'react-router-dom';
+import { IInitialBufferState } from '../../interfaces';
+import { ErrorType } from '../../types';
 import s from './styles.module.css';
 
 interface ITerm {
-  errorTerms?: string[];
-  register?: UseFormRegister<IConfirmPassword>;
+  errors: ErrorType;
+  register?: UseFormRegister<IInitialBufferState>;
 }
 
-const Terms = ({ errorTerms, register }: ITerm) => {
+const Terms = ({ errors: { terms }, register }: ITerm) => {
   return (
     <div className={s.terms}>
       <div>
@@ -20,7 +21,7 @@ const Terms = ({ errorTerms, register }: ITerm) => {
           agree with <Link to={'/'}>Terms and Conditions</Link>
         </span>
       </div>
-      {errorTerms && <h5>{errorTerms[0]}</h5>}
+      {terms && <h5>{terms.message}</h5>}
     </div>
   );
 };

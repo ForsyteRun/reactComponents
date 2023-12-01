@@ -1,3 +1,5 @@
+import { IInitialBufferState } from './interfaces';
+
 export type CountryType =
   | 'United States'
   | 'Canada'
@@ -11,3 +13,9 @@ export type CountryType =
   | 'South Africa';
 
 export type SupportedImageFormats = 'image/jpeg' | 'image/png';
+
+type ErrorMessageType = { message?: string };
+
+export type ErrorType = Partial<
+  Record<keyof IInitialBufferState, ErrorMessageType>
+>;

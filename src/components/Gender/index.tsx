@@ -1,13 +1,14 @@
-import { IConfirmPassword } from '../../interfaces';
 import { UseFormRegister } from 'react-hook-form';
+import { IInitialBufferState } from '../../interfaces';
+import { ErrorType } from '../../types';
 import s from './styles.module.css';
 
 interface IGender {
-  errorsGender?: string[];
-  register?: UseFormRegister<IConfirmPassword>;
+  errors: ErrorType;
+  register?: UseFormRegister<IInitialBufferState>;
 }
 
-const Gender = ({ errorsGender, register }: IGender) => {
+const Gender = ({ errors: { gender }, register }: IGender) => {
   return (
     <div className={`${s.gender} inputContainer`}>
       <div>
@@ -28,7 +29,7 @@ const Gender = ({ errorsGender, register }: IGender) => {
           {...(register ? register('gender') : { name: 'gender' })}
         />
       </div>
-      {errorsGender && <h5>{errorsGender}</h5>}
+      {gender && <h5>{gender.message}</h5>}
     </div>
   );
 };

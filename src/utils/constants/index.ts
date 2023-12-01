@@ -1,17 +1,17 @@
-import { IConfirmPassword } from '../../interfaces';
+import { ErrorType } from '../../types';
 
-export const formDataErrors: Omit<IConfirmPassword, 'fixedData'> = {
-  name: [],
-  age: [],
-  email: [],
-  password: [],
-  confirmPassword: [],
-  gender: [],
-  file: [],
-  country: [],
-  terms: [],
+export const formDataErrors: ErrorType = {
+  name: {},
+  age: {},
+  email: {},
+  password: {},
+  confirmPassword: {},
+  gender: {},
+  file: {},
+  country: {},
+  terms: {},
 };
 
-export const FILE_SIZE = 5000;
+export const FILE_SIZE = 10000;
 
 export const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];

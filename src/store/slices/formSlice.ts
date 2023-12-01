@@ -16,7 +16,7 @@ export interface InitialState {
   };
 }
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   name: '',
   age: 0,
   email: '',

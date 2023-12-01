@@ -12,10 +12,10 @@ const ReactHookForm = () => {
       <h1 className="title">ReactHookForm use</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextFields register={register} />
-        <Gender />
-        <Upload />
-        <Select />
-        <Terms />
+        <Gender register={register} />
+        <Upload register={register} />
+        <Select register={register} />
+        <Terms register={register} />
         <button type="submit">Submit</button>
       </form>
     </>

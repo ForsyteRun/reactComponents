@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FieldError, useForm } from 'react-hook-form';
 import { Gender, Select, Terms, TextFields, Upload } from '../../components';
 import { useAppDispatch } from '../../hooks/redux';
 import useFileReader from '../../hooks/useFileReader';
@@ -7,6 +7,10 @@ import formSchema from '../../utils/validation/formSchema';
 import { useYupValidationResolver } from '../../utils/validation/useYupValidationResolver';
 import { useEffect } from 'react';
 import { addFormData } from '../../store/slices/formSlice';
+
+type PasswordType = FieldError & {
+  count: number;
+};
 
 const ReactHookForm = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +36,6 @@ const ReactHookForm = () => {
 
   const onSubmit = (data: IInitialBufferState) => {
     const resultData = { ...data, file: encodeFile };
-    console.log(resultData);
     dispatch(addFormData(resultData));
     clearFile();
   };
@@ -41,7 +44,13 @@ const ReactHookForm = () => {
     <>
       <h1 className="title">ReactHookForm use</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextFields errors={errors} register={register} />
+        <TextFields
+          errors={errors}
+          register={register}
+          countPasswordErrors={
+            errors.password ? (errors.password as PasswordType).count : 6
+          }
+        />
         <Gender errors={errors} register={register} />
         <Upload errors={errors} register={register} readFile={readFile} />
         <Select errors={errors} register={register} />

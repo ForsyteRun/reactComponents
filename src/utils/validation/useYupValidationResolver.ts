@@ -14,14 +14,19 @@ export const useYupValidationResolver = (
         const values = await validationSchema.validate(modifyData, {
           abortEarly: false,
         });
-
         return {
           values,
           errors: {},
         };
       } catch (errors) {
+        const count = (errors as yup.ValidationError).inner.reduce(
+          (count, error) => (error.path === 'password' ? count + 1 : count),
+          0
+        );
+
         return {
           values: {},
+          countPasswordErrors: count,
           errors: (errors as yup.ValidationError).inner.reduce(
             (allErrors, currentError) => {
               if (currentError && currentError.path) {
@@ -31,9 +36,30 @@ export const useYupValidationResolver = (
                     type: currentError.type ?? 'validation',
                     message: currentError.message,
                   },
+                  password: {
+                    type:
+                      (
+                        (errors as yup.ValidationError).inner.find(
+                          (el) => el.path === 'password'
+                        ) || {}
+                      ).type ?? '',
+                    message:
+                      (
+                        (errors as yup.ValidationError).inner.find(
+                          (el) => el.path === 'password'
+                        ) || {}
+                      ).message ?? '',
+                    count: (errors as yup.ValidationError).inner.reduce(
+                      (count, error) =>
+                        error.path === 'password' ? count + 1 : count,
+                      0
+                    ),
+                  },
                 };
               }
-              return allErrors;
+              return {
+                ...allErrors,
+              };
             },
             {} as Record<string, { type: string; message: string }>
           ),

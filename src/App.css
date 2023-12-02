@@ -73,3 +73,22 @@ h5 {
 .inputContainer {
   height: 3rem;
 }
+
+.easyLevel {
+  color: rgb(238, 58, 8);
+}
+
+.normalLevel {
+  color: rgb(34, 0, 128);
+}
+
+.hardLevel {
+  color: rgb(0, 128, 0);
+}
+
+.containerPasswordLevel {
+  position: absolute;
+  right: -3.5rem;
+  top: 0;
+  font-weight: 700;
+}

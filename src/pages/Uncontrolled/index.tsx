@@ -14,6 +14,7 @@ const Uncontrolled = () => {
   const { pureFile, encodeFile, clearFile, readFile } = useFileReader<File>();
 
   const [errors, setErrors] = useState<ErrorType>(formDataErrors);
+  const [countPasswordErrors, setCountPasswordErrors] = useState<number>(6);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,6 +63,12 @@ const Uncontrolled = () => {
           result[path].message = e.message;
         });
 
+        const passwordErrors = error.inner.filter(
+          (e) => e.path === 'password'
+        ).length;
+
+        setCountPasswordErrors(passwordErrors);
+
         setErrors(result);
       }
     }
@@ -71,7 +78,7 @@ const Uncontrolled = () => {
     <>
       <h1 className="title">Uncontrolled form</h1>
       <form onSubmit={handleSubmit}>
-        <TextFields errors={errors} />
+        <TextFields errors={errors} countPasswordErrors={countPasswordErrors} />
         <Gender errors={errors} />
         <Upload errors={errors} readFile={readFile} />
         <Select errors={errors} />

@@ -2,15 +2,18 @@ import { UseFormRegister } from 'react-hook-form';
 import { IInitialBufferState } from '../../interfaces';
 import { ErrorType } from '../../types';
 import s from './styles.module.css';
+import PasswordLevel from './PasswordLevel';
 
 interface ITextFields {
   errors: ErrorType;
+  countPasswordErrors: number;
   register?: UseFormRegister<IInitialBufferState>;
 }
 
 const TextFields = ({
   errors: { name, age, email, password, confirmPassword },
   register,
+  countPasswordErrors,
 }: ITextFields) => {
   return (
     <div className={s.container}>
@@ -44,15 +47,18 @@ const TextFields = ({
         </label>
         {email && <h5>{email.message}</h5>}
       </div>
-      <div>
-        <label>
-          <input
-            type="password"
-            placeholder="Password"
-            {...(register ? register('password') : { name: 'password' })}
-          />
-        </label>
-        {password && <h5>{password.message}</h5>}
+      <div style={{ position: 'relative' }}>
+        <div>
+          <label>
+            <input
+              type="password"
+              placeholder="Password"
+              {...(register ? register('password') : { name: 'password' })}
+            />
+          </label>
+          {password && <h5>{password.message}</h5>}
+        </div>
+        <PasswordLevel countPasswordErrors={countPasswordErrors} />
       </div>
       <div>
         <label>

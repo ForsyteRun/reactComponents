@@ -12,8 +12,12 @@ const MainPage = () => {
       }}
     >
       <div>
-        <Link to={'/uncontrolled'}>Uncontrolled form</Link>
-        <Link to={'/form'}>React Hook Form</Link>
+        <Link to={'/uncontrolled'} style={{ marginRight: '1rem' }}>
+          <button>Uncontrolled form</button>
+        </Link>
+        <Link to={'/form'}>
+          <button>React Hook Form</button>
+        </Link>
       </div>
       <Tile />
     </div>

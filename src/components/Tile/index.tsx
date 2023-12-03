@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../hooks/redux';
+import MarkItem from './MarkBlock';
 import s from './style.module.css';
 
 const Tile = () => {
@@ -13,26 +14,11 @@ const Tile = () => {
         </div>
         {isChanging.file && <span className={s.newMark}>new</span>}
       </div>
-      <div className={s.dataBlock}>
-        <span>name: {name}</span>
-        {isChanging.name && <span className={s.newMark}>new</span>}
-      </div>
-      <div className={s.dataBlock}>
-        <span>age: {age}</span>
-        {isChanging.age && <span className={s.newMark}>new</span>}
-      </div>
-      <div className={s.dataBlock}>
-        <span>email: {email}</span>
-        {isChanging.email && <span className={s.newMark}>new</span>}
-      </div>
-      <div className={s.dataBlock}>
-        <span>gender: {gender}</span>
-        {isChanging.gender && <span className={s.newMark}>new</span>}
-      </div>
-      <div className={s.dataBlock}>
-        <span>country: {country}</span>
-        {isChanging.country && <span className={s.newMark}>new</span>}
-      </div>
+      <MarkItem item={name} isChanging={isChanging.name} />
+      <MarkItem item={age} isChanging={isChanging.age} />
+      <MarkItem item={email} isChanging={isChanging.email} />
+      <MarkItem item={gender} isChanging={isChanging.gender} />
+      <MarkItem item={country} isChanging={isChanging.country} />
     </div>
   ) : (
     <div>Please, fill in form!</div>

@@ -22,18 +22,6 @@
   height: 100%;
 }
 
-.dataBlock {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.dataBlock > img {
-  width: 100%;
-  height: 100%;
-}
-
 .newMark {
   color: red;
   animation: mark;

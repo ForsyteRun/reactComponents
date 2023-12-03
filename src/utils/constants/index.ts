@@ -12,6 +12,6 @@ export const formDataErrors: ErrorType = {
   terms: {},
 };
 
-export const FILE_SIZE = 10000;
+export const FILE_SIZE = 800000;
 
 export const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];

@@ -53,6 +53,7 @@ const TextFields = ({
             <input
               type="password"
               placeholder="Password"
+              autoComplete="true"
               {...(register ? register('password') : { name: 'password' })}
             />
           </label>
@@ -65,6 +66,7 @@ const TextFields = ({
           <input
             type="password"
             placeholder="Confirm Password"
+            autoComplete="true"
             {...(register
               ? register('confirmPassword')
               : { name: 'confirmPassword' })}

@@ -7,12 +7,14 @@ import formSchema from '../../utils/validation/formSchema';
 import { useYupValidationResolver } from '../../utils/validation/useYupValidationResolver';
 import { useEffect } from 'react';
 import { addFormData } from '../../store/slices/formSlice';
+import { useNavigate } from 'react-router-dom';
 
 type PasswordType = FieldError & {
   count: number;
 };
 
 const ReactHookForm = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { pureFile, encodeFile, clearFile, readFile } = useFileReader<File>();
   const resolver = useYupValidationResolver(formSchema, pureFile);
@@ -40,6 +42,7 @@ const ReactHookForm = () => {
     dispatch(addFormData(resultData));
     clearFile();
     reset();
+    navigate('/');
   };
 
   return (

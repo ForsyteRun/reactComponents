@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 0.7rem;
+}
+
+.container > span {
+  text-align: left;
+  width: 80%;
+  font-style: italic;
+  padding: 1rem 0;
+  border-bottom: 1px solid #99999952;
+}

@@ -8,8 +8,10 @@ import { addFormData } from '../../store/slices/formSlice';
 import { ErrorType } from '../../types';
 import { formDataErrors } from '../../utils/constants';
 import formSchema from '../../utils/validation/formSchema';
+import { useNavigate } from 'react-router-dom';
 
 const Uncontrolled = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { pureFile, encodeFile, clearFile, readFile } = useFileReader<File>();
 
@@ -47,6 +49,7 @@ const Uncontrolled = () => {
       clearFile();
       setErrors(formDataErrors);
       data.reset();
+      navigate('/');
     } catch (error) {
       if (error instanceof ValidationError) {
         const result = {} as Record<

@@ -1,17 +1,8 @@
 import './App.css';
-import { Link } from 'react-router-dom';
+import { MainPage } from './pages';
 
 const App = () => {
-  return (
-    <>
-      <div>
-        <Link to={'/uncontrolled'}>Uncontrolled form</Link>
-      </div>
-      <div>
-        <Link to={'/form'}>React Hook Form</Link>
-      </div>
-    </>
-  );
+  return <MainPage />;
 };
 
 export default App;

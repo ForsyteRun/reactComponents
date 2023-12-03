@@ -46,6 +46,7 @@ const Uncontrolled = () => {
       dispatch(addFormData(resultData));
       clearFile();
       setErrors(formDataErrors);
+      data.reset();
     } catch (error) {
       if (error instanceof ValidationError) {
         const result = {} as Record<

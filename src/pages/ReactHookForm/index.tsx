@@ -20,6 +20,7 @@ const ReactHookForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     trigger,
     formState: { errors },
   } = useForm<IInitialBufferState>({
@@ -38,6 +39,7 @@ const ReactHookForm = () => {
     const resultData = { ...data, file: encodeFile };
     dispatch(addFormData(resultData));
     clearFile();
+    reset();
   };
 
   return (

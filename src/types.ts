@@ -1,13 +1,6 @@
 import { IInitialBufferState } from './interfaces';
 
 export type CountryType =
-  | 'Germany'
-  | 'France'
-  | 'Australia'
-  | 'Japan'
-  | 'Brazil'
-  | 'India'
-  | 'South Africa'
   | 'United States'
   | 'Canada'
   | 'United Kingdom'

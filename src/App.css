@@ -54,6 +54,12 @@ form > button:active {
   transition: all 0.1s ease-out;
 }
 
+form > button:disabled {
+  background: #4a494d;
+  color: rgb(205, 209, 213);
+  transform: none;
+}
+
 .upload {
   width: 100%;
   display: flex;

@@ -74,7 +74,7 @@ export const formSlice = createSlice({
   reducers: {
     addFormData: (
       state,
-      action: PayloadAction<Omit<InitialState, 'fixedData'>>
+      action: PayloadAction<Omit<InitialState, 'fixedData' | 'isChanging'>>
     ) => {
       const { name, age, email, password, gender, file, terms, country } =
         action.payload;

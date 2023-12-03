@@ -60,7 +60,9 @@ const ReactHookForm = () => {
         <Upload errors={errors} register={register} readFile={readFile} />
         <Select errors={errors} register={register} />
         <Terms errors={errors} register={register} />
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={Object.keys(errors).length > 1}>
+          Submit
+        </button>
       </form>
     </>
   );

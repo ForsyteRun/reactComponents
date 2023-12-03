@@ -3,6 +3,14 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { CountryType } from '../../types';
 
 export interface InitialState {
+  isChanging: {
+    name: boolean;
+    age: boolean;
+    email: boolean;
+    gender: boolean;
+    country: boolean;
+    file: boolean;
+  };
   name: string;
   age: number;
   email: string;
@@ -17,6 +25,14 @@ export interface InitialState {
 }
 
 export const initialState: InitialState = {
+  isChanging: {
+    name: false,
+    age: false,
+    email: false,
+    gender: false,
+    country: false,
+    file: false,
+  },
   name: '',
   age: 0,
   email: '',
@@ -63,13 +79,49 @@ export const formSlice = createSlice({
       const { name, age, email, password, gender, file, terms, country } =
         action.payload;
 
-      state.name = name;
-      state.age = age;
-      state.email = email;
+      if (state.name !== name) {
+        state.name = name;
+        state.isChanging.name = true;
+      } else {
+        state.isChanging.name = false;
+      }
+
+      if (state.age !== age) {
+        state.age = age;
+        state.isChanging.age = true;
+      } else {
+        state.isChanging.age = false;
+      }
+
+      if (state.email !== email) {
+        state.email = email;
+        state.isChanging.email = true;
+      } else {
+        state.isChanging.email = false;
+      }
+
+      if (state.gender !== gender) {
+        state.gender = gender;
+        state.isChanging.gender = true;
+      } else {
+        state.isChanging.gender = false;
+      }
+
+      if (state.country !== country) {
+        state.country = country;
+        state.isChanging.country = true;
+      } else {
+        state.isChanging.country = false;
+      }
+
+      if (state.file !== file) {
+        state.file = file;
+        state.isChanging.file = true;
+      } else {
+        state.isChanging.file = false;
+      }
+
       state.password = password;
-      state.gender = gender;
-      state.country = country;
-      state.file = file;
       state.terms = terms;
     },
   },

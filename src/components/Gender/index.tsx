@@ -17,6 +17,7 @@ const Gender = ({ errors: { gender }, register }: IGender) => {
           type="radio"
           id="contactChoice1"
           value="male"
+          checked
           {...(register ? register('gender') : { name: 'gender' })}
         />
       </div>

@@ -1,0 +1,11 @@
+.gender {
+  width: 100%;
+  border-top: 1px solid #9999997c;
+  border-bottom: 1px solid #9999997c;
+  padding-top: 0.5rem;
+}
+
+.gender > div {
+  display: inline-block;
+  margin-right: 1rem;
+}
